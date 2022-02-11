@@ -1,9 +1,9 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef struct s_vec3 t_vec3;
-typedef struct s_vec3 t_point3;
-typedef struct s_vec3 t_color3;
+typedef struct s_vec3 t_vec3; // 백터를 의미한다.
+typedef struct s_vec3 t_point3; //  3차원 좌표계 위의 특정 한 점을 의미한다.
+typedef struct s_vec3 t_color3; // RGB를 의미한다. x = R, y = G, z = B가 된다. 범위가 0~1 이므로 255.999 를 곱해서 사용한다.
 
 typedef struct s_ray t_ray;
 

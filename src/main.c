@@ -65,7 +65,11 @@ int	main(void)
     canv = canvas(400, 300);
     cam = camera(&canv, point3(0, 0, 0));
 
-    sp = sphere(point3(0, 0, -5), 2);
+    sp = sphere(point3(-4, -8, -100), 64);
+    // 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면
+    // x : 좌 우, 음수일 경우 왼쪽, 양수일 경우 오른쪽
+    // y : 상 하, 음수일 경우 위, 양수일 경우 아래
+    // z : 앞 뒤, 0은 카메라, 줄어들때마다 멀어진다. 
 
     //
 	t_vars vars;

@@ -1,6 +1,6 @@
 #include "trace.h"
 
-void print_vec(t_vec3 vec3)
+static void print_vec(t_vec3 vec3)
 {
     printf ("x : %f, y :%f, z : %f\n", vec3.x, vec3.y, vec3.z);
 }
@@ -29,10 +29,28 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
 {
     t_ray   ray;
 
+    t_vec3  horizontal;
+    t_vec3  vertical;
+    t_vec3  unitvect;
+
     ray.orig = cam->orig; // 0, 0, 0
     // left_bottom + (u * horizontal) + (v * vertical) - origin 의 단위 벡터.
-    ray.dir = vunit(vminus(vplus(vplus(cam->left_bottom, vmult(cam->horizontal, u)), vmult(cam->vertical, v)), cam->orig));
-    // print_vec(ray.dir); // 해당 뷰포트의 단위 백터, 가리키는 방향
+    horizontal = vmult(cam->horizontal, u);
+    vertical = vmult(cam->vertical, v);
+    
+    unitvect = cam->left_bottom;
+    unitvect = vplus(unitvect, horizontal);
+    unitvect = vplus(unitvect, vertical);               
+
+    unitvect = vminus(unitvect, cam->orig); // 0, 0, 0. 의미가 없는데? 카메라가 변경될 때를 고려한 건가?
+                printf ("minus : "); // 이 시점에서 가로와 세로의 벡터 합 계산이 완료되었다.
+                print_vec(unitvect); 
+    unitvect = vunit(unitvect);
+                printf ("total : ");
+                print_vec(unitvect); // 해당 뷰포트의 단위 백터, 가리키는 방향
+    ray.dir = unitvect;
+
+    // ray.dir = vunit(vminus(vplus(vplus(cam->left_bottom,vmult(cam->horizontal, u)), vmult(cam->vertical, v)), cam->orig));
     return (ray);
 }
 
