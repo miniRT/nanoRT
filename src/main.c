@@ -1,10 +1,51 @@
 #include <stdio.h>
+#include <mlx.h>
 
-#include "structures.h"
-#include "utils.h"
 #include "print.h"
 #include "scene.h"
+#include "structures.h"
 #include "trace.h"
+#include "utils.h"
+//
+
+typedef struct	s_vars {
+	void		*mlx;
+	void		*win;
+}				t_vars;
+
+typedef struct s_data
+{
+	void 	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}		t_data;
+
+
+int		create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+// esc key press event
+int	key_hook(int keycode, t_vars *vars)
+{
+	if(keycode == 53)
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
+	return (0);
+}
+//
 
 int	main(void)
 {
@@ -18,15 +59,25 @@ int	main(void)
     t_canvas    canv;
     t_camera    cam;
     t_ray       ray;
-    canv = canvas(400, 300);
-    cam = camera(&canv, point3(0, 0, 0));
-    
-    //캔버스의 가로, 세로 픽셀값
+  
+    t_sphere    sp;
+
     canv = canvas(400, 300);
     cam = camera(&canv, point3(0, 0, 0));
 
-    // 랜더링
-    // P3 는 색상값이 아스키코드라는 뜻, 그리고 다음 줄은 캔버스의 가로, 세로 픽셀 수, 마지막은 사용할 색상값
+    sp = sphere(point3(0, 0, -5), 2);
+
+    //
+	t_vars vars;
+	t_data image;
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, canv.width, canv.height, "Hello miniRT!"); 
+  	image.img = mlx_new_image(vars.mlx, canv.width, canv.height); // 이미지 객체 생성
+	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian); // 이미지 주소 할당
+	
+    //
+
     printf("P3\n%d %d\n255\n", canv.width, canv.height);
     j = canv.height - 1;
     while (j >= 0)
@@ -38,11 +89,19 @@ int	main(void)
             v = (double)j / (canv.height - 1);
             //ray from camera origin to pixel
             ray = ray_primary(&cam, u, v);
-            pixel_color = ray_color(&ray);
+            pixel_color = ray_color(&ray, &sp);
             write_color(pixel_color);
+//
+            my_mlx_pixel_put(&image, i, j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+//          
             ++i;
         }
         --j;
     }
+
+    mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
+	mlx_key_hook(vars.win, key_hook, &vars); // esc key press event
+	mlx_loop(vars.mlx);
+
     return (0);
 }
