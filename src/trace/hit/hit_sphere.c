@@ -14,10 +14,10 @@ double      hit_sphere(t_sphere *sp, t_ray *ray)
 
     oc = vminus(ray->orig, sp->center);
     a = vdot(ray->dir, ray->dir);
-    b = vdot(oc, ray->dir);
+    half_b = vdot(oc, ray->dir);
     c = vdot(oc, oc) - sp->radius2;
-    discriminant = (b * b) - (a * c);
-    printf ("a : %f, b: %f, c : %f, 판별식 : %f\n", a, b, c, discriminant);
+    discriminant = (half_b * half_b) - (a * c);
+    printf ("a : %f, b: %f, c : %f, 판별식 : %f\n", a, half_b, c, discriminant);
 
     // 판별식(내적의 값)이 0보다 크다면 광선이 구를 hit한 것!
     // 내적이 양수 : cos 값이 양수, 예각
