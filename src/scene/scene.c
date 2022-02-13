@@ -2,7 +2,7 @@
 
 static void print_vec(t_vec3 vec3)
 {
-    printf ("x : %f, y :%f, z : %f\n", vec3.x, vec3.y, vec3.z);
+    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
 }
 
 t_camera    camera(t_canvas *canvas, t_point3 orig)
@@ -43,7 +43,6 @@ t_camera    camera(t_canvas *canvas, t_point3 orig)
     print_vec(temp); // x : -1.333333, y :-1.000000, z : 0.000000
     temp = vminus(temp, vec_focal_len);
     print_vec(temp); // x : -1.333333, y :-1.000000, z : -1.000000
-
 
     cam.left_bottom = temp;
 

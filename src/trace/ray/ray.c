@@ -43,10 +43,10 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
     unitvect = vplus(unitvect, vertical);               
 
     unitvect = vminus(unitvect, cam->orig); // 0, 0, 0. 의미가 없는데? 카메라가 변경될 때를 고려한 건가?
-                printf ("minus : "); // 이 시점에서 가로와 세로의 벡터 합 계산이 완료되었다.
-                print_vec(unitvect); 
+                // printf ("minus : "); // 이 시점에서 가로와 세로의 벡터 합 계산이 완료되었다.
+                // print_vec(unitvect); 
     unitvect = vunit(unitvect);
-                printf ("total : ");
+                printf ("단위 백터 : ");
                 print_vec(unitvect); // 해당 뷰포트의 단위 백터, 가리키는 방향
     ray.dir = unitvect;
 
@@ -57,14 +57,18 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
 //광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
 t_color3    ray_color(t_ray *ray, t_sphere *sphere)
 {
-     double  t;
+    double  t;
+    t_vec3  n;
 
-    if (hit_sphere(sphere, ray))
-        return (color3(1, 1, 0));
+    t = hit_sphere(sphere, ray);
+    if (t > 0.0)
+    {
+        //정규화 된 구 표면에서의 법선
+        n = vunit(vminus(ray_at(ray, t), sphere->center));
+        return (vmult(color3(n.x + 1, n.y + 1, n.z + 1), 0.5));
+    }
     else
     {
-        //ray의 방향벡터의 y 값을 기준으로 그라데이션을 주기 위한 계수.
-        t = 0.5 * (ray->dir.y + 1.0);
         // (1-t) * 흰색 + t * 하늘색
             return (color3(0.5, 0.5, 0.5));
     }
