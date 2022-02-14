@@ -70,9 +70,8 @@ t_color3    ray_color(t_ray *ray, t_sphere *sphere)
         //정규화 된 구 표면에서의 법선
         // ray_at(ray, t) = ray->orig + vmult(ray->dir, t)
         // 원점 + 방향 * 길이 = O + D * t = P(t)
-        // vminus(P - C), 법선 벡터를 의미한다.
-        hit_point = ray_at(ray, t);
-        normal_vec = vminus(hit_point, sphere->center);
+        hit_point = ray_at(ray, t); // 광선과 구체가 충돌한 교점
+        normal_vec = vminus(hit_point, sphere->center); // vminus(P - C), 법선 벡터를 의미한다.
         n = vunit(normal_vec);
         return (vmult(color3(n.x + 1, n.y + 1, n.z + 1), 0.5));
     }
