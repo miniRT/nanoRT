@@ -62,11 +62,11 @@ int	main(void)
   
     t_sphere    sp;
 
-    canv = canvas(400, 300);
+    canv = canvas(300, 300);
     cam = camera(&canv, point3(0, 0, 0));
 
-    sp = sphere(point3(-4, -8, -30), 20);
-    // 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면
+    sp = sphere(point3(20, 20, -100), 50);
+    // 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면 
     // x : 좌 우, 음수일 경우 왼쪽, 양수일 경우 오른쪽
     // y : 상 하, 음수일 경우 위, 양수일 경우 아래
     // z : 앞 뒤, 0은 카메라, 줄어들때마다 멀어진다. 양수(카메라의 뒤)일때도 음수와 똑같이 처리됨, 절대값?
@@ -95,9 +95,7 @@ int	main(void)
             ray = ray_primary(&cam, u, v);
             pixel_color = ray_color(&ray, &sp);
             write_color(pixel_color);
-//
             my_mlx_pixel_put(&image, i, j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
-//          
             ++i;
         }
         --j;

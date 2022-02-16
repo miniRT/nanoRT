@@ -1,9 +1,9 @@
 #include "trace.h"
 
-static void print_vec(t_vec3 vec3)
-{
-    printf ("x : %f, y :%f, z : %f\n", vec3.x, vec3.y, vec3.z);
-}
+// static void print_vec(t_vec3 vec3)
+// {
+//     printf ("x : %f, y :%f, z : %f\n", vec3.x, vec3.y, vec3.z);
+// }
 
 //ray 생성자(정규화 된 ray)
 t_ray       ray(t_point3 orig, t_vec3 dir)
@@ -46,8 +46,8 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
                 // printf ("minus : "); // 이 시점에서 가로와 세로의 벡터 합 계산이 완료되었다.
                 // print_vec(unitvect); 
     unitvect = vunit(unitvect);
-                printf ("단위 백터 : ");
-                print_vec(unitvect); // 해당 뷰포트의 단위 백터, 가리키는 방향
+                // printf ("단위 백터 : ");
+                // print_vec(unitvect); // 해당 뷰포트의 단위 백터, 가리키는 방향
     ray.dir = unitvect;
 
     // ray.dir = vunit(vminus(vplus(vplus(cam->left_bottom,vmult(cam->horizontal, u)), vmult(cam->vertical, v)), cam->orig));
@@ -57,14 +57,18 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
 //광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
 t_color3    ray_color(t_ray *ray, t_sphere *sphere)
 {
-    double  t;
+    double  t = 0;
 
     t_point3 hit_point; // 레이가 부딪힌 지점
     t_vec3  normal_vec; // 법선 백터
     t_vec3  n;
+    t_hit_record    rec;
 
-    t = hit_sphere(sphere, ray);
-    printf ("근 : %f\n", t);
+    rec.tmin = 0;
+    rec.tmax = MAX;
+
+    if (hit_sphere(sphere, ray, &rec))
+        return (vmult(vplus(rec.normal, color3(1, 1, 1)), 0.5));
     if (t > 0.0)
     {
         //정규화 된 구 표면에서의 법선
