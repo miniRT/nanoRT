@@ -7,9 +7,12 @@ static void print_vec(t_vec3 vec3)
     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
 }
 
-t_bool      hit_sphere(t_sphere *sp, t_ray *ray, t_hit_record *rec)
+t_bool      hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec)
 {
+    t_sphere *sp = world->element;
     t_vec3  oc; // 0에서부터 벡터로 나타낸 구의 중심. 
+    t_vec3 normal; // 법선 벡터, 표준 벡터가 아니다!
+
     //a, b, c는 각각 t에 관한 근의 공식 2차 방정식의 계수
     double  a;
 	double  half_b;    // b가 half_b로
@@ -19,7 +22,7 @@ t_bool      hit_sphere(t_sphere *sp, t_ray *ray, t_hit_record *rec)
     double sqrtd;
     double root;
 
-    t_vec3 half;
+
 
     oc = vminus(ray->orig, sp->center); // 0, 0, 0 - 구의 중심점
     // a = vdot(ray->dir, ray->dir); // 항상 1? 1로 딱 떨어지지 않는데?
@@ -48,19 +51,19 @@ t_bool      hit_sphere(t_sphere *sp, t_ray *ray, t_hit_record *rec)
     }
     rec->t = root; // 광선의 원점과 교점까지의 거리
     rec->p = ray_at(ray, root); // 교점의 좌표
-
-    printf ("t : %f\n", rec->t);
-    printf ("좌표 : ");
-    print_vec(rec->p);
-
-    half = vminus(rec->p, sp->center);
-    printf ("반지름 -> 교점 벡터 : ");
-    print_vec(half);
-    rec->normal = vdivide(half, sp->radius);
-    printf ("단위 벡터인 법선 : ");
+  
+    normal = vminus(rec->p, sp->center); // 법선 벡터
+    
+    printf ("원의 중심 - 교점 -> 법선 벡터 : ");
+    print_vec(normal);
+    rec->normal = vdivide(normal, sp->radius);
+    // 해당 교점의 법선 벡터를 정규화하는 함수.
+    // 단위 백터를 구하려면 벡터의 각 요소를 벡터의 길이로 나누어주면 된다.
+    // vunit을 써줄 필요까지 없이 반지름이 곧 벡터의 길이이자 스칼라이므로 반지름으로 나누면 표준벡터가 된다.
+    printf ("정규화된 법선 벡터 : ");
     print_vec(rec->normal);
-    // 해당 교점으로부터 뻗어나오는 정규화된 법선벡터를 구하는 함수.
-    // 원의 중심에서부터 교점(테두리)를 향하는 벡터를 반지름으로 나누면 곧 표준백터가 된다.
+    printf ("표준 벡터 : %f %f\n", vlength(rec->normal), vlength(ray->dir));
+
     set_face_normal(ray, rec); // 카메라가 구의 안쪽에 있을 경우 광선과 법선은 같은 방향을 향하게 된다. 법선과 광선이 반대방향을 향햐도록 확인하는 함수를 추가했다.
     return (TRUE);
 }

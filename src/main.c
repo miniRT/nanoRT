@@ -59,13 +59,14 @@ int	main(void)
     t_canvas    canv;
     t_camera    cam;
     t_ray       ray;
-  
-    t_sphere    sp;
+    t_object    *world;
 
-    canv = canvas(300, 300);
+    canv = canvas(600, 600);
     cam = camera(&canv, point3(0, 0, 0));
-
-    sp = sphere(point3(20, 20, -100), 50);
+    world = object(SP, sphere(point3(-2, 0, -20), 4)); // world 에 구1 추가
+    oadd(&world, object(SP, sphere(point3(2, 0, -150),70))); // world 에 구2 추가
+    oadd(&world, object(SP, sphere(point3(0, -10, -30), 9))); // world 에 구3 추가
+ 
     // 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면 
     // x : 좌 우, 음수일 경우 왼쪽, 양수일 경우 오른쪽
     // y : 상 하, 음수일 경우 위, 양수일 경우 아래
@@ -93,7 +94,7 @@ int	main(void)
             v = (double)j / (canv.height - 1);
             //ray from camera origin to pixel
             ray = ray_primary(&cam, u, v);
-            pixel_color = ray_color(&ray, &sp);
+            pixel_color = ray_color(&ray, world);
             write_color(pixel_color);
             my_mlx_pixel_put(&image, i, j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
             ++i;
