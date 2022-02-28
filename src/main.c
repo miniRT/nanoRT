@@ -58,11 +58,15 @@ t_scene *scene_init(void)
 	scene->camera = camera(&scene->canvas, point3(0, 0, 0));
     world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0)); // world 에 구1 추가
 	oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
+    oadd(&world, object(SP, sphere(point3(0, -1000, 0), 999), color3(1, 1, 1))); // world 에 구3 추가	
 	scene->world = world;
 	lights = object(LIGHT_POINT, light_point(point3(0, 5, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
+	// object를 생성하며 세 개의 인자를 받는다. 종류에 해당하는 type, 내용에 해당하는 element, 반사율에 해당하는 albedo.
+	// light_point는 광원을 의미하는 t_light 구조체를 리턴한다. t_light는 광원이 위치한 원점인 light_origin, 빛의 색깔인 light_color, 빛의 밝기인 bright_ratio를 인자로 넣어준다.
+	// 광원이기에 반사광을 0, 0, 0으로 설정한다.
 	scene->light = lights;
-	ka = 0.1; // ??
-	scene->ambient = vmult(color3(1,1,1), ka); // ??
+	ka = 0.1; 
+	scene->ambient = vmult(color3(1,1,1), ka); // 주변광(ambient), 기본적으로 들어가는 빛.
 	return (scene);
 	// 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면 
 	// x : 좌 우, 음수일 경우 왼쪽, 양수일 경우 오른쪽
