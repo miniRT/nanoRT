@@ -61,12 +61,13 @@ int	main(void)
     t_ray       ray;
     t_object    *world;
 
-    canv = canvas(600, 600);
+    canv = canvas(1000, 1000);
     cam = camera(&canv, point3(0, 0, 0));
     world = object(SP, sphere(point3(-2, 0, -20), 4)); // world 에 구1 추가
-    oadd(&world, object(SP, sphere(point3(2, 0, -150),70))); // world 에 구2 추가
+    oadd(&world, object(SP, sphere(point3(100, 100, -150),10))); // world 에 구2 추가
     oadd(&world, object(SP, sphere(point3(0, -10, -30), 9))); // world 에 구3 추가
- 
+    oadd(&world, object(PL, plane(point3(0, -30, -30), vec3(0, 0, 0)))); // world 에 구3 추가
+
     // 좌표 평면과 유사, 가운데 0, 0을 기준으로 4분면 
     // x : 좌 우, 음수일 경우 왼쪽, 양수일 경우 오른쪽
     // y : 상 하, 음수일 경우 위, 양수일 경우 아래

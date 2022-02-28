@@ -12,15 +12,22 @@ typedef struct s_object t_object;
 typedef struct s_hit_record t_hit_record;
 
 typedef struct s_sphere t_sphere;
+typedef struct s_plane t_plane;
 
+typedef struct s_light t_light;
 
 
 typedef int             t_bool;
 
 # define FALSE 0
 # define TRUE 1
+
 typedef int t_object_type;
+
 # define SP 0
+# define PL 1
+# define CY 2
+# define LIGHT_POINT 3
 
 struct s_vec3
 {
@@ -58,6 +65,8 @@ struct s_object
     t_object_type type;
     void    *element;
     void    *next;
+    t_color3    albedo; // 해당 물체의 반사율(빛을 얼마나 잘 반사하는지)
+
 };
 
 
@@ -69,14 +78,29 @@ struct s_hit_record
     double      tmax; // 광선의 가시거리, 일정 거리를 벗어나면 감지하지 않는다.
     double      t; // 광선의 원점과 교점 사이의 거리.
     t_bool      front_face;
+    t_color3    albedo; 
 };
 
 struct  s_sphere
 {
-    t_point3    center;
-    double      radius;
-    double      radius2;
+    t_point3    center; 
+    double      radius; // 반지름
+    double      radius2; // 반지름의 제곱
 };
 
+struct s_plane
+{
+    t_point3    center; // 평면이 위치하게 되는 좌표. 
+    t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+    // 가로 세로에 대한 것은 없다?
+};
+
+struct s_light
+{
+    t_point3    origin; //  빛이 위치하는 좌표.
+    t_color3    light_color; // 빛의 색깔
+    double      bright_ratio;
+
+};
 
 #endif

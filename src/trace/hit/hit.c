@@ -7,7 +7,7 @@ t_bool hit(t_object *world, t_ray *ray, t_hit_record *rec)
 
     temp_rec = rec;
     hit_anything = FALSE;
-    while (world)
+    while (world) // world->next로 훑어가며 등록된 구조체를 전부 체크함
     {
         if (hit_obj(world, ray, temp_rec))
         {
@@ -27,5 +27,7 @@ t_bool hit_obj(t_object *world, t_ray *ray, t_hit_record *rec)
     hit_result = FALSE;
     if (world->type == SP)
         hit_result = hit_sphere(world, ray, rec);
+    else if (world->type == PL)
+        hit_result = hit_plane(world, ray, rec);
     return (hit_result);
 }

@@ -62,7 +62,7 @@ t_color3    ray_color(t_ray *ray, t_object *world)
     rec.tmin = 0;
     rec.tmax = MAX;
 
-    if (hit(world, ray, &rec))
+    if (hit(world, ray, &rec)) // 모든 구조체에 대한 정보를 담은 연결리스트 world로 광선과의 충돌을 테스트한다.
         return (vmult(vplus(rec.normal, color3(1, 1, 1)), 0.5));
     else
     {
