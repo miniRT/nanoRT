@@ -59,15 +59,15 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
   
     normal = vminus(rec->p, sp->center); // 법선 벡터
     
-    printf ("원의 중심 - 교점 -> 법선 벡터 : ");
-    print_vec(normal);
+    // printf ("원의 중심 - 교점 -> 법선 벡터 : ");
+    // print_vec(normal);
     rec->normal = vdivide(normal, sp->radius);
     // 해당 교점의 법선 벡터를 정규화하는 함수.
     // 단위 백터를 구하려면 벡터의 각 요소를 벡터의 길이로 나누어주면 된다.
     // vunit을 써줄 필요까지 없이 반지름이 곧 벡터의 길이이자 스칼라이므로 반지름으로 나누면 표준벡터가 된다.
-    printf ("정규화된 법선 벡터 : ");
-    print_vec(rec->normal);
-    printf ("표준 벡터 : %f %f\n", vlength(rec->normal), vlength(ray->dir));
+    // printf ("정규화된 법선 벡터 : ");
+    // print_vec(rec->normal);
+    // printf ("표준 벡터 : %f %f\n", vlength(rec->normal), vlength(ray->dir));
 
     set_face_normal(ray, rec); // 카메라가 구의 안쪽에 있을 경우 광선과 법선은 같은 방향을 향하게 된다. 법선과 광선이 반대방향을 향햐도록 확인하는 함수를 추가했다.
     
@@ -78,7 +78,7 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 t_bool      hit_plane(t_object *world, t_ray *ray, t_hit_record *rec)
 {
     t_plane *pl = world->element;
-    printf ("미정.");
+    // printf ("미정.");
     if (ray && rec)
     {
     print_vec(pl->normal);

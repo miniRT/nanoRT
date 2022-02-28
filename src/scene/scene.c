@@ -1,9 +1,9 @@
 #include "scene.h"
 
-static void print_vec(t_vec3 vec3)
-{
-    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
-}
+// static void print_vec(t_vec3 vec3)
+// {
+//     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+// }
 
 t_camera    camera(t_canvas *canvas, t_point3 orig)
 {
@@ -36,13 +36,13 @@ t_camera    camera(t_canvas *canvas, t_point3 orig)
     rev_vertical = vdivide(cam.vertical, 2);
     vec_focal_len = vec3(0, 0, focal_len);
 
-    print_vec(temp); // x : 0.000000, y :0.000000, z : 0.000000
+    // print_vec(temp); // x : 0.000000, y :0.000000, z : 0.000000
     temp = vminus(temp, rev_horizontal);
-    print_vec(temp); // x : -1.333333, y :0.000000, z : 0.000000
+    // print_vec(temp); // x : -1.333333, y :0.000000, z : 0.000000
     temp = vminus(temp, rev_vertical);
-    print_vec(temp); // x : -1.333333, y :-1.000000, z : 0.000000
+    // print_vec(temp); // x : -1.333333, y :-1.000000, z : 0.000000
     temp = vminus(temp, vec_focal_len);
-    print_vec(temp); // x : -1.333333, y :-1.000000, z : -1.000000
+    // print_vec(temp); // x : -1.333333, y :-1.000000, z : -1.000000
 
     cam.left_bottom = temp;
 
