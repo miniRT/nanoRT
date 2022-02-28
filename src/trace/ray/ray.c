@@ -67,7 +67,7 @@ t_hit_record record_init(void)
 t_color3    ray_color(t_scene *scene)
 {
     double t;
-    t_vec3 n;
+    // t_vec3 n;
     
     scene->rec = record_init();
     if (hit(scene->world, &scene->ray, &scene->rec)) // 모든 구조체에 대한 정보를 담은 연결리스트 world로 광선과의 충돌을 테스트한다.

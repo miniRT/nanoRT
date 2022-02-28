@@ -7,12 +7,12 @@ t_color3    phong_lighting(t_scene *scene)
 
     light_color = color3(0, 0, 0);
     lights = scene->light;
-    while (lights) // 존재하는 모든 광원들에 대한 정반사, 난반사 값을 연결리스트로 돌아가면서 구해준다.
-    {
-        if (lights->type == LIGHT_POINT)
-            light_color = vplus(light_color, point_light_get(scene, lights->element));
-            lights = lights->next;
-    }
+    // while (lights) // 존재하는 모든 광원들에 대한 정반사, 난반사 값을 연결리스트로 돌아가면서 구해준다.
+    // {
+    //     if (lights->type == LIGHT_POINT)
+    //         light_color = vplus(light_color, point_light_get(scene, lights->element));
+    //         lights = lights->next;
+    // }
     // 정반사, 난반사 값을 더했다면 주변광을 더해준다.
     light_color = vplus(light_color, scene->ambient);
         return (vmin(vmult_(light_color, scene->rec.albedo), color3(1, 1, 1)));
