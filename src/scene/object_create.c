@@ -42,8 +42,8 @@ t_light *light_point(t_point3 light_origin, t_color3 light_color, double bright_
     t_light *light;
     if (!(light = (t_light *)malloc(sizeof(t_light))))
         return (NULL);
-    light->origin = light_origin;
-    light->light_color = light_color;
-    light->bright_ratio = bright_ratio;
+    light->origin = light_origin; // 광원의 좌표
+    light->light_color = light_color; // 광원의 색깔
+    light->bright_ratio = bright_ratio; // 광원의 강도??
     return (light);
 }

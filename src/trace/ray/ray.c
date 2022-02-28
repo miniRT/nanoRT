@@ -54,19 +54,29 @@ t_ray       ray_primary(t_camera *cam, double u, double v)
     return (ray);
 }
 
-//광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
-t_color3    ray_color(t_ray *ray, t_object *world)
+t_hit_record record_init(void)
 {
-    t_hit_record    rec;
+    t_hit_record record;
 
-    rec.tmin = 0;
-    rec.tmax = MAX;
+    record.tmin = EPSILON;
+    record.tmax = MAX;
+    return (record);
+}
 
-    if (hit(world, ray, &rec)) // 모든 구조체에 대한 정보를 담은 연결리스트 world로 광선과의 충돌을 테스트한다.
-        return (vmult(vplus(rec.normal, color3(1, 1, 1)), 0.5));
+//광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
+t_color3    ray_color(t_scene *scene)
+{
+    double t;
+    t_vec3 n;
+    
+    scene->rec = record_init();
+    if (hit(scene->world, &scene->ray, &scene->rec)) // 모든 구조체에 대한 정보를 담은 연결리스트 world로 광선과의 충돌을 테스트한다.
+        return (phong_lighting(scene)); // 법선 벡터를 기반으로 구한 값이 아닌 실제 빛 반사를 계산한 값을 리턴한다.
     else
     {
+        // ray의 방향벡터의 y 값을 기준으로 그라데이션을 주기 위한 계수.
+        t = 0.5 * (scene->ray.dir.y + 1.0);
         // (1-t) * 흰색 + t * 하늘색
-            return (color3(0.5, 0.5, 0.5));
+        return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
     }
 }

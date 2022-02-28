@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 15:45:19 by sham              #+#    #+#              #
-#    Updated: 2022/02/17 13:09:28 by sham             ###   ########.fr        #
+#    Updated: 2022/02/28 14:58:15 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,10 @@ MAIN_SRCS = $(addprefix src/, main.c)
 # MAIN_SRCS = ./test.c
 PRINT_SRCS = $(addprefix src/print/, print.c)
 # TRACE_SRCS = $(addprefix src/trace/, hit/hit_sphere.c ray/ray.c)
-TRACE_SRCS = $(addprefix src/trace/, hit/hit.c hit/hit_sphere.c hit/normal.c ray/ray.c)
+TRACE_SRCS = $(addprefix src/trace/, hit/hit.c hit/hit_sphere.c hit/normal.c ray/ray.c ray/phong_lighting.c)
 SCENE_SRCS = $(addprefix src/scene/, scene.c canvas.c object_create.c)
 UTILS_SRCS = $(addprefix src/utils/, vec3_util.c object_utils.c)
+
 
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 PRINT_OBJS = $(PRINT_SRCS:.c=.o)
