@@ -110,7 +110,8 @@ int	main(void)
 			scene->ray = ray_primary(&scene->camera, u, v);
 			pixel_color = ray_color(scene);
 			write_color(pixel_color);
-			my_mlx_pixel_put(&image, i, j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+			my_mlx_pixel_put(&image, i, scene->canvas.height - 1 - j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+			// y축(j)를 반전시켜서 구현
 			++i;
 		}
 		--j;
