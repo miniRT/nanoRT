@@ -1,48 +1,87 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/10 15:45:19 by sham              #+#    #+#              #
-#    Updated: 2022/02/17 19:08:59 by kimtaeseon       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# =============================================================================
+# Color Variables
+# =============================================================================
 
-NAME = miniRT
-CC = gcc
-CFLAGS = -Werror -Wall -Wextra
-LIBRARY = ./mlx/minilibx_opengl_20191021
-COMFILE_FLAGS = -I $(LIBRARY) -I ./header
-LINKING_FLAGS = -lmlx -L $(LIBRARY) -framework OpenGL -framework AppKit
-MAIN_SRCS = $(addprefix src/, main.c)
-# MAIN_SRCS = ./test.c
-PRINT_SRCS = $(addprefix src/print/, print.c)
-# TRACE_SRCS = $(addprefix src/trace/, hit/hit_sphere.c ray/ray.c)
-TRACE_SRCS = $(addprefix src/trace/, hit/hit.c hit/hit_sphere.c hit/normal.c ray/ray.c)
-SCENE_SRCS = $(addprefix src/scene/, scene.c canvas.c object_create.c)
-UTILS_SRCS = $(addprefix src/utils/, vec3_util.c object_utils.c)
+BLACK		= 	"\033[0;30m"
+GRAY		= 	"\033[1;30m"
+RED			=	"\033[0;31m"
+GREEN		=	"\033[0;32m"
+YELLOW		=	"\033[1;33m"
+PURPLE		=	"\033[0;35m"
+CYAN		=	"\033[0;36m"
+WHITE		=	"\033[1;37m"
+EOC			=	"\033[0;0m"
+LINE_CLEAR	=	"\x1b[1A\x1b[M"
 
-MAIN_OBJS = $(MAIN_SRCS:.c=.o)
-PRINT_OBJS = $(PRINT_SRCS:.c=.o)
-TRACE_OBJS = $(TRACE_SRCS:.c=.o)
-SCENE_OBJS = $(SCENE_SRCS:.c=.o)
-UTILS_OBJS = $(UTILS_SRCS:.c=.o)
+# =============================================================================
+# Command Variables
+# =============================================================================
 
-all : $(NAME)
+CC			=	gcc
+CFLAGS		=	-Wall -Werror -Wextra
+CDEBUG		=	-fsanitize=address -g
+RM			=	rm -f
 
-$(NAME) : $(MAIN_OBJS) $(PRINT_OBJS) $(TRACE_OBJS) $(SCENE_OBJS) $(UTILS_OBJS)
-		$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(PRINT_OBJS) $(TRACE_OBJS) $(SCENE_OBJS) $(UTILS_OBJS) -o $(NAME)
-%.o: %.c
-		$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
+# =============================================================================
+# File Variables
+# =============================================================================
 
-clean :
-		rm -rf $(MAIN_OBJS) $(PRINT_OBJS) $(TRACE_OBJS) $(SCENE_OBJS) $(UTILS_OBJS)
+NAME		=	minirt
+HEADER		=	./includes/
+MINIRT_DIR	=	./srcs/
+D_UTILS		=	./utils/
+D_SCENE		=	./scene/
+D_TRACE		=	./trace/
+SRC_LIST	=	main.c							\
+				${D_UTILS}init_units.c			\
+				${D_UTILS}vec_utils1.c			\
+				${D_UTILS}vec_utils2.c			\
+				${D_UTILS}vec_utils3.c			\
+				${D_UTILS}print.c				\
+				${D_SCENE}canvas.c				\
+				${D_SCENE}scene.c				\
+				${D_TRACE}trace.c				\
 
-fclean : clean
-		rm -rf $(NAME)
+SRCS		=	$(addprefix $(MINIRT_DIR), $(SRC_LIST))
+OBJS		=	$(SRCS:.c=.o)
 
-re : fclean all
+# =============================================================================
+# Target Generating
+# =============================================================================
 
-.PHONY : all clean fclean re
+%.o			:	%.c
+				@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
+				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+
+$(NAME)		:	$(OBJS)
+				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
+				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
+				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJS)
+				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
+
+# =============================================================================
+# Rules
+# =============================================================================
+
+.PHONY		:	all
+all			:	$(NAME)
+
+.PHONY		:	clean
+clean		:
+				@echo $(YELLOW) "Cleaning object files..." $(EOC)
+				@$(RM) $(OBJS)
+				@echo $(RED) "Object files are cleaned!\n" $(EOC)
+
+.PHONY		:	fclean
+fclean		:	clean
+				@echo $(YELLOW) "Removing $(NAME)..." $(EOC)
+				@$(RM) $(NAME)
+				@echo $(RED) "$(NAME) is removed!\n" $(EOC)
+
+.PHONY		:	re
+re			:	fclean all
+
+.PHONY		:	norm
+norm		:
+				@norminette
+
