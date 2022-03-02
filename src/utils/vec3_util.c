@@ -88,6 +88,14 @@ t_vec3      vminus_(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
+t_vec3      vminus_self(t_vec3 vec)
+{
+    vec.x = -vec.x;
+    vec.y = -vec.y;
+    vec.z = -vec.z;
+    return (vec);
+}
+
 // (단위)벡터 * 스칼라, 곱연산.
 t_vec3      vmult(t_vec3 vec, double t)
 {
