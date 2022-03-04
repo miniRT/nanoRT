@@ -6,12 +6,14 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:21:07 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/01 17:14:41 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/03 19:30:11 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+# define FALSE 0
+# define TRUE 1
 
 typedef struct s_vec3	t_vec3;
 typedef struct s_vec3	t_point3;
@@ -19,6 +21,8 @@ typedef struct s_vec3	t_color3;
 typedef struct s_ray	t_ray;
 typedef struct s_camera	t_camera;
 typedef struct s_canvas	t_canvas;
+typedef struct s_sphere	t_sphere;
+typedef int				t_bool;
 
 struct s_vec3
 {
@@ -49,6 +53,13 @@ struct	s_canvas
 	int		width;
 	int		height;
 	double	aspect_ratio;
+};
+
+struct s_sphere
+{
+	t_point3	origin;
+	double		radius;
+	double		radius2;
 };
 
 #endif
