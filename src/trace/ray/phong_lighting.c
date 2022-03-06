@@ -9,7 +9,7 @@ t_bool      in_shadow(t_object *objs, t_ray light_ray, double light_len)
 {
     t_hit_record rec;
 
-    rec.tmin = 0;
+    rec.tmin = EPSILON;
     rec.tmax = light_len; // light_len보다 길면 광원 뒤의 물체를 감지해 그림자가 생길 수 있다.
     if (hit(objs, &light_ray, &rec))
         return (TRUE);
@@ -69,8 +69,8 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     view_dir = vunit(vmult(scene->ray.dir, -1));
     reflect_dir = reflect(light_dir, scene->rec.normal);
 
-    ksn = 30;
-    ks = 0.8; 
+    ksn = 80;
+    ks = 0.6; 
     spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
     specular = vmult(vmult(light->light_color, ks), spec);
     

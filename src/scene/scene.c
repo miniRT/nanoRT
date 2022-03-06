@@ -17,7 +17,7 @@ t_camera    camera(t_canvas *canvas, t_point3 orig)
     t_vec3      vec_focal_len;
 
     viewport_height = 2.0;
-    focal_len = 1.0;
+    focal_len = 0.5;
     cam.orig = orig;
     cam.viewport_h = viewport_height;
     cam.viewport_w = viewport_height * canvas->aspect_ratio;

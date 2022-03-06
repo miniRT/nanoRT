@@ -81,7 +81,7 @@ struct s_hit_record
 	double      tmax; // 광선의 가시거리, 일정 거리를 벗어나면 감지하지 않는다.
 	double      t; // 광선의 원점과 교점 사이의 거리.
 	t_bool      front_face;
-	t_color3    albedo; 
+	t_color3    albedo; // 해당 충돌 지점(물체)의 색상
 };
 
 struct s_scene
@@ -104,9 +104,11 @@ struct  s_sphere
 
 struct s_plane
 {
-	t_point3    center; // 평면이 위치하게 되는 좌표. 
+	t_point3    point; // 평면의 어느 한 지점. 
 	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
 	// 가로 세로에 대한 것은 없다?
+	float		width;
+	float		height;
 };
 
 struct s_light

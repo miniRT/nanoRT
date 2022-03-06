@@ -27,13 +27,15 @@ t_sphere    *sphere(t_point3 center, double radius)
     return (sp);
 }
 
-t_plane    *plane(t_point3 center, t_vec3 normal)
+t_plane    *plane(t_point3 point, t_vec3 normal)
 {
     t_plane *pl;
     if (!(pl = (t_plane *)malloc(sizeof(t_plane))))
         return (NULL);
-    pl->center = center;
+    pl->point = point;
     pl->normal = normal;
+    pl->width = 30.0;
+    pl->height = 20.0;
     return (pl);
 }
 

@@ -2,10 +2,10 @@
 #include "utils.h"
 #include "trace.h"
 
-static void print_vec(t_vec3 vec3)
-{
-    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
-}
+// static void print_vec(t_vec3 vec3)
+// {
+//     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+// }
 
 t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 {
@@ -45,7 +45,7 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
     sqrtd = sqrt(discriminant); // 판별식에 루트를 씌움.
     root = (-half_b - sqrtd) / a; // 근의 공식 해, 작은 근부터 고려.
     // 해당 광선과 교점까지의 거리 사이에 다른 물체가 있거나 너무 멀리 있는 경우를 체크
-    if (root < rec->tmin || rec->tmax < root)
+    if (root < rec->tmin || rec->tmax < root) // rec->tmax는 해당 광선으로부터 가장 가까운 물체를 의미
     {
         root = (-half_b + sqrtd) / a; // 큰 근 역시 tmin, tmax와의 비교
         if (root < rec->tmin || rec->tmax < root) //  큰 근조차 tmin보다 작다면 hit하지 않은 것이므로 FALSE를 반환.
@@ -73,17 +73,4 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
     
     rec->albedo = sp_obj->albedo;
     return (TRUE);
-}
-
-t_bool      hit_plane(t_object *world, t_ray *ray, t_hit_record *rec)
-{
-    t_plane *pl = world->element;
-    // printf ("미정.");
-    if (ray && rec)
-    {
-    print_vec(pl->normal);
-    print_vec(pl->center);
-    }
-
-    return (FALSE);
 }
