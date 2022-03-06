@@ -34,13 +34,13 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     t_color3    diffuse; 
 
     t_vec3      light_dir; // 빛의 방향 벡터
-    t_color3    specular; 
-    t_vec3      view_dir; // 카메라 원점을 향하는 벡터 
-    t_vec3      reflect_dir; // 법전을 기준으로 광선의 벡터를 대칭시킨 벡터
+    // t_color3    specular; 
+    // t_vec3      view_dir; // 카메라 원점을 향하는 벡터 
+    // t_vec3      reflect_dir; // 법전을 기준으로 광선의 벡터를 대칭시킨 벡터
 
-    double      spec; // 사이각의 크기에 따른 코사인 값
-    double      ksn; // 반짝거리는 정도, 작을 수록 정반사를 받는 범위는 늘어나지만 빛의 세기는 약해진다.
-    double      ks; // 정반사의 강도
+    // double      spec; // 사이각의 크기에 따른 코사인 값
+    // double      ksn; // 반짝거리는 정도, 작을 수록 정반사를 받는 범위는 늘어나지만 빛의 세기는 약해진다.
+    // double      ks; // 정반사의 강도
     double      kd; // 난반사의 강도
 
     double  light_len;
@@ -66,15 +66,16 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     // fmax 함수는 두 개의 인자 중 큰 값을 리턴한다. 만약 코사인세타가 둔각이 될 경우 음수가 되기에 0을 리턴하도록 한다.
 
     diffuse = vmult(light->light_color, kd);
-    view_dir = vunit(vmult(scene->ray.dir, -1));
-    reflect_dir = reflect(light_dir, scene->rec.normal);
+    // view_dir = vunit(vmult(scene->ray.dir, -1));
+    // reflect_dir = reflect(light_dir, scene->rec.normal);
 
-    ksn = 80;
-    ks = 0.6; 
-    spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
-    specular = vmult(vmult(light->light_color, ks), spec);
+    // ksn = 80;
+    // ks = 0.6; 
+    // spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
+    // specular = vmult(vmult(light->light_color, ks), spec);
     
-    return (vplus(diffuse, specular));
+    // return (vplus(diffuse, specular));
+    return (diffuse);
 }   
 
 t_color3    phong_lighting(t_scene *scene)

@@ -15,6 +15,7 @@ typedef struct s_scene t_scene;
 
 typedef struct s_sphere t_sphere;
 typedef struct s_plane t_plane;
+typedef struct s_cylinder t_cylinder;
 
 typedef struct s_light t_light;
 
@@ -95,6 +96,13 @@ struct s_scene
 	t_hit_record	rec;
 };
 
+struct s_light
+{
+	t_point3    origin; //  빛이 위치하는 좌표.
+	t_color3    light_color; // 빛의 색깔
+	double      bright_ratio;
+};
+
 struct  s_sphere
 {
 	t_point3    center; 
@@ -106,17 +114,15 @@ struct s_plane
 {
 	t_point3    point; // 평면의 어느 한 지점. 
 	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
-	// 가로 세로에 대한 것은 없다?
-	float		width;
-	float		height;
 };
 
-struct s_light
+struct s_cylinder
 {
-	t_point3    origin; //  빛이 위치하는 좌표.
-	t_color3    light_color; // 빛의 색깔
-	double      bright_ratio;
-
+	t_point3    center;
+	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+	float		diameter; // 지름
+	float		height; // 높이
 };
+
 
 #endif

@@ -15,6 +15,17 @@ t_object    *object(t_object_type type, void *element, t_color3 albedo)
 
 }
 
+t_light *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+{
+    t_light *light;
+    if (!(light = (t_light *)malloc(sizeof(t_light))))
+        return (NULL);
+    light->origin = light_origin; // 광원의 좌표
+    light->light_color = light_color; // 광원의 색깔
+    light->bright_ratio = bright_ratio; // 광원의 강도??
+    return (light);
+}
+
 t_sphere    *sphere(t_point3 center, double radius)
 {
     t_sphere *sp;
@@ -34,18 +45,17 @@ t_plane    *plane(t_point3 point, t_vec3 normal)
         return (NULL);
     pl->point = point;
     pl->normal = normal;
-    pl->width = 30.0;
-    pl->height = 20.0;
     return (pl);
 }
 
-t_light *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+t_cylinder    *cylinder(t_point3 center, t_vec3 normal, float diameter, float height)
 {
-    t_light *light;
-    if (!(light = (t_light *)malloc(sizeof(t_light))))
+    t_cylinder *cy;
+    if (!(cy = (t_cylinder *)malloc(sizeof(t_cylinder))))
         return (NULL);
-    light->origin = light_origin; // 광원의 좌표
-    light->light_color = light_color; // 광원의 색깔
-    light->bright_ratio = bright_ratio; // 광원의 강도??
-    return (light);
+    cy->center = center;
+    cy->normal = normal;
+    cy->diameter = diameter;
+    cy->height = height;
+    return (cy);
 }

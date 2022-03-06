@@ -16,7 +16,6 @@ t_bool      hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
     // printf ("numrator : %f\n", numrator);
     root = numrator / denominator;
     // printf ("root : %f\n", root);
- 
     if (root < rec->tmin || rec->tmax < root)
         return (FALSE);
     rec->t = root;
@@ -24,6 +23,5 @@ t_bool      hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
     // rec->normal = pl->normal;
     rec->albedo = pl_obj->albedo;
     // print_vec(normal);
-
     return (TRUE);
 }
