@@ -48,12 +48,12 @@ t_plane    *plane(t_point3 point, t_vec3 normal)
     return (pl);
 }
 
-t_cylinder    *cylinder(t_point3 center, t_vec3 normal, float diameter, float height)
+t_cylinder    *cylinder(t_point3 point, t_vec3 normal, float diameter, float height)
 {
     t_cylinder *cy;
     if (!(cy = (t_cylinder *)malloc(sizeof(t_cylinder))))
         return (NULL);
-    cy->center = center;
+    cy->point = point;
     cy->normal = normal;
     cy->diameter = diameter;
     cy->height = height;
