@@ -20,8 +20,8 @@ t_bool      hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
         return (FALSE);
     rec->t = root;
     rec->p = ray_at(ray, root);    
-    // rec->normal = pl->normal;
+    rec->normal = pl->normal;
+    set_face_normal(ray, rec);
     rec->albedo = pl_obj->albedo;
-    // print_vec(normal);
     return (TRUE);
 }

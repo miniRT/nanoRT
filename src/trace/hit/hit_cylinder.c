@@ -8,15 +8,24 @@
 // }
 
 
-int		cy_boundary(t_ray *ray, t_cylinder *cy, t_vec3 at_point)
+int		cy_boundary(t_cylinder *cy, t_vec3 at_point)
 {
-	double	len;
+    t_vec3  hit_ray;
 
-	len = sqrt(pow(cy->diameter, 2.0) + pow(cy->height, 2.0));
-    printf("len : %f, 충돌값 : %f", len, vdot(vminus(cy->point, ray->orig), at_point));
-	if (vdot(cy->normal, at_point) > len)
+	double	max_len;
+    double	hit_len;
+
+    hit_ray = vminus(at_point, cy->point);
+	max_len = cy->height / 2;
+
+    hit_len = vdot(hit_ray, cy->normal);
+    printf("max_len : %f, hit_len : %f", max_len, hit_len);
+	if (hit_len < 0)
+        hit_len = -hit_len;
+    if (hit_len > max_len)
 		return (-1);
 
+    printf ("hit!\n");
 	return (0);
 }
 
@@ -73,7 +82,7 @@ t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
         if (root < rec->tmin || rec->tmax < root)
         return (FALSE);
     }
-    if (cy_boundary(ray, cy, vmult(ray->dir, root)))
+    if (cy_boundary(cy, vmult(ray->dir, root)))
         return (FALSE);
     rec->t = root; // 광선의 원점과 교점까지의 거리를 rec에 저장한다.
     rec->p = ray_at(ray, root); // 교점의 좌표를 rec에 저장한다.

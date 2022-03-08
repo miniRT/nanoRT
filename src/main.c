@@ -56,16 +56,16 @@ t_scene *scene_init(void)
 
 	scene->canvas = canvas(300, 300);
 	scene->camera = camera(&scene->canvas, point3(0, 0, 5));
-    world = object(SP, sphere(point3(15, 15, -10), 2), color3(0.5, 0, 0)); // world 에 구1 추가
+    world = object(SP, sphere(point3(0, 0, -2), 4), color3(0.5, 0, 0.5)); // world 에 구1 추가
 	// oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
     // oadd(&world, object(SP, sphere(point3(0, -1002, 0), 999), color3(1, 1, 1))); // world 에 구3 추가
-    // oadd(&world, object(PL, plane(point3(-10, 0, -10), vec3(-1, 0, 0)), color3(0, 0, 1))); 
-	// oadd(&world, object(PL, plane(point3(0, -15, -10), vec3(0, -1, 0)), color3(0, 1, 0))); 
-    // oadd(&world, object(PL, plane(point3(0, 0, -15), vec3(0, 0, -1)), color3(1, 0, 0)));
-    oadd(&world, object(CY, cylinder(point3(-10, -10, -100), vec3(-0.5, 0.2, 0.2), 10, 2), color3(0.5, 1, 0)));
+    oadd(&world, object(PL, plane(point3(-10, 0, -5), vec3(-1, 0, 0)), color3(0, 0, 1))); 
+	oadd(&world, object(PL, plane(point3(0, -15, -5), vec3(0, -1, 0)), color3(0, 1, 0))); 
+    oadd(&world, object(PL, plane(point3(0, 0, -10), vec3(0, 0, -1)), color3(1, 0, 0)));
+    oadd(&world, object(CY, cylinder(point3(0, 0, -2), vec3(0, 1, 0), 1, 20), color3(0.5, 1, 0)));
 
 	scene->world = world;
-    lights = object(LIGHT_POINT, light_point(point3(0, 100, 20), color3(1, 1, 1), 0.5), color3(0, 0, 0)); // 더미 albedo
+    lights = object(LIGHT_POINT, light_point(point3(20, 20, 10), color3(1, 1, 1), 0.2), color3(0, 0, 0)); // 더미 albedo
 	// object를 생성하며 세 개의 인자를 받는다. 종류에 해당하는 type, 내용에 해당하는 element, 반사율에 해당하는 albedo.
 	// light_point는 광원을 의미하는 t_light 구조체를 리턴한다. t_light는 광원이 위치한 원점인 light_origin, 빛의 색깔인 light_color, 빛의 밝기인 bright_ratio를 인자로 넣어준다.
 	// 광원이기에 반사광을 0, 0, 0으로 설정한다.
