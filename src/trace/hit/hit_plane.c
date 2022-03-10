@@ -11,7 +11,7 @@ t_bool      hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
     denominator = vdot(ray->dir, pl->normal);
     if (denominator < EPSILON)
         return (FALSE);
-    numrator = vdot(vminus(pl->point, ray->orig), pl->normal);
+    numrator = vdot(vminus(pl->center, ray->orig), pl->normal);
     // printf ("denominator : %f\n", denominator);
     // printf ("numrator : %f\n", numrator);
     root = numrator / denominator;

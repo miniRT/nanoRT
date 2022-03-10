@@ -68,9 +68,7 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
     // printf ("정규화된 법선 벡터 : ");
     // print_vec(rec->normal);
     // printf ("표준 벡터 : %f %f\n", vlength(rec->normal), vlength(ray->dir));
-
     set_face_normal(ray, rec); // 카메라가 구의 안쪽에 있을 경우 광선과 법선은 같은 방향을 향하게 된다. 법선과 광선이 반대방향을 향햐도록 확인하는 함수를 추가했다.
-    
     rec->albedo = sp_obj->albedo;
     return (TRUE);
 }

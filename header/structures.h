@@ -112,13 +112,13 @@ struct  s_sphere
 
 struct s_plane
 {
-	t_point3    point; // 평면의 어느 한 지점. 
+	t_point3    center; // 평면의 어느 한 지점. 
 	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
 };
 
 struct s_cylinder
 {
-	t_point3    point;
+	t_point3    center;
 	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
 	float		diameter; // 지름
 	float		height; // 높이
