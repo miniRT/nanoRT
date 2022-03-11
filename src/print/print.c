@@ -6,6 +6,8 @@
 
 void    write_color(t_color3 pixel_color)
 {
+    // if (pixel_color.x)
+    //     return;
         // printf("%d %d %d\n", (int)(256 * pixel_color.x),
         //                 (int)(256 * pixel_color.y),
         //                 (int)(256 * pixel_color.z));

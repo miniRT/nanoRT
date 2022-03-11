@@ -47,13 +47,13 @@ double      vlength2(t_vec3 vec)
     return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-// 벡터 길이
+// 벡터의 길이, x^2 + y^2 + z^2의 제곱근
 double      vlength(t_vec3 vec)
 {
     return (sqrt(vlength2(vec)));
 }
 
-// 벡터합
+// 벡터합, x끼리, y끼리, z끼리 더한다.
 t_vec3      vplus(t_vec3 vec, t_vec3 vec2)
 {
     vec.x += vec2.x;
@@ -71,7 +71,7 @@ t_vec3      vplus_(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
-// 벡터차
+// 벡터차, x끼리, y끼리, z끼리 뺀다.
 t_vec3      vminus(t_vec3 vec, t_vec3 vec2)
 {
     vec.x -= vec2.x;
@@ -88,7 +88,15 @@ t_vec3      vminus_(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
-// 벡터 * 스칼라 곱연산
+t_vec3      vminus_self(t_vec3 vec)
+{
+    vec.x = -vec.x;
+    vec.y = -vec.y;
+    vec.z = -vec.z;
+    return (vec);
+}
+
+// (단위)벡터 * 스칼라, 곱연산.
 t_vec3      vmult(t_vec3 vec, double t)
 {
     vec.x *= t;
@@ -136,7 +144,9 @@ t_vec3      vcross(t_vec3 vec, t_vec3 vec2)
 // 단위 벡터
 t_vec3      vunit(t_vec3 vec)
 {
-    double len = vlength(vec);
+    double len;
+    
+    len = vlength(vec);
     if (len == 0)
     {
         printf("Error\n:Devider is 0");
