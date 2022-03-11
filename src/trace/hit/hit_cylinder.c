@@ -10,16 +10,15 @@ static void print_vec(t_vec3 vec3)
 
 double		cy_boundary(t_cylinder *cy, t_vec3 at_point)
 {
-    t_vec3  hit_ray;
     double	hit_height;
 	double	max_height;
 
-    hit_ray = vminus(at_point, cy->center);
-    hit_height = vdot(hit_ray, cy->normal);
+    hit_height = vdot(vminus(at_point, cy->center), cy->normal);
     max_height = cy->height / 2;
 
     if (fabs(hit_height) > max_height)
 		return (0);
+
 	return (hit_height);
 }
 
@@ -64,19 +63,7 @@ t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
     double sqrtd;
     double root;
     double hit_height;
-
-  // honlee님 코드
-// cy = cy_obj->element;
-// A = vminus(ray->dir, vmult(cy->normal, vdot(ray->dir, cy->normal)));
-// B = vminus(ray->orig, cy->point);
-// B = vminus(B, vmult(cy->normal, vdot(ray->orig, cy->normal)));
-// B = vplus(B, vmult(cy->normal, vdot(cy->point, cy->normal)));
-// r = cy->diameter / 2;
-// a = vdot(A, A);
-// b = vdot(vmult(A, 2.0), B);
-// c = vdot(B, B) - pow(r, 2);
-// discriminant = b * b - (a * c * 4);
-  // jseo님 코드
+    
     cy = cy_obj->element;
     u = ray->dir;
     o = cy->normal;
@@ -97,6 +84,7 @@ t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
         if (root < rec->tmin || rec->tmax < root)
         return (FALSE);
     }
+   
     if (!(hit_height = cy_boundary(cy, vmult(ray->dir, root))))
         return (FALSE);
     

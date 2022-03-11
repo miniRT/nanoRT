@@ -5,19 +5,26 @@
 //     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
 // }
 
+double get_fov_from_argument(double degrees)
+{
+    return (degrees * M_PI / 180);
+}
+
 t_camera    camera(t_canvas *canvas, t_point3 orig)
 {
     t_camera    cam;
     double      focal_len;
     double      viewport_height;
+    double      theta;
 
     t_vec3      temp;
     t_vec3      rev_horizontal;
     t_vec3      rev_vertical;
     t_vec3      vec_focal_len;
 
-    viewport_height = 2.0;
-    focal_len = 0.5;
+    theta = get_fov_from_argument(120);
+    viewport_height = 4.0;
+    focal_len = 1;
     cam.orig = orig;
 	// cam_data.h = tan(cam_data.theta / 2); cam_data.theta fov 값을 180으로 나눈 만큼의 값
 
