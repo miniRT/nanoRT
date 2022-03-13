@@ -50,19 +50,11 @@ struct  s_ray
 struct  s_camera
 {
 	t_point3    orig;  // 카메라 원점(위치)
-	double      viewport_h; // 뷰포트 세로길이
-	double      viewport_w; // 뷰포트 가로길이
-	t_vec3      horizontal; // 수평길이 벡터
-	t_vec3      vertical; // 수직길이 벡터
+	t_vec3      normal; // 카메라 벡터
+	double		fov;
+
 	double      focal_len; // focal length
 	t_point3    left_bottom; // 왼쪽 아래 코너점
-};
-
-struct  s_canvas
-{
-	int     width; //canvas width
-	int     height; //canvas height;
-	double  aspect_ratio; //종횡비
 };
 
 struct s_object
@@ -87,7 +79,6 @@ struct s_hit_record
 
 struct s_scene
 {
-	t_canvas		canvas;
 	t_camera		camera;
 	t_object		*world;
 	t_object		*light;
