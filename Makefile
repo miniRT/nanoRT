@@ -38,9 +38,11 @@ SRC_LIST	=	main.c							\
 				${D_UTILS}vec_utils1.c			\
 				${D_UTILS}vec_utils2.c			\
 				${D_UTILS}vec_utils3.c			\
+				${D_UTILS}object_utils.c		\
 				${D_UTILS}print.c				\
 				${D_SCENE}canvas.c				\
 				${D_SCENE}scene.c				\
+				${D_SCENE}object_create.c		\
 				${D_TRACE}trace.c				\
 				${D_PARSE}file_open.c			\
 				${D_PARSE}ft_get_next_line.c	\

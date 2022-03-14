@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:50:05 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/01 16:50:05 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/14 20:51:18 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ t_vec3		vcross(t_vec3 vec, t_vec3 vec2);
 t_vec3		vunit(t_vec3 vec);
 t_vec3		vmin(t_vec3 vec1, t_vec3 vec2);
 
+void        oadd(t_object **list, t_object *new);
+t_object    *olast(t_object *list);
 #endif
