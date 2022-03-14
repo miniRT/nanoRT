@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2021/08/26 21:33:19 by pac-man           #+#    #+#             */
+/*   Updated: 2022/03/13 16:50:19 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "shared.h"
 
-t_canvas    canvas(int  width, int height)
+void	*replace(char **out, char *src)
 {
-    t_canvas canvas;
-
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
+	if (*out)
+		free(*out);
+	*out = src;
+	return (*out);
 }

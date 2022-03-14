@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/13 16:27:53 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/13 20:40:32 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#ifndef ENV_H
+# define ENV_H
 
-t_canvas    canvas(int  width, int height)
-{
-    t_canvas canvas;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
-}
+#endif

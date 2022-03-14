@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2021/06/15 11:25:52 by taeskim           #+#    #+#             */
+/*   Updated: 2022/03/13 16:54:22 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "shared.h"
 
-t_canvas    canvas(int  width, int height)
+int	ft_strlen(const char *s)
 {
-    t_canvas canvas;
+	int	len;
 
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
+	len = 0;
+	if (!s || !*s)
+		return (0);
+	while (s[len])
+		len++;
+	return (len);
 }

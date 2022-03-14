@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   ft_strtup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2021/07/27 02:03:05 by pac-man           #+#    #+#             */
+/*   Updated: 2022/03/13 16:52:05 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "shared.h"
 
-t_canvas    canvas(int  width, int height)
+char	*ft_strdup(char *s)
 {
-    t_canvas canvas;
+	size_t	len;
+	char	*buf;
 
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
+	len = ft_strlen(s);
+	buf = (char *)malloc(len + 1);
+	if (!(buf))
+		return (NULL);
+	ft_strlcpy(buf, s, len + 1);
+	return (buf);
 }

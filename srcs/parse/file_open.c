@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   file_open.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/13 14:48:36 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/13 17:49:14 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "shared.h"
 
-t_canvas    canvas(int  width, int height)
+int	file_open(char *path)
 {
-    t_canvas canvas;
+	int		fd;
+	char	*str;
 
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
+	str = 0;
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		exit(1);
+	return (fd);
 }

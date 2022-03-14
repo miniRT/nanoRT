@@ -32,6 +32,7 @@ MINIRT_DIR	=	./srcs/
 D_UTILS		=	./utils/
 D_SCENE		=	./scene/
 D_TRACE		=	./trace/
+D_PARSE		=	./parse/
 SRC_LIST	=	main.c							\
 				${D_UTILS}init_units.c			\
 				${D_UTILS}vec_utils1.c			\
@@ -41,6 +42,13 @@ SRC_LIST	=	main.c							\
 				${D_SCENE}canvas.c				\
 				${D_SCENE}scene.c				\
 				${D_TRACE}trace.c				\
+				${D_PARSE}file_open.c			\
+				${D_PARSE}ft_get_next_line.c	\
+				${D_PARSE}ft_replace.c			\
+				${D_PARSE}ft_strdup.c			\
+				${D_PARSE}ft_strjoin.c			\
+				${D_PARSE}ft_strlcpy.c			\
+				${D_PARSE}ft_strlen.c			\
 
 SRCS		=	$(addprefix $(MINIRT_DIR), $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)

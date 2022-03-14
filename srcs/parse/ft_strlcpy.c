@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:16:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:49:15 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2021/07/26 14:33:12 by pac-man           #+#    #+#             */
+/*   Updated: 2022/03/13 16:54:00 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "shared.h"
 
-t_canvas    canvas(int  width, int height)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-    t_canvas canvas;
+	size_t	i;
 
-    canvas.width = width;
-    canvas.height = height;
-    canvas.aspect_ratio = (double)width / (double)height;
-    return (canvas);
+	i = 0;
+	if (!src)
+		return (0);
+	if (dstsize)
+	{
+		while ((i + 1 < dstsize) && src[i])
+		{
+			dst[i] = src[i];
+			++i;
+		}
+		dst[i] = '\0';
+	}
+	while (src[i])
+		++i;
+	return (i);
 }
