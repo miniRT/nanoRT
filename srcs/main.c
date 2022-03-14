@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 21:11:05 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/14 21:18:25 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@
 // 	}
 // }
 
+void	ambient_value_setter(t_color3 ambient, char *input)
+{
+	char	**arguments;
+
+	arguments = ft_split(input, '5');
+	printf("%s\n", arguments[0]);
+	// ambient.x =
+	// ambient.y =
+	// ambient.z =
+
+	(void)ambient;
+}
+
 
 void	environment_value_setter(t_scene *scene, char *input)
 {
@@ -42,6 +55,8 @@ void	environment_value_setter(t_scene *scene, char *input)
 	printf ("%s\n", input);
 	// if (input[0] == 'A')
 	// 	ambient_value_setter(scene->ambient, input);
+	if (input[0] == 'A')
+		ambient_value_setter(scene->ambient, input);
 	// else if (input[0] == 'c')
 	// 	camera_value_setter(scene->camera, input);
 	// else if (input[0] == 'l')
@@ -54,16 +69,7 @@ void	environment_value_setter(t_scene *scene, char *input)
 	// 	object_value_setter(scene->world, input);
 }
 
-// void ambient_value_setter(t_color3 ambient, char *input)
-// {
-// 	char	**arguments;
 
-// 	arguments = ft_split(input, '5');
-// 	printf("%s\n", arguments[0]);
-// 	ambient.x =
-// 	ambient.y =
-// 	ambient.z =
-// }
 
 // void camera_value_setter(t_camera camera, char *input)
 // {
@@ -76,7 +82,7 @@ void	environment_value_setter(t_scene *scene, char *input)
 
 // void object_value_setter(t_object *world, char *input)
 // {
-	
+
 // }
 
 int	main(int argc, char **argv)
