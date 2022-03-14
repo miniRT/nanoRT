@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 21:11:05 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/14 21:33:49 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include "shared.h"
 #include <stdio.h>
 #include <fcntl.h>
+
+static void print_vec(t_vec3 vec)
+{
+	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
+}
 
 // void	file_open(char *path)
 // {
@@ -36,10 +41,62 @@
 // }
 
 
+t_vec3 parse_vec(char *str)
+{
+	char **info;
+	t_vec3 vec;
+
+	info = ft_split(str, ',');
+	vec.x = atof(info[0]);
+	vec.y = atof(info[1]);
+	vec.z = atof(info[2]);
+	return (vec);
+}
+
+void sphere_value_setter(t_object *world, char *input)
+{
+	t_vec3		origin;
+	t_vec3		dir;
+	t_color3	albedo;
+
+	char **info;
+
+	info = ft_split(input, ' ');
+
+	origin = parse_vec(info[1]);
+	dir = parse_vec(info[2]);
+	albedo = parse_vec(info[3]);
+
+	print_vec(origin);
+	print_vec(dir);
+	print_vec(albedo);
+	if (world)
+		return;
+}
+
+// void plane_value_setter(t_object *world, char *input)
+// {
+// 	t_vec3		origin;
+// 	t_vec3		dir;
+// 	t_color3	albedo;
+
+// }
+
+// void cylinder_value_setter(t_object *world, char *input)
+// {
+// 	t_vec3		origin;
+// 	t_vec3		dir;
+// 	t_color3	albedo;
+
+// }
+
+
 void	environment_value_setter(t_scene *scene, char *input)
 {
 	(void)scene;
 	printf ("%s\n", input);
+	if (input[0] == 's')
+		sphere_value_setter(scene->world, input);
 	// if (input[0] == 'A')
 	// 	ambient_value_setter(scene->ambient, input);
 	// else if (input[0] == 'c')
@@ -47,11 +104,11 @@ void	environment_value_setter(t_scene *scene, char *input)
 	// else if (input[0] == 'l')
 	// 	light_value_setter(scene->light, input);
 	// else if (input[0] == 's')
-	// 	object_value_setter(scene->world, input);
+	// 	sphere_value_setter(scene->world, input);
 	// else if (input[0] == 'p')
-	// 	object_value_setter(scene->world, input);
+	// 	plane_value_setter(scene->world, input);
 	// else if (input[0] == 'c')
-	// 	object_value_setter(scene->world, input);
+	// 	cylinder_value_setter(scene->world, input);
 }
 
 // void ambient_value_setter(t_color3 ambient, char *input)
@@ -74,10 +131,8 @@ void	environment_value_setter(t_scene *scene, char *input)
 
 // }
 
-// void object_value_setter(t_object *world, char *input)
-// {
-	
-// }
+
+
 
 int	main(int argc, char **argv)
 {
