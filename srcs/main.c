@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/14 21:33:49 by sham             ###   ########.fr       */
-=======
-/*   Updated: 2022/03/14 21:18:25 by kimtaeseon       ###   ########.fr       */
->>>>>>> 6e89148b6d439f3aea24bce33eb99dc41cc4da07
+/*   Updated: 2022/03/14 22:24:47 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +69,39 @@ t_vec3 parse_vec(char *str)
 void sphere_value_setter(t_object *world, char *input)
 {
 	t_vec3		origin;
+	float		diameter;			
+	t_color3	albedo;
+
+	char **info;
+	info = ft_split(input, ' ');
+
+
+	origin = parse_vec(info[1]);
+	diameter = atof(info[2]);
+	albedo = parse_vec(info[3]);
+
+	// print_vec(origin);
+	// printf ("지름 : %f\n", diameter);
+	// print_vec(albedo);
+	oadd(&world, object(SP, sphere(origin, diameter), albedo));
+}
+
+void plane_value_setter(t_object *world, char *input)
+{
+	t_vec3		origin;
 	t_vec3		dir;
 	t_color3	albedo;
 
 	char **info;
-
 	info = ft_split(input, ' ');
 
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	albedo = parse_vec(info[3]);
-
-	print_vec(origin);
-	print_vec(dir);
-	print_vec(albedo);
-	if (world)
-		return;
+	// print_vec(origin);
+	// print_vec(albedo);
+	oadd(&world, object(PL, plane(origin, dir), albedo));
 }
-
-// void plane_value_setter(t_object *world, char *input)
-// {
-// 	t_vec3		origin;
-// 	t_vec3		dir;
-// 	t_color3	albedo;
-
-// }
 
 // void cylinder_value_setter(t_object *world, char *input)
 // {
@@ -118,6 +122,10 @@ void	environment_value_setter(t_scene *scene, char *input)
 	// 	ambient_value_setter(scene->ambient, input);
 	if (input[0] == 'A')
 		ambient_value_setter(scene->ambient, input);
+		if (input[0] == 'p')
+		plane_value_setter(scene->world, input);
+	// else if (input[0] == 'p')
+	// 	plane_value_setter(scene->world, input);
 	// else if (input[0] == 'c')
 	// 	camera_value_setter(scene->camera, input);
 	// else if (input[0] == 'l')
@@ -128,6 +136,11 @@ void	environment_value_setter(t_scene *scene, char *input)
 	// 	plane_value_setter(scene->world, input);
 	// else if (input[0] == 'c')
 	// 	cylinder_value_setter(scene->world, input);
+	// while (scene->world->next)
+	// {
+	// 	printf ("있다!\n");
+	// 	scene->world = scene->world->next;
+	// }
 }
 
 
@@ -161,6 +174,9 @@ int	main(int argc, char **argv)
 	(void)argc;
 
 	t_scene scene;
+	scene.world = NULL;
+	scene.light = NULL;
+
 	int		fd;
 	int		ret;
 	char	*str;

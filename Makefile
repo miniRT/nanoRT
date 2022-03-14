@@ -18,7 +18,7 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # =============================================================================
 
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra
+# CFLAGS		=	-Wall -Werror -Wextra
 CDEBUG		=	-fsanitize=address -g
 RM			=	rm -f
 
