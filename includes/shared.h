@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shared.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 00:30:44 by pac-man           #+#    #+#             */
-/*   Updated: 2022/03/13 19:48:31 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/14 21:13:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 // libft
 int			ft_isdigit(char c);
-long long	ft_atoi(const char *src);
 int			ft_strlen(const char *s);
 void		*ft_memset(void *b, int c, int len);
 void		*ft_calloc(size_t count, size_t size);
@@ -33,7 +32,8 @@ char		*ft_strjoin(char *s1, char *s2);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_get_next_line(int fd, char **line);
 char		*ft_itoa(int n);
-
+int	        ft_atoi(const char *str);
+int         ft_cmpstr(char *str1, char *str2);
 
 // ts added
 int			file_open(char *path);
