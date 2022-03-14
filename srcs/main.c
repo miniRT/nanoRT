@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/14 21:33:49 by sham             ###   ########.fr       */
+=======
+/*   Updated: 2022/03/14 21:18:25 by kimtaeseon       ###   ########.fr       */
+>>>>>>> 6e89148b6d439f3aea24bce33eb99dc41cc4da07
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +43,19 @@ static void print_vec(t_vec3 vec)
 // 		printf("✅%s\n", str);
 // 	}
 // }
+
+void	ambient_value_setter(t_color3 ambient, char *input)
+{
+	char	**arguments;
+
+	arguments = ft_split(input, '5');
+	printf("%s\n", arguments[0]);
+	// ambient.x =
+	// ambient.y =
+	// ambient.z =
+
+	(void)ambient;
+}
 
 
 t_vec3 parse_vec(char *str)
@@ -99,6 +116,8 @@ void	environment_value_setter(t_scene *scene, char *input)
 		sphere_value_setter(scene->world, input);
 	// if (input[0] == 'A')
 	// 	ambient_value_setter(scene->ambient, input);
+	if (input[0] == 'A')
+		ambient_value_setter(scene->ambient, input);
 	// else if (input[0] == 'c')
 	// 	camera_value_setter(scene->camera, input);
 	// else if (input[0] == 'l')
@@ -111,16 +130,7 @@ void	environment_value_setter(t_scene *scene, char *input)
 	// 	cylinder_value_setter(scene->world, input);
 }
 
-// void ambient_value_setter(t_color3 ambient, char *input)
-// {
-// 	char	**arguments;
 
-// 	arguments = ft_split(input, '5');
-// 	printf("%s\n", arguments[0]);
-// 	ambient.x =
-// 	ambient.y =
-// 	ambient.z =
-// }
 
 // void camera_value_setter(t_camera camera, char *input)
 // {
@@ -133,6 +143,10 @@ void	environment_value_setter(t_scene *scene, char *input)
 
 
 
+// void object_value_setter(t_object *world, char *input)
+// {
+
+// }
 
 int	main(int argc, char **argv)
 {
