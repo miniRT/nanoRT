@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 22:24:47 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/14 22:26:02 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,10 @@ void plane_value_setter(t_object *world, char *input)
 	oadd(&world, object(PL, plane(origin, dir), albedo));
 }
 
-// void cylinder_value_setter(t_object *world, char *input)
-// {
-// 	t_vec3		origin;
-// 	t_vec3		dir;
-// 	t_color3	albedo;
-
-// }
+void cylinder_value_setter(t_object *world, char *input)
+{
+	return;
+}
 
 
 void	environment_value_setter(t_scene *scene, char *input)
@@ -118,24 +115,22 @@ void	environment_value_setter(t_scene *scene, char *input)
 	printf ("%s\n", input);
 	if (input[0] == 's')
 		sphere_value_setter(scene->world, input);
-	// if (input[0] == 'A')
-	// 	ambient_value_setter(scene->ambient, input);
-	if (input[0] == 'A')
+	else if (input[0] == 'A')
 		ambient_value_setter(scene->ambient, input);
-		if (input[0] == 'p')
+	else if (input[0] == 'p')
 		plane_value_setter(scene->world, input);
-	// else if (input[0] == 'p')
-	// 	plane_value_setter(scene->world, input);
-	// else if (input[0] == 'c')
-	// 	camera_value_setter(scene->camera, input);
-	// else if (input[0] == 'l')
-	// 	light_value_setter(scene->light, input);
-	// else if (input[0] == 's')
-	// 	sphere_value_setter(scene->world, input);
-	// else if (input[0] == 'p')
-	// 	plane_value_setter(scene->world, input);
-	// else if (input[0] == 'c')
-	// 	cylinder_value_setter(scene->world, input);
+	else if (input[0] == 'p')
+		plane_value_setter(scene->world, input);
+	else if (input[0] == 'c')
+		camera_value_setter(scene->camera, input);
+	else if (input[0] == 'l')
+		light_value_setter(scene->light, input);
+	else if (input[0] == 's')
+		sphere_value_setter(scene->world, input);
+	else if (input[0] == 'p')
+		plane_value_setter(scene->world, input);
+	else if (input[0] == 'c')
+		cylinder_value_setter(scene->world, input);
 	// while (scene->world->next)
 	// {
 	// 	printf ("있다!\n");
