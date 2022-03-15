@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/01 17:04:45 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 14:57:17 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ t_vec3	vunit(t_vec3 vec)
 	double	len;
 
 	len = vlength(vec);
+	printf("x: %f\n", vec.x);
+	printf("y: %f\n", vec.y);
+	printf("z: %f\n", vec.z);
 	if (len == 0)
 	{
 		printf("Error\n:Devider is 0");

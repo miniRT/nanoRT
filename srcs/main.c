@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 13:19:36 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 15:19:06 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include "shared.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include <mlx.h>
+#include "../mlx/mlx.h"
 
-static void print_vec(t_vec3 vec)
-{
-	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
-}
+// static void print_vec(t_vec3 vec)
+// {
+// 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
+// }
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -86,7 +86,7 @@ t_vec3 parse_vec(char *str)
 
 void	ambient_value_setter(t_ambient *ambient, char *input)
 {
-	double		bright_ratio;			
+	double		bright_ratio;
 	t_color3	light_color;
 
 	char **info;
@@ -120,13 +120,13 @@ void	camera_value_setter(t_camera *camera, char *input)
 void	light_value_setter(t_object **light, char *input)
 {
 	t_vec3		origin;
-	double		bright_ratio;			
+	double		bright_ratio;
 	t_color3	light_color;
 
 	char	**info;
-	
+
 	info = ft_split(input, ' ');
-	
+
 	origin = parse_vec(info[1]);
 	bright_ratio = atof(info[2]);
 	light_color = parse_vec(info[3]);
@@ -138,7 +138,7 @@ void	light_value_setter(t_object **light, char *input)
 void sphere_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
-	float		diameter;			
+	float		diameter;
 	t_color3	albedo;
 
 	char **info;
@@ -168,7 +168,7 @@ void plane_value_setter(t_object **world, char *input)
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	albedo = parse_vec(info[3]);
-	
+
 	oadd(world, object(PL, plane(origin, dir), albedo));
 }
 
@@ -192,35 +192,31 @@ void cylinder_value_setter(t_object **world, char *input)
 	oadd(world, object(CY, cylinder(origin, dir, diameter, height), albedo));
 }
 
-
 void	environment_value_setter(t_scene *scene, char *input)
 {
 	printf ("%s\n", input);
 	if (input[0] == 'A')
 		ambient_value_setter(&scene->ambient, input);
-	else if (input[0] == 'c' && input[1] == ' ')
+	else if (input[0] == 'C')
 		camera_value_setter(&scene->camera, input);
-	else if (input[0] == 'l')
+	else if (input[0] == 'L')
 		light_value_setter(&scene->light, input);
-	else if (input[0] == 's')
+	else if (input[0] == 's' && input[1] == 'p')
 		sphere_value_setter(&scene->world, input);
-	else if (input[0] == 'p')
+	else if (input[0] == 'p' && input[1] == 'l')
 		plane_value_setter(&scene->world, input);
-	else if (input[1] == 'y')
+	else if (input[0] == 'c' && input[1] == 'y')
 		cylinder_value_setter(&scene->world, input);
-	
 }
 // 기본 세팅
 
 static void	mlx_initialize(t_mlx *mlx)
 {
-	
-	
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT"); 
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT");
   	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT); // 이미지 객체 생성
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian); // 이미지 주소 할당
-	
+
 	mlx_key_hook(mlx->win, key_hook, &mlx); // esc key press event
 	mlx_hook(mlx->win, 17, 0, red_button, &mlx);
 }
@@ -254,6 +250,7 @@ static void	mlx_initialize(t_mlx *mlx)
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
 	t_scene *scene;
 	t_mlx mlx;
 
@@ -285,10 +282,10 @@ int	main(int argc, char **argv)
 	}
 	// while (scene->world)
 	// {
-	// 	print_vec(scene->world->albedo); 
+	// 	print_vec(scene->world->albedo);
 	// 	scene->world = scene->world->next;
 	// }
-			// print_vec(scene->camera.dir); 
+			// print_vec(scene->camera.dir);
 	init_camera(&scene->camera);
 	mlx_initialize(&mlx);
 	// raytracing(scene);
