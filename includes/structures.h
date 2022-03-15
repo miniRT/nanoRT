@@ -43,6 +43,8 @@ struct  s_canvas
     double  aspect_ratio; //종횡비
 };
 
+// normal은 교점에서 수직으로 뻗어나오는 법선 벡터
+// dir는 방향 벡터
 
 struct s_vec3
 {
@@ -71,7 +73,7 @@ struct s_ambient
 struct	s_camera
 {
 	double		fov;
-	t_vec3		normal; // 카메라 벡터
+	t_vec3		dir; // 카메라 벡터
 	t_point3	origin;  // 카메라 원점(위치)
 	double		viewport_h; // 뷰포트 세로길이
 	double		viewport_w; // 뷰포트 가로길이
@@ -107,13 +109,13 @@ struct  s_sphere
 struct s_plane
 {
 	t_point3    center; // 평면의 어느 한 지점.
-	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
 };
 
 struct s_cylinder
 {
 	t_point3    center;
-	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
 	double		diameter; // 지름
 	double		height; // 높이
 };

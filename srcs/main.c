@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 11:45:15 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 11:50:27 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	fov = atof(info[3]);
 
 	camera->origin = origin;
-	camera->normal = dir;
+	camera->dir = dir;
 	camera->fov = fov;
 }
 
@@ -225,7 +225,7 @@ int	main(int argc, char **argv)
 	// 	scene->world = scene->world->next;
 	// }
 			print_vec(scene->ambient.light_color); 
-			// print_vec(scene->camera.normal); 
+			// print_vec(scene->camera.dir); 
 
 
 }

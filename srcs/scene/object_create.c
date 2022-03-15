@@ -38,23 +38,23 @@ t_sphere    *sphere(t_point3 center, double radius)
     return (sp);
 }
 
-t_plane    *plane(t_point3 center, t_vec3 normal)
+t_plane    *plane(t_point3 center, t_vec3 dir)
 {
     t_plane *pl;
     if (!(pl = (t_plane *)malloc(sizeof(t_plane))))
         return (NULL);
     pl->center = center;
-    pl->normal = normal;
+    pl->dir = dir;
     return (pl);
 }
 
-t_cylinder    *cylinder(t_point3 center, t_vec3 normal, float diameter, float height)
+t_cylinder    *cylinder(t_point3 center, t_vec3 dir, float diameter, float height)
 {
     t_cylinder *cy;
     if (!(cy = (t_cylinder *)malloc(sizeof(t_cylinder))))
         return (NULL);
     cy->center = center;
-    cy->normal = normal;
+    cy->dir = dir;
     cy->diameter = diameter;
     cy->height = height;
     return (cy);
