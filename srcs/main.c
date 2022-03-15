@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 16:37:27 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 18:24:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 #include <fcntl.h>
 #include <mlx.h>
 
-static void print_vec(t_vec3 vec)
-{
-	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
-}
+// static void print_vec(t_vec3 vec)
+// {
+// 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
+// }
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -227,22 +227,21 @@ static void	mlx_initialize(t_mlx *mlx)
 
 static void raytracing(t_scene *scene, t_mlx *mlx)
 {
-	int     i;
-	int     j;
+	int     i; // x
+	int     j; // y
 	t_color3    pixel_color;
 
 	j = HEIGHT - 1;
 	while (j >= 0)
 	{
-
 		i = 0;
-
 	   while (i < WIDTH)
 		{
-			scene->ray = ray_primary(&scene->camera, j, i);
-			pixel_color = ray_color(&scene->ray);
-			write_color(pixel_color);
-			my_mlx_pixel_put(mlx, i, HEIGHT - 1 - j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+			scene->ray = ray_primary(&scene->camera, i, j);
+			// print_vec(scene->ray.dir);
+			pixel_color = ray_color(scene);
+			// write_color(pixel_color);
+			my_mlx_pixel_put(mlx, i, HEIGHT - 1 - j, create_trgb(0, pixel_color.x, pixel_color.y, pixel_color.z));
 			// y축(j)를 반전시켜서 구현
 			++i;
 		}
@@ -254,7 +253,8 @@ int	main(int argc, char **argv)
 {
 	t_scene *scene;
 	t_mlx	mlx;
-
+	if (argc == 1)
+		return (-1);
 	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (-1);
 
@@ -278,7 +278,7 @@ int	main(int argc, char **argv)
 			exit(1);
 		}
 		environment_value_setter(scene, str);
-		free(str);
+		// free(str);
 		str = 0;
 	}
 	// while (scene->world)

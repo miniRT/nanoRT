@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:17:53 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 13:15:15 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 17:09:26 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@
 // }
 
 
-static void print_vec(t_vec3 vec)
-{
-	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
-}
+// static void print_vec(t_vec3 vec)
+// {
+// 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
+// }
 
 
 static float	get_tan(float degree)

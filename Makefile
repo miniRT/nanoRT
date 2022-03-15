@@ -18,7 +18,7 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # =============================================================================
 
 CC			=	gcc
-# CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra
 MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
 MLX			=	./mlx/libmlx.a
 CDEBUG		=	-fsanitize=address -g
@@ -45,7 +45,13 @@ SRC_LIST	=	main.c							\
 				${D_SCENE}canvas.c				\
 				${D_SCENE}scene.c				\
 				${D_SCENE}object_create.c		\
-				${D_TRACE}trace.c				\
+				${D_TRACE}ray/ray.c				\
+				${D_TRACE}ray/phong_lighting.c	\
+				${D_TRACE}hit/hit.c				\
+				${D_TRACE}hit/hit_sphere.c		\
+				${D_TRACE}hit/hit_plane.c		\
+				${D_TRACE}hit/hit_cylinder.c	\
+				${D_TRACE}hit/normal.c			\
 				${D_PARSE}file_open.c			\
 				${D_PARSE}ft_get_next_line.c	\
 				${D_PARSE}ft_replace.c			\
