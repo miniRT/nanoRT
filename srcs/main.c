@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 15:19:06 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 16:46:55 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int		create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void			my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
+void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -221,38 +221,36 @@ static void	mlx_initialize(t_mlx *mlx)
 	mlx_hook(mlx->win, 17, 0, red_button, &mlx);
 }
 
-// static void raytracing(t_scene *scene, t_mlx *mlx)
-// {
-// 	int     i;
-// 	int     j;
-// 	double	u;
-// 	double v;
+static void raytracing(t_scene *scene, t_mlx *mlx)
+{
+	int     i;
+	int     j;
+	t_color3    pixel_color;
 
-// 	j = canvas_height - 1;
-// 	while (j >= 0)
-// 	{
-// 		i = 0;
-// 	   while (i < canvas_width)
-// 		{
-// 			u = (double)i / (canvas_width - 1);
-// 			v = (double)j / (canvas_height - 1);
-// 			//ray from camera origin to pixel
-// 			scene->ray = ray_primary(&scene->camera, u, v);
-// 			pixel_color = ray_color(scene);
-// 			write_color(pixel_color);
-// 			my_mlx_pixel_put(&image, i, canvas_height - 1 - j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
-// 			// y축(j)를 반전시켜서 구현
-// 			++i;
-// 		}
-// 		--j;
-// 	}
-// }
+	j = HEIGHT - 1;
+	while (j >= 0)
+	{
+
+		i = 0;
+
+	   while (i < WIDTH)
+		{
+			scene->ray = ray_primary(&scene->camera, j, i);
+			pixel_color = ray_color(&scene->ray);
+			write_color(pixel_color);
+			my_mlx_pixel_put(mlx, i, HEIGHT - 1 - j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+			// y축(j)를 반전시켜서 구현
+			++i;
+		}
+		--j;
+	}
+}
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	t_scene *scene;
-	t_mlx mlx;
+	t_mlx	mlx;
 
 	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (-1);
@@ -288,7 +286,8 @@ int	main(int argc, char **argv)
 			// print_vec(scene->camera.dir);
 	init_camera(&scene->camera);
 	mlx_initialize(&mlx);
-	// raytracing(scene);
+	raytracing(scene, &mlx);
+
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
