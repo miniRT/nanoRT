@@ -54,7 +54,7 @@ t_cylinder    *cylinder(t_point3 center, t_vec3 dir, float diameter, float heigh
     if (!(cy = (t_cylinder *)malloc(sizeof(t_cylinder))))
         return (NULL);
     cy->center = center;
-    cy->dir = dir;
+    cy->dir = dir; // 1, 1, 0은 단위 벡터가 아니기 때문에 표준화?
     cy->diameter = diameter;
     cy->height = height;
     return (cy);
