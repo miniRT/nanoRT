@@ -123,8 +123,8 @@ struct s_cylinder
 {
 	t_point3    center;
 	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
-	float		diameter; // 지름
-	float		height; // 높이
+	double		diameter; // 지름
+	double		height; // 높이
 };
 
 struct  s_canvas
