@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:17:53 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 17:09:26 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 22:15:21 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void init_camera(t_camera *cam)
 
     if (vlength(vcross(vec_y, cam->dir)))
         cam->right_normal = vunit(vcross(cam->dir, vec_y));
-    else 
+    else
         cam->right_normal = vunit(vcross(cam->dir, vec_z));
     cam->up_normal = vunit(vcross(cam->right_normal, cam->dir));
     cam->focal_len = (float)WIDTH / 2 / get_tan(cam->fov / 2);
-	
+
 	// printf ("%f\n", cam->focal_len);
     temp = vplus(cam->origin, vmult(cam->dir, cam->focal_len));
     temp = vminus(temp, vmult(cam->right_normal, (float)(WIDTH - 1)/ 2));

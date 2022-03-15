@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 18:24:57 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 22:15:28 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,60 @@
 #include "shared.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include <mlx.h>
+#include "../mlx/mlx.h"
 
 // static void print_vec(t_vec3 vec)
 // {
 // 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
 // }
+
+double ft_pow(double base, int exponent)
+{
+	int	i;
+	double result;
+
+	i = 1;
+	result = 1;
+	while (i <= exponent)
+	{
+		result = result * base;
+		i++;
+	}
+	return result;
+}
+
+double	ft_atof(char *src)
+{
+	int	i;
+	int	sign;
+	int	num;
+	int pointer;
+	double	decimal_point;
+
+	i = 1;
+	sign = 1;
+	num = 0;
+	pointer = 0;
+	decimal_point = 0;
+	while (ft_isspace(*src))
+		src++;
+	while (*src)
+	{
+		if (*src ==  '-')
+			sign = -1;
+		else if (!pointer && ft_isdigit(*src))
+			num = (num * 10) + (*src - '0');
+		else if (*src == '.')
+			pointer = 1;
+		else if (pointer && ft_isdigit(*src))
+		{
+			decimal_point  = (*src - '0') * ft_pow(0.1, i) + decimal_point;
+			i++;
+		}
+		src++;
+	}
+	return (sign * (num + decimal_point));
+}
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -78,23 +126,46 @@ t_vec3 parse_vec(char *str)
 	t_vec3 vec;
 
 	info = ft_split(str, ',');
-	vec.x = atof(info[0]);
-	vec.y = atof(info[1]);
-	vec.z = atof(info[2]);
+	vec.x = ft_atof(info[0]);
+	vec.y = ft_atof(info[1]);
+	vec.z = ft_atof(info[2]);
 	return (vec);
+}
+
+void	validator_value(char *message, double value, double min, double max)
+{
+	if (value < min || value > max)
+	{
+		ft_putstr_fd(message, STDERR_FILENO);
+		exit(1);
+	}
+}
+
+void	validator_color(t_color3 value, double min, double max)
+{
+	validator_value("Not valid light R value", value.x, min, max);
+	validator_value("Not valid light G value", value.y, min, max);
+	validator_value("Not valid light B value", value.z, min, max);
+}
+
+void	validator_vector(t_vec3 value, double min, double max)
+{
+	validator_value("Not valid value", value.x, min, max);
+	validator_value("Not valid value", value.y, min, max);
+	validator_value("Not valid value", value.z, min, max);
 }
 
 void	ambient_value_setter(t_ambient *ambient, char *input)
 {
-	double		bright_ratio;			
+	double		bright_ratio;
 	t_color3	light_color;
-
 	char **info;
 
 	info = ft_split(input, ' ');
-	bright_ratio = atof(info[1]);
+	bright_ratio = ft_atof(info[1]);
+	validator_value("Not valid bright_ratio value", bright_ratio, 0.0, 1.0);
 	light_color = parse_vec(info[2]);
-
+	validator_color(light_color, 0, 255);
 	ambient->bright_ratio = bright_ratio;
 	ambient->light_color = light_color;
 }
@@ -110,8 +181,9 @@ void	camera_value_setter(t_camera *camera, char *input)
 	info = ft_split(input, ' ');
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
-	fov = atof(info[3]);
-
+	fov = ft_atof(info[3]);
+	validator_vector(dir, -1, 1);
+	validator_value("Not valid FOV value", fov, 0, 180);
 	camera->origin = origin;
 	camera->dir = dir;
 	camera->fov = fov;
@@ -120,15 +192,16 @@ void	camera_value_setter(t_camera *camera, char *input)
 void	light_value_setter(t_object **light, char *input)
 {
 	t_vec3		origin;
-	double		bright_ratio;			
+	double		bright_ratio;
 	t_color3	light_color;
 
 	char	**info;
-	
+
 	info = ft_split(input, ' ');
-	
+
 	origin = parse_vec(info[1]);
-	bright_ratio = atof(info[2]);
+	bright_ratio = ft_atof(info[2]);
+	validator_value("Not valid bright_ratio value", bright_ratio, 0.0, 1.0);
 	light_color = parse_vec(info[3]);
 
 	*light = object(LIGHT_POINT, light_point(origin, light_color, bright_ratio), color3(0, 0, 0));
@@ -138,7 +211,7 @@ void	light_value_setter(t_object **light, char *input)
 void sphere_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
-	float		diameter;			
+	float		diameter;
 	t_color3	albedo;
 
 	char **info;
@@ -146,9 +219,9 @@ void sphere_value_setter(t_object **world, char *input)
 
 
 	origin = parse_vec(info[1]);
-	diameter = atof(info[2]);
+	diameter = ft_atof(info[2]);
 	albedo = parse_vec(info[3]);
-
+	validator_color(albedo, 0, 255);
 	// print_vec(origin);
 	// printf ("지름 : %f\n", diameter);
 	// print_vec(albedo);
@@ -167,8 +240,9 @@ void plane_value_setter(t_object **world, char *input)
 
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
+	validator_vector(dir, -1, 1);
 	albedo = parse_vec(info[3]);
-	
+
 	oadd(world, object(PL, plane(origin, dir), albedo));
 }
 
@@ -185,42 +259,38 @@ void cylinder_value_setter(t_object **world, char *input)
 
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
-	diameter = atof(info[3]);
-	height = atof(info[4]);
+	validator_vector(dir, -1, 1);
+	diameter = ft_atof(info[3]);
+	height = ft_atof(info[4]);
 	albedo = parse_vec(info[5]);
-
+	validator_color(albedo, 0, 255)	;
 	oadd(world, object(CY, cylinder(origin, dir, diameter, height), albedo));
 }
 
-
 void	environment_value_setter(t_scene *scene, char *input)
 {
-	printf ("%s\n", input);
 	if (input[0] == 'A')
 		ambient_value_setter(&scene->ambient, input);
-	else if (input[0] == 'c' && input[1] == ' ')
+	else if (input[0] == 'C')
 		camera_value_setter(&scene->camera, input);
-	else if (input[0] == 'l')
+	else if (input[0] == 'L')
 		light_value_setter(&scene->light, input);
-	else if (input[0] == 's')
+	else if (input[0] == 's' && input[1] == 'p')
 		sphere_value_setter(&scene->world, input);
-	else if (input[0] == 'p')
+	else if (input[0] == 'p' && input[1] == 'l')
 		plane_value_setter(&scene->world, input);
-	else if (input[1] == 'y')
+	else if (input[0] == 'c' && input[1] == 'y')
 		cylinder_value_setter(&scene->world, input);
-	
 }
 // 기본 세팅
 
 static void	mlx_initialize(t_mlx *mlx)
 {
-	
-	
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT"); 
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT");
   	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT); // 이미지 객체 생성
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian); // 이미지 주소 할당
-	
+
 	mlx_key_hook(mlx->win, key_hook, &mlx); // esc key press event
 	mlx_hook(mlx->win, 17, 0, red_button, &mlx);
 }
@@ -251,6 +321,7 @@ static void raytracing(t_scene *scene, t_mlx *mlx)
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
 	t_scene *scene;
 	t_mlx	mlx;
 	if (argc == 1)
@@ -281,19 +352,23 @@ int	main(int argc, char **argv)
 		// free(str);
 		str = 0;
 	}
+	// printf("✅%f\n", ft_pow(0.1, 10));
+
+
+
+
 	// while (scene->world)
 	// {
-	// 	print_vec(scene->world->albedo); 
+	// 	print_vec(scene->world->albedo);
 	// 	scene->world = scene->world->next;
 	// }
-			// print_vec(scene->camera.dir); 
-	init_camera(&scene->camera); // left_bottom이 focal_len을 뺀 만큼을 가리킴, x, y 값만 더해주면 됨
+			// print_vec(scene->camera.dir);
+	init_camera(&scene->camera);
 	mlx_initialize(&mlx);
 	raytracing(scene, &mlx);
 
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	mlx_loop(mlx.mlx);
-
 }
 
 // 분기 확실하게 분기
