@@ -6,13 +6,14 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 00:30:44 by pac-man           #+#    #+#             */
-/*   Updated: 2022/03/14 21:21:23 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 17:26:47 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHARED_H
 # define SHARED_H
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
@@ -45,5 +46,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_strlen(const char *s);
 char		**ft_split(char const *s, char c);
 char		*ft_strndup(const char *src, size_t size);
+bool		ft_isspace(int c);
+int			ft_isdigit(char c);
 
 #endif

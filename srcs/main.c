@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 16:46:55 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 19:51:33 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,54 @@
 // {
 // 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
 // }
+
+double ft_pow(double base, int exponent)
+{
+	int	i;
+	double result;
+
+	i = 1;
+	result = 1;
+	while (i <= exponent)
+	{
+		result = result * base;
+		i++;
+	}
+	return result;
+}
+
+double	ft_atof(char *src)
+{
+	int	i;
+	int	sign;
+	int	num;
+	int pointer;
+	double	decimal_point;
+
+	i = 1;
+	sign = 1;
+	num = 0;
+	pointer = 0;
+	decimal_point = 0;
+	while (ft_isspace(*src))
+		src++;
+	while (*src)
+	{
+		if (*src ==  '-')
+			sign = -1;
+		else if (!pointer && ft_isdigit(*src))
+			num = (num * 10) + (*src - '0');
+		else if (*src == '.')
+			pointer = 1;
+		else if (pointer && ft_isdigit(*src))
+		{
+			decimal_point  = (*src - '0') * ft_pow(0.1, i) + decimal_point;
+			i++;
+		}
+		src++;
+	}
+	return (sign * (num + decimal_point));
+}
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -78,9 +126,9 @@ t_vec3 parse_vec(char *str)
 	t_vec3 vec;
 
 	info = ft_split(str, ',');
-	vec.x = atof(info[0]);
-	vec.y = atof(info[1]);
-	vec.z = atof(info[2]);
+	vec.x = ft_atof(info[0]);
+	vec.y = ft_atof(info[1]);
+	vec.z = ft_atof(info[2]);
 	return (vec);
 }
 
@@ -92,7 +140,7 @@ void	ambient_value_setter(t_ambient *ambient, char *input)
 	char **info;
 
 	info = ft_split(input, ' ');
-	bright_ratio = atof(info[1]);
+	bright_ratio = ft_atof(info[1]);
 	light_color = parse_vec(info[2]);
 
 	ambient->bright_ratio = bright_ratio;
@@ -110,7 +158,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	info = ft_split(input, ' ');
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
-	fov = atof(info[3]);
+	fov = ft_atof(info[3]);
 
 	camera->origin = origin;
 	camera->dir = dir;
@@ -128,7 +176,7 @@ void	light_value_setter(t_object **light, char *input)
 	info = ft_split(input, ' ');
 
 	origin = parse_vec(info[1]);
-	bright_ratio = atof(info[2]);
+	bright_ratio = ft_atof(info[2]);
 	light_color = parse_vec(info[3]);
 
 	*light = object(LIGHT_POINT, light_point(origin, light_color, bright_ratio), color3(0, 0, 0));
@@ -146,7 +194,7 @@ void sphere_value_setter(t_object **world, char *input)
 
 
 	origin = parse_vec(info[1]);
-	diameter = atof(info[2]);
+	diameter = ft_atof(info[2]);
 	albedo = parse_vec(info[3]);
 
 	// print_vec(origin);
@@ -185,8 +233,8 @@ void cylinder_value_setter(t_object **world, char *input)
 
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
-	diameter = atof(info[3]);
-	height = atof(info[4]);
+	diameter = ft_atof(info[3]);
+	height = ft_atof(info[4]);
 	albedo = parse_vec(info[5]);
 
 	oadd(world, object(CY, cylinder(origin, dir, diameter, height), albedo));
@@ -278,6 +326,11 @@ int	main(int argc, char **argv)
 		free(str);
 		str = 0;
 	}
+	// printf("✅%f\n", ft_pow(0.1, 10));
+
+
+
+
 	// while (scene->world)
 	// {
 	// 	print_vec(scene->world->albedo);
@@ -290,7 +343,6 @@ int	main(int argc, char **argv)
 
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	mlx_loop(mlx.mlx);
-
 }
 
 // 분기 확실하게 분기

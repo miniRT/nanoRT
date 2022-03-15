@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_utils1.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 16:59:36 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/15 17:16:13 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/15 17:18:42 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "shared.h"
 
-double	vlength2(t_vec3 vec)
+bool	ft_isspace(int c)
 {
-	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
-}
-
-double	vlength(t_vec3 vec)
-{
-	return (sqrt(vlength2(vec)));
-}
-
-t_vec3	vunit(t_vec3 vec)
-{
-	double	len;
-
-	len = vlength(vec);
-	if (len == 0)
-	{
-		printf("Error\n:Devider is 0");
-		exit(0);
-	}
-	vec.x /= len;
-	vec.y /= len;
-	vec.z /= len;
-	return (vec);
+	return (c == ' ' || c == '\n' || c == '\r'
+		|| c == '\v' || c == '\f' || c == '\t');
 }

@@ -57,6 +57,8 @@ SRC_LIST	=	main.c							\
 				${D_PARSE}ft_cmpstr.c			\
 				${D_PARSE}ft_atoi.c				\
 				${D_PARSE}ft_split.c			\
+				${D_PARSE}ft_isdigit.c			\
+				${D_PARSE}ft_isspace.c			\
 
 SRCS		=	$(addprefix $(MINIRT_DIR), $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
