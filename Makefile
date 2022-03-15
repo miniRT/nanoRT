@@ -19,6 +19,8 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 
 CC			=	gcc
 # CFLAGS		=	-Wall -Werror -Wextra
+MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
+MLX			=	./mlx/libmlx.a
 CDEBUG		=	-fsanitize=address -g
 RM			=	rm -f
 
@@ -69,7 +71,7 @@ OBJS		=	$(SRCS:.c=.o)
 $(NAME)		:	$(OBJS)
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJS)
+				@$(CC) $(CFALGS) $(MLXFLAG) -I $(HEADER) -o $(NAME) $(OBJS)
 				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================

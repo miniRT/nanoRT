@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 11:50:27 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 13:19:36 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,43 @@
 #include "shared.h"
 #include <stdio.h>
 #include <fcntl.h>
+#include <mlx.h>
 
 static void print_vec(t_vec3 vec)
 {
 	printf ("x : %f, y : %f, z : %f\n", vec.x, vec.y, vec.z);
 }
+
+int		create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void			my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
+{
+	char	*dst;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+// esc key press event
+int	key_hook(int keycode, t_mlx *mlx)
+{
+	(void) mlx;
+	if (keycode == 53)
+		exit(1);
+	return (0);
+}
+
+int	red_button(int key_num, t_mlx *mlx)
+{
+	(void)key_num;
+	(void)mlx;
+	exit(1);
+}
+
+
+
 
 // void	file_open(char *path)
 // {
@@ -178,20 +210,52 @@ void	environment_value_setter(t_scene *scene, char *input)
 		cylinder_value_setter(&scene->world, input);
 	
 }
+// 기본 세팅
+
+static void	mlx_initialize(t_mlx *mlx)
+{
+	
+	
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT"); 
+  	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT); // 이미지 객체 생성
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian); // 이미지 주소 할당
+	
+	mlx_key_hook(mlx->win, key_hook, &mlx); // esc key press event
+	mlx_hook(mlx->win, 17, 0, red_button, &mlx);
+}
+
+// static void raytracing(t_scene *scene, t_mlx *mlx)
+// {
+// 	int     i;
+// 	int     j;
+// 	double	u;
+// 	double v;
+
+// 	j = canvas_height - 1;
+// 	while (j >= 0)
+// 	{
+// 		i = 0;
+// 	   while (i < canvas_width)
+// 		{
+// 			u = (double)i / (canvas_width - 1);
+// 			v = (double)j / (canvas_height - 1);
+// 			//ray from camera origin to pixel
+// 			scene->ray = ray_primary(&scene->camera, u, v);
+// 			pixel_color = ray_color(scene);
+// 			write_color(pixel_color);
+// 			my_mlx_pixel_put(&image, i, canvas_height - 1 - j, create_trgb(0, pixel_color.x * 255.999, pixel_color.y * 255.999, pixel_color.z * 255.999));
+// 			// y축(j)를 반전시켜서 구현
+// 			++i;
+// 		}
+// 		--j;
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
-	// t_color3	pixel_color;
-	// t_canvas	canv;
-	// t_camera	cam;
-	// t_ray		ray;
-	// int			i;
-	// int			j;
-	// double		u;
-	// double		v;
-	(void)argc;
-
 	t_scene *scene;
+	t_mlx mlx;
 
 	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (-1);
@@ -224,12 +288,16 @@ int	main(int argc, char **argv)
 	// 	print_vec(scene->world->albedo); 
 	// 	scene->world = scene->world->next;
 	// }
-			print_vec(scene->ambient.light_color); 
 			// print_vec(scene->camera.dir); 
-
+	init_camera(&scene->camera);
+	mlx_initialize(&mlx);
+	// raytracing(scene);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+	mlx_loop(mlx.mlx);
 
 }
 
 // 분기 확실하게 분기
 // atof 만들어서 사용
 // 유효값 검사
+// 파싱 스페이스 여러개 있어도 정상적으로 감지?
