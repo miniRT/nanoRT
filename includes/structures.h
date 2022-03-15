@@ -72,7 +72,7 @@ struct	s_camera
 {
 	double		fov;
 	t_vec3		normal; // 카메라 벡터
-	t_point3	orig;  // 카메라 원점(위치)
+	t_point3	origin;  // 카메라 원점(위치)
 	double		viewport_h; // 뷰포트 세로길이
 	double		viewport_w; // 뷰포트 가로길이
 	t_vec3		horizontal; // 수평길이 벡터
@@ -122,7 +122,7 @@ struct s_cylinder
 
 struct  s_ray
 {
-	t_point3    orig;
+	t_point3    origin;
 	t_vec3      dir;
 };
 

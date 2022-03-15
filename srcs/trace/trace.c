@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:55:36 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 19:52:41 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 11:47:35 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ray	ray(t_point3 orig, t_vec3 dir)
 {
 	t_ray	ray;
 
-	ray.orig = orig;
+	ray.origin = orig;
 	ray.dir = vunit(dir);
 	return (ray);
 }
@@ -25,7 +25,7 @@ t_point3	ray_at(t_ray *ray, double t)
 {
 	t_point3	at;
 
-	at = vplus(ray->orig, vmult(ray->dir, t));
+	at = vplus(ray->origin, vmult(ray->dir, t));
 	return (at);
 }
 
@@ -33,10 +33,10 @@ t_ray	ray_primary(t_camera *cam, double u, double v)
 {
 	t_ray	ray;
 
-	ray.orig = cam->orig;
+	ray.origin = cam->origin;
 	ray.dir = vunit(vminus(vplus(vplus(cam->left_bottom,
 						vmult(cam->horizontal, u)),
-					vmult(cam->vertical, v)), cam->orig));
+					vmult(cam->vertical, v)), cam->origin));
 	return (ray);
 }
 

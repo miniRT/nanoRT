@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 11:43:39 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 11:45:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	dir = parse_vec(info[2]);
 	fov = atof(info[3]);
 
-	camera->orig = origin;
+	camera->origin = origin;
 	camera->normal = dir;
 	camera->fov = fov;
 }
