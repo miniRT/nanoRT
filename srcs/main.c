@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 22:35:15 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 11:13:41 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ static void print_vec(t_vec3 vec)
 // 	}
 // }
 
+t_vec3 parse_vec(char *str)
+{
+	char **info;
+	t_vec3 vec;
+
+	info = ft_split(str, ',');
+	vec.x = atof(info[0]);
+	vec.y = atof(info[1]);
+	vec.z = atof(info[2]);
+	return (vec);
+}
+
 void	ambient_value_setter(t_color3 ambient, char *input)
 {
 	char	**arguments;
@@ -61,8 +73,8 @@ void	camera_value_setter(t_camera camera, char *input)
 	origin_template = ft_split(input, ' ');
 	arguments = ft_split(origin_template[1], ',');
 	camera.orig.x = (double) ft_atoi(arguments[0]);
-	camera.orig.x = (double) ft_atoi(arguments[0]);
-	camera.orig.x = (double) ft_atoi(arguments[0]);
+	camera.orig.y = (double) ft_atoi(arguments[0]);
+	camera.orig.z = (double) ft_atoi(arguments[0]);
 	arguments = ft_split(origin_template[2], ',');
 	camera.normal.x = (double) ft_atoi(arguments[0]);
 	camera.normal.y = (double) ft_atoi(arguments[0]);
@@ -70,34 +82,25 @@ void	camera_value_setter(t_camera camera, char *input)
 	camera.fov = (double) ft_atoi(origin_template[3]);
 }
 
-void	light_value_setter(t_object *light, char *input)
+void	light_value_setter(t_object **light, char *input)
 {
-	char	**arguments;
-	char	**origin_template;
+	t_vec3		origin;
+	double		bright_ratio;			
+	t_color3	light_color;
 
-	arguments = 0;
-	origin_template = 0;
-	origin_template = ft_split(input, ' ');
-	arguments = ft_split(origin_template[1], ',');
-	light->type = LIGHT_POINT;
-	light->albedo.x = (double) ft_atoi(arguments[0]);
-	light->albedo.y = (double) ft_atoi(arguments[1]);
-	light->albedo.z = (double) ft_atoi(arguments[2]);
+	char	**info;
+	
+	info = ft_split(input, ' ');
+	
+	origin = parse_vec(info[1]);
+	bright_ratio = atof(info[2]);
+	light_color = parse_vec(info[3]);
+
+	*light = object(LIGHT_POINT, light_point(origin, light_color, bright_ratio), color3(0, 0, 0));
+
 }
 
-t_vec3 parse_vec(char *str)
-{
-	char **info;
-	t_vec3 vec;
-
-	info = ft_split(str, ',');
-	vec.x = atof(info[0]);
-	vec.y = atof(info[1]);
-	vec.z = atof(info[2]);
-	return (vec);
-}
-
-void sphere_value_setter(t_object *world, char *input)
+void sphere_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
 	float		diameter;			
@@ -114,11 +117,11 @@ void sphere_value_setter(t_object *world, char *input)
 	// print_vec(origin);
 	// printf ("지름 : %f\n", diameter);
 	// print_vec(albedo);
-	oadd(&world, object(SP, sphere(origin, diameter), albedo));
+	oadd(world, object(SP, sphere(origin, diameter), albedo));
 
 }
 
-void plane_value_setter(t_object *world, char *input)
+void plane_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
 	t_vec3		dir;
@@ -130,12 +133,11 @@ void plane_value_setter(t_object *world, char *input)
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	albedo = parse_vec(info[3]);
-	// print_vec(origin);
-	// print_vec(albedo);
-	oadd(&world, object(PL, plane(origin, dir), albedo));
+	
+	oadd(world, object(PL, plane(origin, dir), albedo));
 }
 
-void cylinder_value_setter(t_object *world, char *input)
+void cylinder_value_setter(t_object **world, char *input)
 {
 	return;
 }
@@ -148,35 +150,16 @@ void	environment_value_setter(t_scene *scene, char *input)
 		ambient_value_setter(scene->ambient, input);
 	else if (input[0] == 'c')
 		camera_value_setter(scene->camera, input);
-	// else if (input[0] == 'l')
-	// 	light_value_setter(scene->light, input);
+	else if (input[0] == 'l')
+		light_value_setter(&scene->light, input);
 	else if (input[0] == 's')
-		sphere_value_setter(scene->world, input);
+		sphere_value_setter(&scene->world, input);
 	else if (input[0] == 'p')
-		plane_value_setter(scene->world, input);
+		plane_value_setter(&scene->world, input);
 	else if (input[0] == 'c')
-		cylinder_value_setter(scene->world, input);
+		cylinder_value_setter(&scene->world, input);
 	
-	// print_vec(scene->world->albedo); 
 }
-
-
-
-// void camera_value_setter(t_camera camera, char *input)
-// {
-
-// }
-// void light_value_setter(t_object *light, char *input)
-// {
-
-// }
-
-
-
-// void object_value_setter(t_object *world, char *input)
-// {
-
-// }
 
 int	main(int argc, char **argv)
 {
@@ -193,7 +176,7 @@ int	main(int argc, char **argv)
 	t_scene *scene;
 
 	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
-		return (NULL);
+		return (-1);
 
 	scene->world = NULL;
 	scene->light = NULL;
@@ -218,11 +201,12 @@ int	main(int argc, char **argv)
 		free(str);
 		str = 0;
 	}
-	if (scene->world)
+	while (scene->world)
 	{
-		printf ("있다!\n");
+		print_vec(scene->world->albedo); 
 		scene->world = scene->world->next;
 	}
+
 	// canv = canvas(400, 300);
 	// cam = camera(&canv, point3(0, 0, 0));
 	// printf("P3\n%d %d\n255\n", canv.width, canv.height);
@@ -242,6 +226,7 @@ int	main(int argc, char **argv)
 	// 	--j;
 	// }
 }
+
 
 // #include <stdio.h>
 // #include <mlx.h>
