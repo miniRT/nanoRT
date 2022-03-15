@@ -6,6 +6,7 @@ typedef struct s_vec3 t_point3; //  3차원 좌표계 위의 특정 한 점을 �
 typedef struct s_vec3 t_color3; // RGB를 의미한다. x = R, y = G, z = B가 된다. 범위가 0~1 이므로 255.999 를 곱해서 사용한다.
 typedef struct s_ray t_ray;
 
+typedef struct s_ambient t_ambient;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 typedef struct s_object t_object;
@@ -34,6 +35,15 @@ typedef int t_object_type;
 
 # define EPSILON 0.000001 // tmin이 0이 아닌 값을 설정해주기 위해
 
+// 삭제 예정
+struct  s_canvas
+{
+    int     width; //canvas width
+    int     height; //canvas height;
+    double  aspect_ratio; //종횡비
+};
+
+
 struct s_vec3
 {
 	double x;
@@ -41,11 +51,6 @@ struct s_vec3
 	double z;
 };
 
-struct  s_ray
-{
-	t_point3    orig;
-	t_vec3      dir;
-};
 
 // struct  s_camera
 // {
@@ -55,6 +60,13 @@ struct  s_ray
 // 	double      focal_len; // focal length
 // 	t_point3    left_bottom; // 왼쪽 아래 코너점
 // };
+
+struct s_ambient
+{
+	t_color3    light_color; // 빛의 색깔
+	double      bright_ratio;
+};
+
 
 struct	s_camera
 {
@@ -69,6 +81,13 @@ struct	s_camera
 	t_point3	left_bottom; // 왼쪽 아래 코너점
 };
 
+struct s_light
+{
+	t_point3    origin; //  빛이 위치하는 좌표.
+	t_color3    light_color; // 빛의 색깔
+	double      bright_ratio;
+};
+
 struct s_object
 {
 	t_object_type type;
@@ -76,34 +95,6 @@ struct s_object
 	void	*next;
 	t_color3    albedo; // 해당 물체의 반사율(빛을 얼마나 잘 반사하는지)
 
-};
-
-struct s_hit_record
-{
-	t_point3    p; // 교점(충돌 지점)에 대한 좌표.
-	t_vec3      normal; // 교점에서 뻗어나온 법선(단위 벡터)
-	double      tmin; // 기본 0, 물체가 뒤에 있을 경우에는 감지하지 않는다.
-	double      tmax; // 광선의 가시거리, 일정 거리를 벗어나면 감지하지 않는다.
-	double      t; // 광선의 원점과 교점 사이의 거리.
-	t_bool      front_face;
-	t_color3    albedo; // 해당 충돌 지점(물체)의 색상
-};
-
-struct s_scene
-{
-	t_camera		camera;
-	t_object		*world;
-	t_object		*light;
-	t_color3		ambient;
-	t_ray			ray;
-	t_hit_record	rec;
-};
-
-struct s_light
-{
-	t_point3    origin; //  빛이 위치하는 좌표.
-	t_color3    light_color; // 빛의 색깔
-	double      bright_ratio;
 };
 
 struct  s_sphere
@@ -127,11 +118,33 @@ struct s_cylinder
 	double		height; // 높이
 };
 
-struct  s_canvas
+
+
+struct  s_ray
 {
-    int     width; //canvas width
-    int     height; //canvas height;
-    double  aspect_ratio; //종횡비
+	t_point3    orig;
+	t_vec3      dir;
+};
+
+struct s_hit_record
+{
+	t_point3    p; // 교점(충돌 지점)에 대한 좌표.
+	t_vec3      normal; // 교점에서 뻗어나온 법선(단위 벡터)
+	double      tmin; // 기본 0, 물체가 뒤에 있을 경우에는 감지하지 않는다.
+	double      tmax; // 광선의 가시거리, 일정 거리를 벗어나면 감지하지 않는다.
+	double      t; // 광선의 원점과 교점 사이의 거리.
+	t_bool      front_face;
+	t_color3    albedo; // 해당 충돌 지점(물체)의 색상
+};
+
+struct s_scene
+{
+	t_ambient		ambient;
+	t_camera		camera;
+	t_object		*world;
+	t_object		*light;
+	t_ray			ray;
+	t_hit_record	rec;
 };
 
 #endif

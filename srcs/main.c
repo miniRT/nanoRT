@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 11:33:42 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/15 11:43:39 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,19 @@ t_vec3 parse_vec(char *str)
 	return (vec);
 }
 
-void	ambient_value_setter(t_color3 ambient, char *input)
+void	ambient_value_setter(t_ambient *ambient, char *input)
 {
-	char	**arguments;
+	double		bright_ratio;			
+	t_color3	light_color;
 
-	arguments = ft_split(input, ' ');
-	arguments = ft_split(arguments[2], ',');
-	ambient.x = (double) ft_atoi(arguments[0]);
-	ambient.y = (double) ft_atoi(arguments[1]);
-	ambient.z = (double) ft_atoi(arguments[2]);
+	char **info;
+
+	info = ft_split(input, ' ');
+	bright_ratio = atof(info[1]);
+	light_color = parse_vec(info[2]);
+
+	ambient->bright_ratio = bright_ratio;
+	ambient->light_color = light_color;
 }
 
 void	camera_value_setter(t_camera *camera, char *input)
@@ -161,7 +165,7 @@ void	environment_value_setter(t_scene *scene, char *input)
 {
 	printf ("%s\n", input);
 	if (input[0] == 'A')
-		ambient_value_setter(scene->ambient, input);
+		ambient_value_setter(&scene->ambient, input);
 	else if (input[0] == 'c' && input[1] == ' ')
 		camera_value_setter(&scene->camera, input);
 	else if (input[0] == 'l')
@@ -220,8 +224,8 @@ int	main(int argc, char **argv)
 	// 	print_vec(scene->world->albedo); 
 	// 	scene->world = scene->world->next;
 	// }
-			print_vec(scene->camera.orig); 
-			print_vec(scene->camera.normal); 
+			print_vec(scene->ambient.light_color); 
+			// print_vec(scene->camera.normal); 
 
 
 }
