@@ -33,7 +33,7 @@ t_sphere    *sphere(t_point3 center, double radius)
     if (!(sp = (t_sphere *)malloc(sizeof(t_sphere))))
         return (NULL);
     sp->center = center;
-    sp->radius = radius;
+    sp->radius = radius; // 반지름, 실제는 * 2
     sp->radius2 = radius * radius;
     return (sp);
 }

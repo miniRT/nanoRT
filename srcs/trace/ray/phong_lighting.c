@@ -57,16 +57,29 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     // 단위 백터 끼리의 내적이므로 교점의 법선 벡터와 광선으로 향하는 벡터의 내적값 cosΘ는 사이각이 된다.
     // cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
     // fmax 함수는 두 개의 인자 중 큰 값을 리턴한다. 만약 코사인세타가 둔각이 될 경우 음수가 되기에 0을 리턴하도록 한다.
-    diffuse = vmult(light->light_color, kd);
+    diffuse = vdivide(light->light_color, 255);
+        print_vec(diffuse);
+
+    diffuse = vmult(diffuse, light->bright_ratio);
+            print_vec(diffuse);
+
+    diffuse = vmult(diffuse, kd);
+        print_vec(diffuse);
+
+    diffuse = vmult_(diffuse, scene->rec.albedo);
+        print_vec(diffuse);
+
     return (diffuse);
 }   
 
 t_color3    phong_lighting(t_scene *scene)
 {
+    t_color3    rec_color;
     t_color3    light_color;
     t_color3    ambient_color;
     t_object    *lights;
 
+    rec_color = scene->rec.albedo;
     light_color = color3(0, 0, 0);
     lights = scene->light;
     while (lights) // 존재하는 모든 광원들에 대한 정반사, 난반사 값을 연결리스트로 돌아가면서 구해준다.
@@ -76,8 +89,13 @@ t_color3    phong_lighting(t_scene *scene)
             lights = lights->next;
 
     }
-    ambient_color = vmult(vmult_(scene->rec.albedo, scene->ambient.light_color), scene->ambient.bright_ratio);
-        print_vec(ambient_color);
+    // ambient_color = vmult(vmult_(scene->rec.albedo, scene->ambient.light_color), scene->ambient.bright_ratio);
+   
+    ambient_color = vdivide(scene->ambient.light_color, 255);
+    ambient_color = vmult(ambient_color, scene->ambient.bright_ratio);
+    ambient_color = vmult_(ambient_color, rec_color);
+    
+    print_vec(ambient_color);
     print_vec(light_color);
 
     // light_color = add_light(light_color, )
