@@ -18,7 +18,10 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # =============================================================================
 
 CC			=	gcc
+# CC			= 	arch -x86_64 gcc
 CFLAGS		=	-Wall -Werror -Wextra
+MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
+MLX			=	./mlx/libmlx.a
 CDEBUG		=	-fsanitize=address -g
 RM			=	rm -f
 
@@ -38,10 +41,18 @@ SRC_LIST	=	main.c							\
 				${D_UTILS}vec_utils1.c			\
 				${D_UTILS}vec_utils2.c			\
 				${D_UTILS}vec_utils3.c			\
+				${D_UTILS}object_utils.c		\
 				${D_UTILS}print.c				\
 				${D_SCENE}canvas.c				\
 				${D_SCENE}scene.c				\
-				${D_TRACE}trace.c				\
+				${D_SCENE}object_create.c		\
+				${D_TRACE}ray/ray.c				\
+				${D_TRACE}ray/phong_lighting.c	\
+				${D_TRACE}hit/hit.c				\
+				${D_TRACE}hit/hit_sphere.c		\
+				${D_TRACE}hit/hit_plane.c		\
+				${D_TRACE}hit/hit_cylinder.c	\
+				${D_TRACE}hit/normal.c			\
 				${D_PARSE}file_open.c			\
 				${D_PARSE}ft_get_next_line.c	\
 				${D_PARSE}ft_replace.c			\
@@ -49,6 +60,12 @@ SRC_LIST	=	main.c							\
 				${D_PARSE}ft_strjoin.c			\
 				${D_PARSE}ft_strlcpy.c			\
 				${D_PARSE}ft_strlen.c			\
+				${D_PARSE}ft_cmpstr.c			\
+				${D_PARSE}ft_atoi.c				\
+				${D_PARSE}ft_split.c			\
+				${D_PARSE}ft_isdigit.c			\
+				${D_PARSE}ft_isspace.c			\
+				${D_PARSE}ft_putstr_fd.c		\
 
 SRCS		=	$(addprefix $(MINIRT_DIR), $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
@@ -64,7 +81,7 @@ OBJS		=	$(SRCS:.c=.o)
 $(NAME)		:	$(OBJS)
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
-				@$(CC) $(CFALGS) -I $(HEADER) -o $(NAME) $(OBJS)
+				@$(CC) $(CFALGS) $(MLXFLAG) -I $(HEADER) -o $(NAME) $(OBJS)
 				@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
 # =============================================================================

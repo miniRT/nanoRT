@@ -6,6 +6,7 @@ typedef struct s_vec3 t_point3; //  3차원 좌표계 위의 특정 한 점을 �
 typedef struct s_vec3 t_color3; // RGB를 의미한다. x = R, y = G, z = B가 된다. 범위가 0~1 이므로 255.999 를 곱해서 사용한다.
 typedef struct s_ray t_ray;
 
+typedef struct s_ambient t_ambient;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 typedef struct s_object t_object;
@@ -16,9 +17,9 @@ typedef struct s_scene t_scene;
 typedef struct s_sphere t_sphere;
 typedef struct s_plane t_plane;
 typedef struct s_cylinder t_cylinder;
-
 typedef struct s_light t_light;
 
+typedef struct s_mlx t_mlx;
 
 typedef int             t_bool;
 
@@ -34,6 +35,32 @@ typedef int t_object_type;
 
 # define EPSILON 0.000001 // tmin이 0이 아닌 값을 설정해주기 위해
 
+#define WIDTH 600
+#define HEIGHT 300
+
+// 삭제 예정
+struct  s_canvas
+{
+    int     width; //canvas width
+    int     height; //canvas height;
+    double  aspect_ratio; //종횡비
+};
+
+struct	s_mlx {
+	void		*mlx;
+	void		*win;
+	void 		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+};
+
+
+
+// normal은 교점에서 수직으로 뻗어나오는 법선 벡터
+// dir는 방향 벡터
+
 struct s_vec3
 {
 	double x;
@@ -41,10 +68,11 @@ struct s_vec3
 	double z;
 };
 
-struct  s_ray
+
+struct s_ambient
 {
-	t_point3    orig;
-	t_vec3      dir;
+	t_color3    light_color; // 빛의 색깔
+	double      bright_ratio;
 };
 
 // struct  s_camera
@@ -56,15 +84,30 @@ struct  s_ray
 // 	t_point3    left_bottom; // 왼쪽 아래 코너점
 // };
 
-struct  s_camera
+
+struct	s_camera
 {
-    t_point3    orig;  // 카메라 원점(위치)
-    double      viewport_h; // 뷰포트 세로길이
-    double      viewport_w; // 뷰포트 가로길이
-    t_vec3      horizontal; // 수평길이 벡터
-    t_vec3      vertical; // 수직길이 벡터
-    double      focal_len; // focal length
-    t_point3    left_bottom; // 왼쪽 아래 코너점
+	t_point3	origin;  // 카메라 원점(위치)
+	t_vec3		dir; // 카메라 벡터
+  	t_vec3      right_normal; // 카메라 벡터가 평면이 아닐 때의 left_bottom을 구하기 위해 
+  	t_vec3      up_normal; // 카메라 벡터가 평면이 아닐 때의 left_bottom을 구하기 위해 
+	t_point3    left_bottom; // 왼쪽 아래 코너점
+	double      fov;       // 화각
+	double      focal_len; // 화각에 따라 카메라와 viewport와의 거리가 달라진다.
+	
+
+	double		viewport_h; // 뷰포트 세로길이
+	double		viewport_w; // 뷰포트 가로길이
+	t_vec3		horizontal; // 수평길이 벡터
+	t_vec3		vertical; // 수직길이 벡터
+	
+};
+
+struct s_light
+{
+	t_point3    origin; //  빛이 위치하는 좌표.
+	t_color3    light_color; // 빛의 색깔
+	double      bright_ratio;
 };
 
 struct s_object
@@ -74,6 +117,35 @@ struct s_object
 	void	*next;
 	t_color3    albedo; // 해당 물체의 반사율(빛을 얼마나 잘 반사하는지)
 
+};
+
+struct  s_sphere
+{
+	t_point3    center;
+	double      radius; // 반지름
+	double      radius2; // 반지름의 제곱
+};
+
+struct s_plane
+{
+	t_point3    center; // 평면의 어느 한 지점.
+	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+};
+
+struct s_cylinder
+{
+	t_point3    center;
+	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+	double		diameter; // 지름
+	double		height; // 높이
+};
+
+
+
+struct  s_ray
+{
+	t_point3    origin;
+	t_vec3      dir;
 };
 
 struct s_hit_record
@@ -89,47 +161,12 @@ struct s_hit_record
 
 struct s_scene
 {
+	t_ambient		ambient;
 	t_camera		camera;
 	t_object		*world;
 	t_object		*light;
-	t_color3		ambient;
 	t_ray			ray;
 	t_hit_record	rec;
-};
-
-struct s_light
-{
-	t_point3    origin; //  빛이 위치하는 좌표.
-	t_color3    light_color; // 빛의 색깔
-	double      bright_ratio;
-};
-
-struct  s_sphere
-{
-	t_point3    center;
-	double      radius; // 반지름
-	double      radius2; // 반지름의 제곱
-};
-
-struct s_plane
-{
-	t_point3    center; // 평면의 어느 한 지점.
-	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
-};
-
-struct s_cylinder
-{
-	t_point3    center;
-	t_vec3      normal; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
-	float		diameter; // 지름
-	float		height; // 높이
-};
-
-struct  s_canvas
-{
-    int     width; //canvas width
-    int     height; //canvas height;
-    double  aspect_ratio; //종횡비
 };
 
 #endif

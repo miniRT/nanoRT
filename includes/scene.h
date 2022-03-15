@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:15:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/01 17:15:58 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/15 12:50:42 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,11 @@
 
 t_canvas	canvas(int width, int height);
 t_camera	camera(t_canvas *canvas, t_point3 origin);
+void        init_camera(t_camera *cam);
 
+t_object    *object(t_object_type type, void *element, t_color3 albedo);
+t_light     *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio);
+t_sphere    *sphere(t_point3 center, double radius);
+t_plane     *plane(t_point3 center, t_vec3 dir);
+t_cylinder  *cylinder(t_point3 center, t_vec3 dir, float diameter, float height);
 #endif
