@@ -11,6 +11,9 @@ t_bool hit(t_object *world, t_ray *ray, t_hit_record *rec)
     {
         if (hit_obj(world, ray, temp_rec))
         {
+            printf ("hit!\n");
+            printf ("%d\n", world->type);
+            printf ("%f\n", temp_rec->t);
             hit_anything = TRUE;
             temp_rec->tmax = temp_rec->t;
             rec = temp_rec;

@@ -33,7 +33,7 @@ t_vec3      get_cylinder_normal(t_cylinder *cy, t_vec3 at_point, double hit_heig
     return (vunit(normal));
 }
 
-t_bool      hit_cylinder_cap(t_object *cy_obj, t_ray *ray, t_hit_record *rec, double height)
+int      hit_cylinder_cap(t_object *cy_obj, t_ray *ray, t_hit_record *rec, double height)
 {
     const t_cylinder *cy = cy_obj->element;
     const double r = cy->diameter / 2;
@@ -42,18 +42,18 @@ t_bool      hit_cylinder_cap(t_object *cy_obj, t_ray *ray, t_hit_record *rec, do
     / vdot(ray->dir, cy->dir); // 광선ㅇ
     const float diameter = vlength(vminus(circle_center, ray_at(ray, root)));
 	if (fabs(r) < fabs(diameter))
-		return (FALSE);
+		return (0);
     if (root < rec->tmin || rec->tmax < root)
-       return (FALSE);
+       return (0);
     rec->t = root; 
     rec->p = ray_at(ray, root);
     rec->normal = vunit(vminus(circle_center, ray->origin)); // vmult(ray->dir, root)하면 안돼!!!
     set_face_normal(ray, rec);
     rec->albedo = cy_obj->albedo;
-    return (TRUE);
+    return (1);
 }
 
-t_bool      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
+int      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 {
     t_cylinder *cy;
 
@@ -84,7 +84,7 @@ t_bool      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
     c = vlength2(vcross(delta_P, o)) - pow(r, 2);
     discriminant = half_b * half_b - a * c;
     if (discriminant < 0) 
-        return (FALSE);
+        return (0);
     // 이 시점에서 판별식이 참이 나왔기에 근이 존재한다고 판단한다.
     sqrtd = sqrt(discriminant); 
     root = (-half_b - sqrtd) / a;  // 근의 공식 해, 작은 근부터 고려.
@@ -92,12 +92,12 @@ t_bool      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
     {
     root = (-half_b + sqrtd) / a; 
         if (root < rec->tmin || rec->tmax < root)
-        return (FALSE);
+        return (0);
     }
     //    print_vec(vmult(ray->dir, root));
     // print_vec(ray_at(ray, root));
     if (!(hit_height = cy_boundary(cy, ray_at(ray, root))))
-        return (FALSE);
+        return (0);
 
     rec->t = root; // 광선의 원점과 교점까지의 거리를 rec에 저장한다.
     rec->p = ray_at(ray, root); // 교점의 좌표를 rec에 저장한다.
@@ -108,16 +108,17 @@ t_bool      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
     // 충돌지점이 카메라 반대쪽 일수도
     // 가장 가까운 포인트를 못잡음
     rec->albedo = cy_obj->albedo;
-    return (TRUE);
+    return (1);
 }
 
 t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 {
     const t_cylinder *cy = cy_obj->element;
-    if (hit_cylinder_side(cy_obj, ray, rec))
-        return (TRUE);
-    else if (hit_cylinder_cap(cy_obj, ray, rec, cy->height / 2))
-        return (TRUE);
-    else
-        return (hit_cylinder_cap(cy_obj, ray, rec, -(cy->height / 2)));
+    int result;
+
+    result = 0;
+    result += hit_cylinder_cap(cy_obj, ray, rec, cy->height / 2);
+    result += hit_cylinder_cap(cy_obj, ray, rec, -(cy->height / 2));
+    result += hit_cylinder_side(cy_obj, ray, rec);
+    return (result);
 }

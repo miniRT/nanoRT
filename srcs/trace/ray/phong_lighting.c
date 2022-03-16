@@ -44,8 +44,8 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, EPSILON)), light_dir);
     // 새로운 광선의 원점으로 rec->p인 충돌한 지점(교점), 방향 벡터로 충돌점에서 광선으로 향하는 벡터가 된다.
 
-    if (in_shadow(scene->world, light_ray, light_len))
-        return (color3(0,0,0));
+    // if (in_shadow(scene->world, light_ray, light_len))
+    //     return (color3(0,0,0));
 
     light_dir = vunit(light_dir); //교점에서 출발하여 광원을 향하는 벡터(정규화)
     kd = fmax(vdot(scene->rec.normal, light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
