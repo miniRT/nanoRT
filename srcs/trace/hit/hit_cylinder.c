@@ -47,7 +47,13 @@ int      hit_cylinder_cap(t_object *cy_obj, t_ray *ray, t_hit_record *rec, doubl
        return (0);
     rec->t = root; 
     rec->p = ray_at(ray, root);
-    rec->normal = vunit(vminus(circle_center, ray->origin)); // vmult(ray->dir, root)하면 안돼!!!
+    rec->tmax = rec->t;
+    if (0 < height)
+        rec->normal = cy->dir;
+    else
+        rec->normal = vmult(cy->dir, -1);
+
+    // rec->normal = vunit(vminus(circle_center, ray->origin)); // vmult(ray->dir, root)하면 안돼!!!
     set_face_normal(ray, rec);
     rec->albedo = cy_obj->albedo;
     return (1);

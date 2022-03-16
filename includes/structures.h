@@ -35,8 +35,8 @@ typedef int t_object_type;
 
 # define EPSILON 0.000001 // tmin이 0이 아닌 값을 설정해주기 위해
 
-#define WIDTH 500
-#define HEIGHT 250
+#define WIDTH 300
+#define HEIGHT 150
 
 // 삭제 예정
 struct  s_canvas

@@ -1,5 +1,8 @@
 #include "trace.h"
-
+static void print_vec(t_vec3 vec3)
+{
+    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+}
 t_bool hit(t_object *world, t_ray *ray, t_hit_record *rec)
 {
     t_bool  hit_anything;
@@ -11,15 +14,15 @@ t_bool hit(t_object *world, t_ray *ray, t_hit_record *rec)
     {
         if (hit_obj(world, ray, temp_rec))
         {
-            printf ("hit!\n");
-            printf ("%d\n", world->type);
-            printf ("%f\n", temp_rec->t);
+            printf ("충돌 지점 ");
+            print_vec(temp_rec->p);
             hit_anything = TRUE;
             temp_rec->tmax = temp_rec->t;
             rec = temp_rec;
         }
         world = world->next;
     }
+
     return (hit_anything);
 }
 

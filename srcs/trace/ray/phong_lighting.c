@@ -1,9 +1,9 @@
 #include "trace.h"
 
-// static void print_vec(t_vec3 vec3)
-// {
-//     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
-// }
+static void print_vec(t_vec3 vec3)
+{
+    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+}
 
 t_bool      in_shadow(t_object *objs, t_ray light_ray, double light_len)
 {
@@ -39,7 +39,9 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     double  light_len;
     t_ray   light_ray;
 
-    light_dir = vminus(light->origin, scene->rec.p); // 교점에서 출발하여 광원을 향하는 벡터, 해당 광선까지의 거리를 구해야 하기 때문에 표준화는 잠시 미뤄둔다.
+    printf ("light pixel point ");
+    print_vec(scene->rec.p);
+    light_dir = vminus(light->origin, scene->rec.p);
     light_len = vlength(light_dir);
     light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, EPSILON)), light_dir);
     // 새로운 광선의 원점으로 rec->p인 충돌한 지점(교점), 방향 벡터로 충돌점에서 광선으로 향하는 벡터가 된다.
@@ -69,6 +71,11 @@ t_color3    phong_lighting(t_scene *scene)
     t_object    *lights;
 
     rec_color = scene->rec.albedo;
+    printf ("color");
+    print_vec(rec_color);
+    printf ("%f\n", scene->rec.t);
+
+
     light_color = color3(0, 0, 0);
     lights = scene->light;
     while (lights) // 존재하는 모든 광원들에 대한 정반사, 난반사 값을 연결리스트로 돌아가면서 구해준다.

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:55:36 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 17:06:41 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:14:38 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_ray	ray_primary(t_camera *cam, int x, int y)
     ray_vec = vminus(ray_vec, cam->origin); 
     ray_vec = vunit(ray_vec);
     ray.dir = ray_vec;
-    if (x == 250 && y == 125)
+    if (x == 150 && y == 75)
         printf ("now!");
 	return (ray);
 }
