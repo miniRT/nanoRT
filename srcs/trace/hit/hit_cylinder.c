@@ -2,10 +2,10 @@
 #include "utils.h"
 #include "trace.h"
 
-static void print_vec(t_vec3 vec3)
-{
-    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
-}
+// static void print_vec(t_vec3 vec3)
+// {
+//     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+// }
 
 
 double		cy_boundary(t_cylinder *cy, t_vec3 at_point)
@@ -33,7 +33,27 @@ t_vec3      get_cylinder_normal(t_cylinder *cy, t_vec3 at_point, double hit_heig
     return (vunit(normal));
 }
 
-t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
+t_bool      hit_cylinder_cap(t_object *cy_obj, t_ray *ray, t_hit_record *rec, double height)
+{
+    const t_cylinder *cy = cy_obj->element;
+    const double r = cy->diameter / 2;
+    const t_vec3    circle_center = vplus(cy->center, vmult(cy->dir, height));
+    const float root = vdot(vminus(circle_center, ray->origin), cy->dir) \
+    / vdot(ray->dir, cy->dir); // 광선ㅇ
+    const float diameter = vlength(vminus(circle_center, ray_at(ray, root)));
+	if (fabs(r) < fabs(diameter))
+		return (FALSE);
+    if (root < rec->tmin || rec->tmax < root)
+       return (FALSE);
+    rec->t = root; 
+    rec->p = ray_at(ray, root);
+    rec->normal = vunit(vminus(circle_center, ray->origin)); // vmult(ray->dir, root)하면 안돼!!!
+    set_face_normal(ray, rec);
+    rec->albedo = cy_obj->albedo;
+    return (TRUE);
+}
+
+t_bool      hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 {
     t_cylinder *cy;
 
@@ -89,4 +109,15 @@ t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
     // 가장 가까운 포인트를 못잡음
     rec->albedo = cy_obj->albedo;
     return (TRUE);
+}
+
+t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
+{
+    const t_cylinder *cy = cy_obj->element;
+    if (hit_cylinder_side(cy_obj, ray, rec))
+        return (TRUE);
+    else if (hit_cylinder_cap(cy_obj, ray, rec, cy->height / 2))
+        return (TRUE);
+    else
+        return (hit_cylinder_cap(cy_obj, ray, rec, -(cy->height / 2)));
 }
