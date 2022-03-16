@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:24:49 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 22:15:28 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/16 11:04:46 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ static void raytracing(t_scene *scene, t_mlx *mlx)
 		i = 0;
 	   while (i < WIDTH)
 		{
+			printf ("x : %d y : %d\n", i, j);
 			scene->ray = ray_primary(&scene->camera, i, j);
 			// print_vec(scene->ray.dir);
 			pixel_color = ray_color(scene);

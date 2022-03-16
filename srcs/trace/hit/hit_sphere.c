@@ -41,7 +41,6 @@ t_bool      hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
         if (root < rec->tmin || rec->tmax < root) //  큰 근조차 tmin보다 작다면 hit하지 않은 것이므로 FALSE를 반환.
         return (FALSE);
     }
-    
     rec->t = root; // 광선의 원점과 교점까지의 거리를 rec에 저장한다.
     rec->p = ray_at(ray, root); // 교점의 좌표를 rec에 저장한다.
     normal = vminus(rec->p, sp->center); // 법선 벡터

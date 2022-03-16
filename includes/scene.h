@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:15:08 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 12:50:42 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:50:46 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "structures.h"
 # include "utils.h"
 
-t_canvas	canvas(int width, int height);
-t_camera	camera(t_canvas *canvas, t_point3 origin);
 void        init_camera(t_camera *cam);
 
 t_object    *object(t_object_type type, void *element, t_color3 albedo);
