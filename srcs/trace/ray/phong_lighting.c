@@ -55,11 +55,8 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     diffuse = vdivide(light->light_color, 255);
         // print_vec(diffuse);
     diffuse = vmult(diffuse, light->bright_ratio);
-            // print_vec(diffuse);
     diffuse = vmult(diffuse, kd);
-        // print_vec(diffuse);
     diffuse = vmult_(diffuse, scene->rec.albedo);
-        // print_vec(diffuse);
 
     return (diffuse);
 }   

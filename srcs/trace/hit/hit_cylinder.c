@@ -29,17 +29,7 @@ t_vec3      get_cylinder_normal(t_cylinder *cy, t_vec3 at_point, double hit_heig
 
     hit_center = vplus(cy->center, vmult(cy->dir, hit_height));
     normal = vminus(at_point, hit_center);
-    printf ("hit : %f\n", hit_height);
-    printf("hit center : ");
-    print_vec(hit_center);
-    printf("hit point : ");
-    print_vec(at_point);
-    printf("normal : ");
-    print_vec(normal);
-    printf ("normal length : %f\n", vlength(normal));
-    
-    printf ("법선 : ");
-    print_vec(vunit(normal));
+
     return (vunit(normal));
 }
 
@@ -84,10 +74,11 @@ t_bool      hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
         if (root < rec->tmin || rec->tmax < root)
         return (FALSE);
     }
-   
-    if (!(hit_height = cy_boundary(cy, vmult(ray->dir, root))))
+    //    print_vec(vmult(ray->dir, root));
+    // print_vec(ray_at(ray, root));
+    if (!(hit_height = cy_boundary(cy, ray_at(ray, root))))
         return (FALSE);
-    
+
     rec->t = root; // 광선의 원점과 교점까지의 거리를 rec에 저장한다.
     rec->p = ray_at(ray, root); // 교점의 좌표를 rec에 저장한다.
     // rec->normal = get_cylinder_normal(cy, vmult(ray->dir, root), hit_height);
