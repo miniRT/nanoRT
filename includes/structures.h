@@ -8,7 +8,6 @@ typedef struct s_ray t_ray;
 
 typedef struct s_ambient t_ambient;
 typedef struct s_camera t_camera;
-typedef struct s_canvas t_canvas;
 typedef struct s_object t_object;
 typedef struct s_hit_record t_hit_record;
 
@@ -38,14 +37,6 @@ typedef int t_object_type;
 #define WIDTH 300
 #define HEIGHT 150
 
-// 삭제 예정
-struct  s_canvas
-{
-    int     width; //canvas width
-    int     height; //canvas height;
-    double  aspect_ratio; //종횡비
-};
-
 struct	s_mlx {
 	void		*mlx;
 	void		*win;
@@ -56,11 +47,6 @@ struct	s_mlx {
 	int			endian;
 };
 
-
-
-// normal은 교점에서 수직으로 뻗어나오는 법선 벡터
-// dir는 방향 벡터
-
 struct s_vec3
 {
 	double x;
@@ -68,22 +54,11 @@ struct s_vec3
 	double z;
 };
 
-
 struct s_ambient
 {
 	t_color3    light_color; // 빛의 색깔
 	double      bright_ratio;
 };
-
-// struct  s_camera
-// {
-// 	t_point3    orig;  // 카메라 원점(위치)
-// 	t_vec3      normal; // 카메라 벡터
-// 	double		fov;
-// 	double      focal_len; // focal length
-// 	t_point3    left_bottom; // 왼쪽 아래 코너점
-// };
-
 
 struct	s_camera
 {
@@ -94,13 +69,6 @@ struct	s_camera
 	t_point3    left_bottom; // 왼쪽 아래 코너점
 	double      fov;       // 화각
 	double      focal_len; // 화각에 따라 카메라와 viewport와의 거리가 달라진다.
-	
-
-	double		viewport_h; // 뷰포트 세로길이
-	double		viewport_w; // 뷰포트 가로길이
-	t_vec3		horizontal; // 수평길이 벡터
-	t_vec3		vertical; // 수직길이 벡터
-	
 };
 
 struct s_light

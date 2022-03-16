@@ -43,7 +43,6 @@ SRC_LIST	=	main.c							\
 				${D_UTILS}vec_utils3.c			\
 				${D_UTILS}object_utils.c		\
 				${D_UTILS}print.c				\
-				${D_SCENE}canvas.c				\
 				${D_SCENE}scene.c				\
 				${D_SCENE}object_create.c		\
 				${D_TRACE}ray/ray.c				\
