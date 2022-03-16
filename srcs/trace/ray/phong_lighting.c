@@ -1,9 +1,9 @@
 #include "trace.h"
 
-static void print_vec(t_vec3 vec3)
-{
-    printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
-}
+// static void print_vec(t_vec3 vec3)
+// {
+//     printf ("x : %f, y : %f, z : %f\n", vec3.x, vec3.y, vec3.z);
+// }
 
 t_bool      in_shadow(t_object *objs, t_ray light_ray, double light_len)
 {
@@ -44,11 +44,6 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, EPSILON)), light_dir);
     // 새로운 광선의 원점으로 rec->p인 충돌한 지점(교점), 방향 벡터로 충돌점에서 광선으로 향하는 벡터가 된다.
 
-    // printf("원래 교점\n");
-    // print_vec(scene->rec.p);
-    // printf("조정한 교점\n");
-    // print_vec(vplus(scene->rec.p, vmult(scene->rec.normal, EPSILON)));
-
     if (in_shadow(scene->world, light_ray, light_len))
         return (color3(0,0,0));
 
@@ -58,16 +53,13 @@ t_color3    point_light_get(t_scene *scene, t_light *light)
     // cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
     // fmax 함수는 두 개의 인자 중 큰 값을 리턴한다. 만약 코사인세타가 둔각이 될 경우 음수가 되기에 0을 리턴하도록 한다.
     diffuse = vdivide(light->light_color, 255);
-        print_vec(diffuse);
-
+        // print_vec(diffuse);
     diffuse = vmult(diffuse, light->bright_ratio);
-            print_vec(diffuse);
-
+            // print_vec(diffuse);
     diffuse = vmult(diffuse, kd);
-        print_vec(diffuse);
-
+        // print_vec(diffuse);
     diffuse = vmult_(diffuse, scene->rec.albedo);
-        print_vec(diffuse);
+        // print_vec(diffuse);
 
     return (diffuse);
 }   
@@ -95,8 +87,8 @@ t_color3    phong_lighting(t_scene *scene)
     ambient_color = vmult(ambient_color, scene->ambient.bright_ratio);
     ambient_color = vmult_(ambient_color, rec_color);
     
-    print_vec(ambient_color);
-    print_vec(light_color);
+    // print_vec(ambient_color);
+    // print_vec(light_color);
 
     // light_color = add_light(light_color, )
     // light_color = vplus(light_color, vmult(scene->ambient.light_color, scene->ambient.bright_ratio));

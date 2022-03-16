@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:17:53 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 22:15:21 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/16 10:58:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void init_camera(t_camera *cam)
 	vec_y = vec3(0.0, 1.0, 0.0);
     vec_z = vec3(0.0, 0.0, -1.0);
 
+    cam->dir = vunit(cam->dir);
     if (vlength(vcross(vec_y, cam->dir)))
         cam->right_normal = vunit(vcross(cam->dir, vec_y));
     else
