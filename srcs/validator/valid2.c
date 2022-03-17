@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 18:03:29 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 18:24:22 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ void	rt_finder(int argc, char **argv)
 		if (fd != -1)
 		{
 			len = ft_strlen(argv[1]);
-			if (argv[1][len - 3] == '.'
+			if (argv[1][len - 4] == '/')
+				error_disposal("Not valid file");
+			else if (argv[1][len - 3] == '.'
 					&& argv[1][len - 2] == 'r' && argv[1][len - 1] == 't' )
 				return ;
 			else

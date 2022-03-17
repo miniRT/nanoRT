@@ -17,19 +17,17 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # Command Variables
 # =============================================================================
 
-# CC			=	gcc
-CC			= 	arch -x86_64 gcc
+CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra
 MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
 MLX			=	./mlx/libmlx.a
-CDEBUG		=	-fsanitize=address -g
 RM			=	rm -f
 
 # =============================================================================
 # File Variables
 # =============================================================================
 
-NAME		=	minirt
+NAME		=	miniRT
 HEADER		=	./includes/
 MINIRT_DIR	=	./srcs/
 D_UTILS		=	./utils/

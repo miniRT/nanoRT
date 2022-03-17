@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:01 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:59:12 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 18:08:22 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ t_color3	phong_lighting(t_scene *scene)
 	while (lights)
 	{
 		if (lights->type == LIGHT_POINT)
-			light_color = vplus(light_color,
-					point_light_get(scene, lights->element));
-			lights = lights->next;
+			light_color = vplus(light_color, \
+			point_light_get(scene, lights->element));
+		lights = lights->next;
 	}
 	ambient_color = vdivide(scene->ambient.light_color, 255);
 	ambient_color = vmult(ambient_color, scene->ambient.bright_ratio);

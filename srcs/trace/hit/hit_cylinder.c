@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:35:39 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 14:10:03 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 18:08:31 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	hit_cylinder_value_setter(t_cylinops *c,
 	c->root = (-c->half_b - c->sqrtd) / c->a;
 	if (c->root < rec->tmin || rec->tmax < c->root)
 	{
-	c->root = (-c->half_b + c->sqrtd) / c->a;
+		c->root = (-c->half_b + c->sqrtd) / c->a;
 		if (c->root < rec->tmin || rec->tmax < c->root)
 			return (0);
 	}

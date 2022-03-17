@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:58 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:59:21 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 18:14:53 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void	ft_exit(int code)
 {
-	while (1)
-		;
 	exit(code);
 }
 
