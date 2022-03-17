@@ -6,18 +6,12 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:56:55 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 16:02:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "shared.h"
-
-void ft_exit(int code)
-{
-
-	exit(code);
-}
 
 double	vlength2(t_vec3 vec)
 {
