@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 20:23:27 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 11:42:12 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:58:04 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/print.h"
+#include "print.h"
 
 void	write_color(t_color3 pixel_color)
 {

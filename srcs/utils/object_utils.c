@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:58 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:50:05 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 16:03:11 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "util.h"
+#include "shared.h"
 #include "structures.h"
+
+void ft_exit(int code)
+{
+	exit(code);
+}
 
 void	oadd(t_object **list, t_object *new)
 {

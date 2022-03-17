@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:01 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 14:45:27 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 15:34:03 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	diffuse = vmult_(diffuse, scene->rec.albedo);
 	return (diffuse);
 }
+
 
 t_color3	phong_lighting(t_scene *scene)
 {

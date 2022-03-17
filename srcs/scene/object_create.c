@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   object_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:31:00 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:51:04 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:59:02 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structures.h"
 #include "utils.h"
-#include <stdlib.h>
 
 t_object	*object(t_object_type type, void *element, t_color3 albedo)
 {
