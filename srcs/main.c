@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 13:48:38 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:45:54 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	raytracing(t_scene *scene, t_mlx *mlx)
 		i = 0;
 		while (i < WIDTH)
 		{
-			printf ("x : %d y : %d\n", i, j);
 			scene->ray = ray_primary(&scene->camera, i, j);
 			pixel_color = ray_color(scene);
 			my_mlx_pixel_put(mlx, i, HEIGHT - 1 - j,
@@ -80,7 +79,7 @@ void	scene_value_setter(t_scene *scene, char *input)
 		if (ret < 0)
 		{
 			write(STDERR_FILENO, "ERROR\n", 6);
-			exit(1);
+			ft_exit(1);
 		}
 		space_converter(str);
 		environment_value_setter(scene, str);

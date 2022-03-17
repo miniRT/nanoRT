@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:50:05 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 11:41:17 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:44:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include "structures.h"
 
+void 		ft_exit(int code);
 t_vec3		vec3(double x, double y, double z);
 t_point3	point3(double x, double y, double z);
 t_point3	color3(double r, double g, double b);

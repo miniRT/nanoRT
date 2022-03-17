@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:38:26 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 23:42:59 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:43:21 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/print.h"
+#include "utils.h"
 #include "../mlx/mlx.h"
 #include <stdlib.h>
 
@@ -32,7 +33,7 @@ int	key_hook(int keycode, t_mlx *mlx)
 {
 	(void) mlx;
 	if (keycode == 53)
-		exit(1);
+		ft_exit(1);
 	return (0);
 }
 
@@ -40,5 +41,6 @@ int	red_button(int key_num, t_mlx *mlx)
 {
 	(void)key_num;
 	(void)mlx;
-	exit(1);
+	ft_exit(1);
+	return (0);
 }

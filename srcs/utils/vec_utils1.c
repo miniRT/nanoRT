@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   vec_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:50:10 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:45:01 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+
+void ft_exit(int code)
+{
+	while (1)
+	;	
+	exit(code);
+}
 
 double	vlength2(t_vec3 vec)
 {
@@ -30,7 +37,7 @@ t_vec3	vunit(t_vec3 vec)
 	if (len == 0)
 	{
 		printf("Error\n:Devider is 0");
-		exit(0);
+		ft_exit(0);
 	}
 	vec.x /= len;
 	vec.y /= len;
