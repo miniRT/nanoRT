@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 18:00:03 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 18:41:45 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 
 	if (argc == 1)
+	{
+		error_disposal("Error\n No Argument");
 		return (-1);
+	}
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (!(scene))
 		return (-1);

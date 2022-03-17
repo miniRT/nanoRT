@@ -88,6 +88,7 @@ OBJS		=	$(SRCS:.c=.o)
 				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)		:	$(OBJS)
+				@make -C ./mlx/
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 				@$(CC) $(CFALGS) $(MLXFLAG) -I $(HEADER) -o $(NAME) $(OBJS)
@@ -102,6 +103,7 @@ all			:	$(NAME)
 
 .PHONY		:	clean
 clean		:
+				@make clean -C ./mlx
 				@echo $(YELLOW) "Cleaning object files..." $(EOC)
 				@$(RM) $(OBJS)
 				@echo $(RED) "Object files are cleaned!\n" $(EOC)
