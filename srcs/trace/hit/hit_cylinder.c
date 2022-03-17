@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:35:39 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 11:40:09 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 14:10:03 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	hit_cylinder_cap(t_object *cy_obj, t_ray *ray,
 	t_cylinder	*cy;
 	t_vec3		circle_center;
 	double		r;
-	float		root ;
+	float		root;
 
 	cy = cy_obj->element;
 	r = cy->diameter / 2;
@@ -76,7 +76,8 @@ int	hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	t_cylinops	cylinder_ops;
 
 	cylinder_ops.cy = 0;
-	hit_cylinder_value_setter(&cylinder_ops, cy_obj, ray, rec);
+	if (!hit_cylinder_value_setter(&cylinder_ops, cy_obj, ray, rec))
+		return (0);
 	rec->t = cylinder_ops.root;
 	rec->p = ray_at(ray, cylinder_ops.root);
 	rec->normal = get_cylinder_normal(cylinder_ops.cy,

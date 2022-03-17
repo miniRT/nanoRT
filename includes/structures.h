@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 11:32:31 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 14:01:07 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef int					t_object_type;
 
 # define EPSILON 0.000001
 
-# define WIDTH	300
-# define HEIGHT	150
+# define WIDTH	500
+# define HEIGHT	300
 
 struct	s_mlx {
 	void			*mlx;
