@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_open.c                                        :+:      :+:    :+:   */
+/*   error_disposal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 14:48:36 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:52:45 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/17 17:02:30 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/17 17:05:56 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "utils.h"
 
-int	file_open(char *path)
+void	error_disposal(char *message)
 {
-	int		fd;
-	char	*str;
-
-	str = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		ft_exit(1);
-	return (fd);
-}
-
-void	input_checker_init(t_input_checker *input_checker)
-{
-	input_checker->a_count = 0;
-	input_checker->c_count = 0;
-	input_checker->l_count = 0;
+	ft_putstr_fd(message, STDERR_FILENO);
+	ft_exit(1);
 }

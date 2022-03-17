@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_open.c                                        :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 14:48:36 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:52:45 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/17 16:45:13 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/17 16:45:23 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
-#include "utils.h"
 
-int	file_open(char *path)
+void	free_all(char **input)
 {
-	int		fd;
-	char	*str;
+	int	i;
 
-	str = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		ft_exit(1);
-	return (fd);
-}
-
-void	input_checker_init(t_input_checker *input_checker)
-{
-	input_checker->a_count = 0;
-	input_checker->c_count = 0;
-	input_checker->l_count = 0;
+	i = 0;
+	while (input[0])
+	{
+		free(input[0]);
+		input[0] = 0;
+	}
 }

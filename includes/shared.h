@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 00:30:44 by pac-man           #+#    #+#             */
-/*   Updated: 2022/03/17 15:32:21 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 17:03:57 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ t_vec3			parse_vec(char *str);
 void			sphere_value_setter(t_object **world, char *input);
 void			plane_value_setter(t_object **world, char *input);
 void			cylinder_value_setter(t_object **world, char *input);
-void			environment_value_setter(t_scene *scene, char *input);
+void			environment_value_setter(t_scene *scene,
+					char *input, t_input_checker *input_checker);
 void			ambient_value_setter(t_ambient *ambient, char *input);
 void			camera_value_setter(t_camera *camera, char *input);
 void			light_value_setter(t_object **light, char *input);
@@ -73,5 +74,10 @@ int				ft_get_count_of_list(char **input);
 int				check_valid_identifier(char *input);
 void			rt_finder(int argc, char **argv);
 int				ft_strcmp(const char *s1, const char *s2);
+void			validator_value_fov(char *message,
+					double value, double min, double max);
+void			free_all(char **input);
+void			input_checker_init(t_input_checker *input_checker);
+void			error_disposal(char *message);
 
 #endif

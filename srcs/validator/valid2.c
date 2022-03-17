@@ -6,24 +6,12 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:24:41 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 17:10:37 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "scene.h"
-
-void	free_all(char **input)
-{
-	int	i;
-
-	i = 0;
-	while (input[0])
-	{
-		free(input[0]);
-		input[0] = 0;
-	}
-}
 
 void	ambient_value_setter(t_ambient *ambient, char *input)
 {
@@ -63,7 +51,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	dir = parse_vec(info[2]);
 	fov = ft_atof(info[3]);
 	validator_vector(dir, -1, 1);
-	validator_value("Not valid FOV value", fov, 0, 180);
+	validator_value_fov("Not valid FOV value", fov, 0, 180);
 	camera->origin = origin;
 	camera->dir = dir;
 	camera->fov = fov;
@@ -112,4 +100,14 @@ void	rt_finder(int argc, char **argv)
 			ft_exit(1);
 		}
 	}
+}
+
+int	ft_get_count_of_list(char **input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+		i++;
+	return (i);
 }

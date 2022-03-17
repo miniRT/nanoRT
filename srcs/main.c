@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:22:13 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 17:15:19 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "scene.h"
 #include "trace.h"
 #include "shared.h"
+#include "structures.h"
 #include "../mlx/mlx.h"
 #include <stdio.h>
 #include <fcntl.h>
@@ -66,26 +67,31 @@ void	space_converter(char *input)
 
 void	scene_value_setter(t_scene *scene, char *input)
 {
-	int		fd;
-	int		ret;
-	char	*str;
+	int				fd;
+	int				ret;
+	char			*str;
+	t_input_checker	input_checker;
 
 	ret = 1;
 	str = 0;
 	fd = file_open(input);
+	input_checker_init(&input_checker);
 	while (ret != 0)
 	{
 		ret = ft_get_next_line(fd, &str);
 		if (ret < 0)
-		{
-			write(STDERR_FILENO, "ERROR\n", 6);
-			ft_exit(1);
-		}
+			error_disposal("ERROR\n");
 		space_converter(str);
-		environment_value_setter(scene, str);
+		environment_value_setter(scene, str, &input_checker);
+		if (input_checker.a_count > 1
+			|| input_checker.c_count > 1 || input_checker.l_count > 1)
+			error_disposal("Error\n Invalid Input");
 		free(str);
 		str = 0;
 	}
+	if (!input_checker.a_count
+		|| !input_checker.c_count || !input_checker.l_count)
+		error_disposal("Error\n Invalid Input");
 }
 
 int	main(int argc, char **argv)
