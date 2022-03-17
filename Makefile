@@ -17,7 +17,8 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # Command Variables
 # =============================================================================
 
-CC			=	gcc
+# CC			=	gcc
+CC			=	arch -x86_64 gcc
 CFLAGS		=	-Wall -Werror -Wextra
 MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
 MLX			=	./mlx/libmlx.a
