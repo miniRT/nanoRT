@@ -6,16 +6,16 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:45:01 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 15:56:55 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
+#include "shared.h"
 
 void ft_exit(int code)
 {
-	while (1)
-	;	
+
 	exit(code);
 }
 
@@ -36,8 +36,8 @@ t_vec3	vunit(t_vec3 vec)
 	len = vlength(vec);
 	if (len == 0)
 	{
-		printf("Error\n:Devider is 0");
-		ft_exit(0);
+		ft_putstr_fd("Error\n:Devider is 0", 1);
+		ft_exit(1);
 	}
 	vec.x /= len;
 	vec.y /= len;

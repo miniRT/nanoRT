@@ -6,11 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:02:23 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:45:16 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 15:57:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 t_vec3	vplus(t_vec3 vec, t_vec3 vec2)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:37:23 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:48:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ambient_value_setter(t_ambient *ambient, char *input)
 	if (ft_get_count_of_list(info) != 3)
 	{
 		ft_putstr_fd("Error\nAmbient: Format is not Valid", STDERR_FILENO);
-		exit(1);
+		ft_exit(1);
 	}
 	bright_ratio = ft_atof(info[1]);
 	validator_value("Not valid bright_ratio value", bright_ratio, 0.0, 1.0);
@@ -44,7 +44,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	if (ft_get_count_of_list(info) != 4)
 	{
 		ft_putstr_fd("Error\nCamera: Format is not Valid", STDERR_FILENO);
-		exit(1);
+		ft_exit(1);
 	}
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
@@ -67,7 +67,7 @@ void	light_value_setter(t_object **light, char *input)
 	if (ft_get_count_of_list(info) != 4)
 	{
 		ft_putstr_fd("Error\nLight: Format is not Valid", STDERR_FILENO);
-		exit(1);
+		ft_exit(1);
 	}
 	origin = parse_vec(info[1]);
 	bright_ratio = ft_atof(info[2]);
@@ -85,7 +85,7 @@ void	rt_finder(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putstr_fd("Not valid input", STDERR_FILENO);
-		exit(1);
+		ft_exit(1);
 	}
 	else
 	{
@@ -94,7 +94,7 @@ void	rt_finder(int argc, char **argv)
 		else
 		{
 			ft_putstr_fd("Not valid file", STDERR_FILENO);
-			exit(1);
+			ft_exit(1);
 		}
 	}
 }

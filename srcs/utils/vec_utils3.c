@@ -6,11 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:57:54 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:45:26 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 15:57:50 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 t_vec3	vmult(t_vec3 vec, double t)
 {

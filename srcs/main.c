@@ -6,21 +6,17 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/17 15:45:54 by sham             ###   ########.fr       */
-=======
-/*   Updated: 2022/03/17 15:32:48 by kimtaeseon       ###   ########.fr       */
->>>>>>> 373486ebac788652f75ecdf1f3115afcfbbdd7bc
+/*   Updated: 2022/03/17 15:57:30 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/print.h"
-#include "../includes/scene.h"
-#include "../includes/trace.h"
+#include "print.h"
+#include "scene.h"
+#include "trace.h"
 #include "shared.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include "../mlx/mlx.h"
+#include <mlx.h>
 
 static void	mlx_initialize(t_mlx *mlx)
 {

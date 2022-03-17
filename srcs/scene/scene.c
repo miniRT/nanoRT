@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:34:58 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:51:35 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:58:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/scene.h"
+#include "scene.h"
 
 static float	get_tan(float degree)
 {

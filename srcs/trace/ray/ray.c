@@ -6,11 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:12 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:34:07 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 15:58:17 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/trace.h"
+#include "trace.h"
 
 t_ray	ray(t_point3 origin, t_vec3 dir)
 {
@@ -45,8 +45,6 @@ t_ray	ray_primary(t_camera *cam, int x, int y)
 	ray_vec = vminus(ray_vec, cam->origin);
 	ray_vec = vunit(ray_vec);
 	ray.dir = ray_vec;
-	if (x == 150 && y == 75)
-		printf ("now!");
 	return (ray);
 }
 

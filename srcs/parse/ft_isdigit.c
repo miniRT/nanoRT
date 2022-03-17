@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:25:50 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 17:26:35 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:59:20 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shared.h"
+#include "shared.h"
 
 int	ft_isdigit(char c)
 {
