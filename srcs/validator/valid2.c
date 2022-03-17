@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   valid2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:24:41 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 17:45:33 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "scene.h"
-
-void	free_all(char **input)
-{
-	int	i;
-
-	i = 0;
-	while (input[0])
-	{
-		free(input[0]);
-		input[0] = 0;
-	}
-}
 
 void	ambient_value_setter(t_ambient *ambient, char *input)
 {
@@ -35,6 +23,7 @@ void	ambient_value_setter(t_ambient *ambient, char *input)
 	if (ft_get_count_of_list(info) != 3)
 	{
 		ft_putstr_fd("Error\nAmbient: Format is not Valid", STDERR_FILENO);
+		free_all(info);
 		ft_exit(1);
 	}
 	bright_ratio = ft_atof(info[1]);
@@ -57,13 +46,14 @@ void	camera_value_setter(t_camera *camera, char *input)
 	if (ft_get_count_of_list(info) != 4)
 	{
 		ft_putstr_fd("Error\nCamera: Format is not Valid", STDERR_FILENO);
+		free_all(info);
 		ft_exit(1);
 	}
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	fov = ft_atof(info[3]);
 	validator_vector(dir, -1, 1);
-	validator_value("Not valid FOV value", fov, 0, 180);
+	validator_value_fov("Not valid FOV value", fov, 0, 180);
 	camera->origin = origin;
 	camera->dir = dir;
 	camera->fov = fov;
@@ -81,6 +71,7 @@ void	light_value_setter(t_object **light, char *input)
 	if (ft_get_count_of_list(info) != 4)
 	{
 		ft_putstr_fd("Error\nLight: Format is not Valid", STDERR_FILENO);
+		free_all(info);
 		ft_exit(1);
 	}
 	origin = parse_vec(info[1]);
@@ -96,7 +87,6 @@ void	rt_finder(int argc, char **argv)
 {
 	int		fd;
 
-	fd = open(argv[1], O_RDONLY);
 	if (argc != 2)
 	{
 		ft_putstr_fd("Not valid input", STDERR_FILENO);
@@ -104,12 +94,26 @@ void	rt_finder(int argc, char **argv)
 	}
 	else
 	{
-		if (fd != -1 && ft_strcmp(argv[1], "scene/"))
+		fd = open(argv[1], O_RDONLY);
+		if (fd != -1)
+		{
+			close(fd);
 			return ;
+		}
 		else
 		{
 			ft_putstr_fd("Not valid file", STDERR_FILENO);
 			ft_exit(1);
 		}
 	}
+}
+
+int	ft_get_count_of_list(char **input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+		i++;
+	return (i);
 }

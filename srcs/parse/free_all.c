@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object_utils.c                                     :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 22:49:58 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:34:10 by sham             ###   ########.fr       */
+/*   Created: 2022/03/17 16:45:13 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/17 17:37:29 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "util.h"
 #include "shared.h"
-#include "structures.h"
 
-void ft_exit(int code)
+void	free_all(char **input)
 {
-	while (1)
-	;
-	exit(code);
-}
+	int	i;
 
-void	oadd(t_object **list, t_object *new)
-{
-	t_object	*cur;
-
-	if (*list == NULL)
+	i = 0;
+	while (input[i])
 	{
-		*list = new;
-		return ;
+		free(input[i]);
+		input[i] = 0;
+		i++;
 	}
-	cur = *list;
-	while (cur->next)
-		cur = cur->next;
-	cur->next = new;
-}
-
-t_object	*olast(t_object *list)
-{
-	if (list == NULL)
-		return (NULL);
-	while (list->next)
-		list = list->next;
-	return (list);
+	free(input);
 }

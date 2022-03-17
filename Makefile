@@ -70,6 +70,8 @@ SRC_LIST	=	main.c							\
 				${D_PARSE}ft_putstr_fd.c		\
 				${D_PARSE}ft_atof.c				\
 				${D_PARSE}ft_strcmp.c			\
+				${D_PARSE}free_all.c			\
+				${D_PARSE}error_disposal.c		\
 				${D_VALID}valid1.c				\
 				${D_VALID}valid2.c				\
 				${D_VALID}valid3.c				\

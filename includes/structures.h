@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:37:59 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 16:49:53 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,12 @@ struct s_scene
 	t_ray			ray;
 	t_hit_record	rec;
 };
+
+typedef struct s_input_checker
+{
+	int	c_count;
+	int	a_count;
+	int	l_count;
+}			t_input_checker;
 
 #endif
