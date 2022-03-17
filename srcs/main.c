@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:09:35 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 16:22:13 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	scene_value_setter(t_scene *scene, char *input)
 		}
 		space_converter(str);
 		environment_value_setter(scene, str);
+		free(str);
 		str = 0;
 	}
 }
