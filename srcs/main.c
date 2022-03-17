@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 13:48:38 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:32:48 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	scene->world = NULL;
 	scene->light = NULL;
+	rt_finder(argc, argv);
 	scene_value_setter(scene, argv[1]);
 	init_camera(&scene->camera);
 	mlx_initialize(&mlx);

@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:11:22 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 10:53:06 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:13:03 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ t_vec3	parse_vec(char *str)
 	t_vec3	vec;
 
 	info = ft_split(str, ',');
+	if (ft_get_count_of_list(info) != 3)
+	{
+		ft_putstr_fd("Format is not Valid", STDERR_FILENO);
+		exit(1);
+	}
 	vec.x = ft_atof(info[0]);
 	vec.y = ft_atof(info[1]);
 	vec.z = ft_atof(info[2]);
@@ -34,6 +39,11 @@ void	sphere_value_setter(t_object **world, char *input)
 	char		**info;
 
 	info = ft_split(input, ' ');
+	if (ft_get_count_of_list(info) != 4)
+	{
+		ft_putstr_fd("Format is not Valid", STDERR_FILENO);
+		exit(1);
+	}
 	origin = parse_vec(info[1]);
 	diameter = ft_atof(info[2]);
 	albedo = parse_vec(info[3]);
@@ -49,6 +59,11 @@ void	plane_value_setter(t_object **world, char *input)
 	char		**info;
 
 	info = ft_split(input, ' ');
+	if (ft_get_count_of_list(info) != 4)
+	{
+		ft_putstr_fd("Format is not Valid", STDERR_FILENO);
+		exit(1);
+	}
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	validator_vector(dir, -1, 1);
@@ -65,6 +80,11 @@ void	cylinder_value_setter(t_object **world, char *input)
 	char		**info;
 
 	info = ft_split(input, ' ');
+	if (ft_get_count_of_list(info) != 6)
+	{
+		ft_putstr_fd("Format is not Valid", STDERR_FILENO);
+		exit(1);
+	}
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	validator_vector(dir, -1, 1);
@@ -77,6 +97,12 @@ void	cylinder_value_setter(t_object **world, char *input)
 
 void	environment_value_setter(t_scene *scene, char *input)
 {
+	if (!check_valid_identifier(input))
+	{
+		printf("%c\n", input[0]);
+		ft_putstr_fd("Error\n Invalid Identifier", STDERR_FILENO);
+		exit(1);
+	}
 	if (input[0] == 'A')
 		ambient_value_setter(&scene->ambient, input);
 	else if (input[0] == 'C')

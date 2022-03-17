@@ -69,6 +69,7 @@ SRC_LIST	=	main.c							\
 				${D_PARSE}ft_isspace.c			\
 				${D_PARSE}ft_putstr_fd.c		\
 				${D_PARSE}ft_atof.c				\
+				${D_PARSE}ft_strcmp.c			\
 				${D_VALID}valid1.c				\
 				${D_VALID}valid2.c				\
 				${D_VALID}valid3.c				\
