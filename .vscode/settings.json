@@ -11,6 +11,7 @@
         "memory": "c",
         "optional": "c",
         "__locale": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "mlx.h": "c"
     }
 }

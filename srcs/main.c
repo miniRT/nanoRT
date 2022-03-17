@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:57:30 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 16:09:35 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "scene.h"
 #include "trace.h"
 #include "shared.h"
+#include "../mlx/mlx.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include <mlx.h>
 
 static void	mlx_initialize(t_mlx *mlx)
 {

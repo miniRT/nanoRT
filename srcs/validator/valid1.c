@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:08:38 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:05:33 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 16:11:02 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ int	check_valid_identifier(char *input)
 		return (1);
 	else if (input[0] == 'c' && input[1] == 'y')
 		return (1);
-	else if (ft_isspace(input[0]))
-	{
+	else if (ft_isspace(input[0]) || !input[0])
 		return (1);
-	}
-	printf("✅%d\n", input[0]);
 	return (0);
 }

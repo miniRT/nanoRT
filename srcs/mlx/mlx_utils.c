@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:38:26 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:59:35 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 16:10:07 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
 #include "utils.h"
-#include <mlx.h>
+#include "../mlx/mlx.h"
 #include <stdlib.h>
 
 int	create_trgb(int t, int r, int g, int b)
