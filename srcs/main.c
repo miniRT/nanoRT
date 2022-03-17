@@ -6,7 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/17 15:45:54 by sham             ###   ########.fr       */
+=======
+/*   Updated: 2022/03/17 15:32:48 by kimtaeseon       ###   ########.fr       */
+>>>>>>> 373486ebac788652f75ecdf1f3115afcfbbdd7bc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +103,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	scene->world = NULL;
 	scene->light = NULL;
+	rt_finder(argc, argv);
 	scene_value_setter(scene, argv[1]);
 	init_camera(&scene->camera);
 	mlx_initialize(&mlx);
