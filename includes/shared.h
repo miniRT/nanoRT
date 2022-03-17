@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 00:30:44 by pac-man           #+#    #+#             */
-/*   Updated: 2022/03/17 10:17:55 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 13:37:54 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int				create_trgb(int t, int r, int g, int b);
 void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int				key_hook(int keycode, t_mlx *mlx);
 int				red_button(int key_num, t_mlx *mlx);
+bool			ft_isspace_mini(int c);
 
 #endif
