@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:28:56 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 18:00:03 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "trace.h"
 #include "shared.h"
 #include "structures.h"
-#include <mlx.h>
+// #include <mlx.h>
+#include "../mlx/mlx.h"
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -45,7 +46,7 @@ static void	raytracing(t_scene *scene, t_mlx *mlx)
 			scene->ray = ray_primary(&scene->camera, i, j);
 			pixel_color = ray_color(scene);
 			my_mlx_pixel_put(mlx, i, HEIGHT - 1 - j,
-			create_trgb(0, pixel_color.x, pixel_color.y, pixel_color.z));
+				create_trgb(0, pixel_color.x, pixel_color.y, pixel_color.z));
 			++i;
 		}
 		--j;

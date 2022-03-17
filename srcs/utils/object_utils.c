@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:58 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:34:10 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 17:59:21 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "shared.h"
 #include "structures.h"
 
-void ft_exit(int code)
+void	ft_exit(int code)
 {
 	while (1)
-	;
+		;
 	exit(code);
 }
 

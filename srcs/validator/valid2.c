@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:45:33 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 18:03:29 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,25 +86,26 @@ void	light_value_setter(t_object **light, char *input)
 void	rt_finder(int argc, char **argv)
 {
 	int		fd;
+	int		len;
 
+	len = 0;
 	if (argc != 2)
-	{
-		ft_putstr_fd("Not valid input", STDERR_FILENO);
-		ft_exit(1);
-	}
+		error_disposal("Not valid input");
 	else
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd != -1)
 		{
+			len = ft_strlen(argv[1]);
+			if (argv[1][len - 3] == '.'
+					&& argv[1][len - 2] == 'r' && argv[1][len - 1] == 't' )
+				return ;
+			else
+				error_disposal("Not valid file");
 			close(fd);
-			return ;
 		}
 		else
-		{
-			ft_putstr_fd("Not valid file", STDERR_FILENO);
-			ft_exit(1);
-		}
+			error_disposal("Not valid file");
 	}
 }
 
