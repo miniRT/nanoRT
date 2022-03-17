@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:42:33 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 23:42:38 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 10:58:07 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,15 @@ static void	raytracing(t_scene *scene, t_mlx *mlx)
 	}
 }
 
-int	main(int argc, char **argv)
+void	scene_value_setter(t_scene *scene, char *input)
 {
-	t_scene	*scene;
-	t_mlx	mlx;
 	int		fd;
 	int		ret;
 	char	*str;
 
 	ret = 1;
 	str = 0;
-	fd = file_open(argv[1]);
-	if (argc == 1)
-		return (-1);
-	scene = (t_scene *)malloc(sizeof(t_scene));
-	if (!(scene))
-		return (-1);
-	scene->world = NULL;
-	scene->light = NULL;
+	fd = file_open(input);
 	while (ret != 0)
 	{
 		ret = ft_get_next_line(fd, &str);
@@ -81,6 +72,21 @@ int	main(int argc, char **argv)
 		environment_value_setter(scene, str);
 		str = 0;
 	}
+}
+
+int	main(int argc, char **argv)
+{
+	t_scene	*scene;
+	t_mlx	mlx;
+
+	if (argc == 1)
+		return (-1);
+	scene = (t_scene *)malloc(sizeof(t_scene));
+	if (!(scene))
+		return (-1);
+	scene->world = NULL;
+	scene->light = NULL;
+	scene_value_setter(scene, argv[1]);
 	init_camera(&scene->camera);
 	mlx_initialize(&mlx);
 	raytracing(scene, &mlx);

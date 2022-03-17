@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 00:30:44 by pac-man           #+#    #+#             */
-/*   Updated: 2022/03/16 23:42:24 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 10:17:55 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,10 @@ void			camera_value_setter(t_camera *camera, char *input);
 void			light_value_setter(t_object **light, char *input);
 double			ft_pow(double base, int exponent);
 double			ft_atof(char *src);
-
 void			validator_value(char *message,
 					double value, double min, double max);
 void			validator_color(t_color3 value, double min, double max);
 void			validator_vector(t_vec3 value, double min, double max);
-
-
 int				create_trgb(int t, int r, int g, int b);
 void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int				key_hook(int keycode, t_mlx *mlx);

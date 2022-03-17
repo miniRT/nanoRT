@@ -9,6 +9,8 @@
         "functional": "c",
         "locale": "c",
         "memory": "c",
-        "optional": "c"
+        "optional": "c",
+        "__locale": "c",
+        "algorithm": "c"
     }
 }

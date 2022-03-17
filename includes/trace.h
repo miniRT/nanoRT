@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:52:09 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 23:27:57 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 10:41:03 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 t_ray		ray(t_point3 origin, t_vec3 dir);
 t_point3	ray_at(t_ray *ray, double t);
 t_ray		ray_primary(t_camera *cam, int x, int y);
-
 t_color3	ray_color(t_scene *scene);
 t_color3	phong_lighting(t_scene *scene);
 t_color3	point_light_get(t_scene *scene, t_light *light);

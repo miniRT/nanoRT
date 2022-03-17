@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:45:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:45:19 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 11:30:13 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,40 @@
 #include "utils.h"
 #include "trace.h"
 
-t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
+int	hit_sphere_value_setter(t_sphereops *sphere,
+	t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 {
-	t_sphere	*sp;
-	t_vec3		oc;
-	t_vec3		normal;
-	double		a;
-	double		half_b;
-	double		c;
-	double		discriminant;
-	double		sqrtd;
-	double		root;
-
-	sp = sp_obj->element;
-	oc = vminus(ray->origin, sp->center);
-	a = vlength2(ray->dir);
-	half_b = vdot(oc, ray->dir);
-	c = vlength2(oc) - sp->radius2;
-	discriminant = half_b * half_b - a * c;
-	if (discriminant < 0)
+	sphere->sp = sp_obj->element;
+	sphere->oc = vminus(ray->origin, sphere->sp->center);
+	sphere->a = vlength2(ray->dir);
+	sphere->half_b = vdot(sphere->oc, ray->dir);
+	sphere->c = vlength2(sphere->oc) - sphere->sp->radius2;
+	sphere->discriminant = sphere->half_b
+		* sphere->half_b - sphere->a * sphere->c;
+	if (sphere->discriminant < 0)
 		return (FALSE);
-	sqrtd = sqrt(discriminant);
-	root = (-half_b - sqrtd) / a;
-	if (root < rec->tmin || rec->tmax < root)
+	sphere->sqrtd = sqrt(sphere->discriminant);
+	sphere->root = (-sphere->half_b - sphere->sqrtd) / sphere->a;
+	if (sphere->root < rec->tmin || rec->tmax < sphere->root)
 	{
-		root = (-half_b + sqrtd) / a;
-		if (root < rec->tmin || rec->tmax < root)
+		sphere->root = (-sphere->half_b + sphere->sqrtd) / sphere->a;
+		if (sphere->root < rec->tmin || rec->tmax < sphere->root)
 			return (FALSE);
 	}
-	rec->t = root;
-	rec->p = ray_at(ray, root);
-	normal = vminus(rec->p, sp->center);
-	rec->normal = vdivide(normal, sp->radius);
+	rec->t = sphere->root;
+	rec->p = ray_at(ray, sphere->root);
+	return (TRUE);
+}
+
+t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
+{
+	t_sphereops	sphere;
+
+	sphere.sp = 0;
+	if (!hit_sphere_value_setter(&sphere, sp_obj, ray, rec))
+		return (FALSE);
+	sphere.normal = vminus(rec->p, sphere.sp->center);
+	rec->normal = vdivide(sphere.normal, sphere.sp->radius);
 	set_face_normal(ray, rec);
 	rec->albedo = sp_obj->albedo;
 	return (TRUE);
