@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   valid2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:10:19 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:48:10 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 16:24:41 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "scene.h"
+
+void	free_all(char **input)
+{
+	int	i;
+
+	i = 0;
+	while (input[0])
+	{
+		free(input[0]);
+		input[0] = 0;
+	}
+}
 
 void	ambient_value_setter(t_ambient *ambient, char *input)
 {
@@ -31,6 +43,7 @@ void	ambient_value_setter(t_ambient *ambient, char *input)
 	validator_color(light_color, 0, 255);
 	ambient->bright_ratio = bright_ratio;
 	ambient->light_color = light_color;
+	free_all(info);
 }
 
 void	camera_value_setter(t_camera *camera, char *input)
@@ -54,6 +67,7 @@ void	camera_value_setter(t_camera *camera, char *input)
 	camera->origin = origin;
 	camera->dir = dir;
 	camera->fov = fov;
+	free_all(info);
 }
 
 void	light_value_setter(t_object **light, char *input)
@@ -75,6 +89,7 @@ void	light_value_setter(t_object **light, char *input)
 	light_color = parse_vec(info[3]);
 	*light = object(LIGHT_POINT, light_point(origin,
 				light_color, bright_ratio), color3(0, 0, 0));
+	free_all(info);
 }
 
 void	rt_finder(int argc, char **argv)

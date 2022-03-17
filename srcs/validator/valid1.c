@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:08:38 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:11:02 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 16:26:26 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	validator_value(char *message, double value, double min, double max)
 {
-	if (value < min || value > max)
+	if (value < min || value >= max)
 	{
 		ft_putstr_fd(message, STDERR_FILENO);
 		ft_exit(1);
