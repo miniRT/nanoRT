@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 12:38:12 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 13:07:43 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef int					t_object_type;
 # define CY 2
 # define LIGHT_POINT 3
 
-# define EPSILON 0.0001
+# define EPSILON 0.001
 # define WIDTH	500
 # define HEIGHT	300
 

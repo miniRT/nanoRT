@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:01 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 12:38:32 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 13:10:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ t_color3	phong_lighting(t_scene *scene)
 	ambient_color = vmult(ambient_color, scene->ambient.bright_ratio);
 	ambient_color = vmult_(ambient_color, rec_color);
 	return (vmin(vplus(light_color, ambient_color),
-			color3(255.999999, 255.999999, 255.99999)));
+			color3(255, 255, 255)));
 }

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:31:00 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 12:38:24 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 13:08:43 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_sphere	*sphere(t_point3 center, double diameter)
 		return (NULL);
 	sp->center = center;
 	sp->diameter = diameter;
-	sp->radius2 = (sp->diameter / 2) * (sp->diameter / 2);
+	sp->radius2 = (diameter / 2) * (diameter / 2);
 	return (sp);
 }
 
