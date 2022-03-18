@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   hit_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:40:31 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 11:40:52 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/18 12:17:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structures.h"
 #include "utils.h"
 
-double	cy_boundary(t_cylinder *cy, t_vec3 at_point)
+int	cy_boundary(t_cylinder *cy, t_vec3 at_point, t_cylinops *c)
 {
 	double	hit_height;
 	double	max_height;
 
 	hit_height = vdot(vminus(at_point, cy->center), cy->dir);
 	max_height = cy->height / 2;
-	if (fabs(hit_height) > max_height)
+	c->hit_height = hit_height;
+	if (fabs(c->hit_height) > max_height)
 		return (0);
-	return (hit_height);
+	return (1);
 }
 
 t_vec3	get_cylinder_normal(t_cylinder *cy, t_vec3 at_point, double hit_height)

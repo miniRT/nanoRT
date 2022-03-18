@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:31:00 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:59:02 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/17 20:45:39 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_light	*light_point(t_point3 light_origin,
 	return (light);
 }
 
-t_sphere	*sphere(t_point3 center, double radius)
+t_sphere	*sphere(t_point3 center, double diameter)
 {
 	t_sphere	*sp;
 
@@ -49,8 +49,8 @@ t_sphere	*sphere(t_point3 center, double radius)
 	if (!(sp))
 		return (NULL);
 	sp->center = center;
-	sp->radius = radius;
-	sp->radius2 = radius * radius;
+	sp->diameter = diameter;
+	sp->radius2 = (diameter / 2) * (diameter / 2);
 	return (sp);
 }
 

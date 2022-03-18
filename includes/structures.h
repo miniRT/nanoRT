@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 16:49:53 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/18 11:42:07 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef int					t_object_type;
 # define CY 2
 # define LIGHT_POINT 3
 
-# define EPSILON 0.0001
-# define WIDTH	500
-# define HEIGHT	300
+# define EPSILON 0.001
+# define WIDTH	400
+# define HEIGHT	200
 
 struct	s_mlx {
 	void			*mlx;
@@ -96,7 +96,7 @@ struct s_object
 struct	s_sphere
 {
 	t_point3		center;
-	double			radius;
+	double			diameter;
 	double			radius2;
 };
 

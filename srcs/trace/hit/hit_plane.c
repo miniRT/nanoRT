@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:44:29 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/16 22:44:29 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/18 11:32:46 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 
 	pl = pl_obj->element;
 	denominator = vdot(ray->dir, pl->dir);
-	if (fabs(denominator) < EPSILON)
+	if (fabs(denominator) < 1)
 		return (FALSE);
 	numrator = vdot(vminus(pl->center, ray->origin), pl->dir);
 	root = numrator / denominator;

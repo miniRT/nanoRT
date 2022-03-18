@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:35:39 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 18:08:31 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:19:36 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ int	hit_cylinder_value_setter(t_cylinops *c,
 		if (c->root < rec->tmin || rec->tmax < c->root)
 			return (0);
 	}
-	c->hit_height = cy_boundary(c->cy, ray_at(ray, c->root));
-	if (!(c->hit_height))
-		return (0);
-	return (1);
+	return (cy_boundary(c->cy, ray_at(ray, c->root), c));
 }
 
 int	hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
