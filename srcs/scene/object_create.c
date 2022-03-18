@@ -6,14 +6,14 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:31:00 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 20:45:39 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:38:24 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structures.h"
 #include "utils.h"
 
-t_object	*object(t_object_type type, void *element, t_color3 albedo)
+t_object	*object(t_object_type type, void *element, t_color3 color)
 {
 	t_object	*new;
 
@@ -23,7 +23,7 @@ t_object	*object(t_object_type type, void *element, t_color3 albedo)
 	new->type = type;
 	new->element = element;
 	new->next = NULL;
-	new->albedo = albedo;
+	new->color = color;
 	return (new);
 }
 
@@ -50,7 +50,7 @@ t_sphere	*sphere(t_point3 center, double diameter)
 		return (NULL);
 	sp->center = center;
 	sp->diameter = diameter;
-	sp->radius2 = (diameter / 2) * (diameter / 2);
+	sp->radius2 = (sp->diameter / 2) * (sp->diameter / 2);
 	return (sp);
 }
 

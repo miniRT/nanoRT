@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 11:42:07 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:38:12 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef int					t_object_type;
 # define CY 2
 # define LIGHT_POINT 3
 
-# define EPSILON 0.001
-# define WIDTH	400
-# define HEIGHT	200
+# define EPSILON 0.0001
+# define WIDTH	500
+# define HEIGHT	300
 
 struct	s_mlx {
 	void			*mlx;
@@ -89,7 +89,7 @@ struct s_object
 	t_object_type	type;
 	void			*element;
 	void			*next;
-	t_color3		albedo;
+	t_color3		color;
 
 };
 
@@ -128,7 +128,7 @@ struct s_hit_record
 	double			tmax;
 	double			t;
 	t_bool			front_face;
-	t_color3		albedo;
+	t_color3		color;
 };
 
 struct s_cylinops

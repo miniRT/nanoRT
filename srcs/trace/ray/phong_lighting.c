@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:49:01 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 12:18:57 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:38:32 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	diffuse = vdivide(light->light_color, 255);
 	diffuse = vmult(diffuse, light->bright_ratio);
 	diffuse = vmult(diffuse, kd);
-	diffuse = vmult_(diffuse, scene->rec.albedo);
+	diffuse = vmult_(diffuse, scene->rec.color);
 	return (diffuse);
 }
 
@@ -65,7 +65,7 @@ t_color3	phong_lighting(t_scene *scene)
 	t_color3	ambient_color;
 	t_object	*lights;
 
-	rec_color = scene->rec.albedo;
+	rec_color = scene->rec.color;
 	light_color = color3(0, 0, 0);
 	lights = scene->light;
 	while (lights)
@@ -79,5 +79,5 @@ t_color3	phong_lighting(t_scene *scene)
 	ambient_color = vmult(ambient_color, scene->ambient.bright_ratio);
 	ambient_color = vmult_(ambient_color, rec_color);
 	return (vmin(vplus(light_color, ambient_color),
-			color3(255, 255, 255)));
+			color3(255.999999, 255.999999, 255.99999)));
 }

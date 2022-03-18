@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:11:22 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 17:35:55 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:41:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sphere_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
 	float		diameter;
-	t_color3	albedo;
+	t_color3	color;
 	char		**info;
 
 	info = ft_split(input, ' ');
@@ -49,9 +49,9 @@ void	sphere_value_setter(t_object **world, char *input)
 	}
 	origin = parse_vec(info[1]);
 	diameter = ft_atof(info[2]);
-	albedo = parse_vec(info[3]);
-	validator_color(albedo, 0, 255);
-	oadd(world, object(SP, sphere(origin, diameter), albedo));
+	color = parse_vec(info[3]);
+	validator_color(color, 0, 255);
+	oadd(world, object(SP, sphere(origin, diameter), color));
 	free_all(info);
 }
 
@@ -59,7 +59,7 @@ void	plane_value_setter(t_object **world, char *input)
 {
 	t_vec3		origin;
 	t_vec3		dir;
-	t_color3	albedo;
+	t_color3	color;
 	char		**info;
 
 	info = ft_split(input, ' ');
@@ -72,8 +72,8 @@ void	plane_value_setter(t_object **world, char *input)
 	origin = parse_vec(info[1]);
 	dir = parse_vec(info[2]);
 	validator_vector(dir, -1, 1);
-	albedo = parse_vec(info[3]);
-	oadd(world, object(PL, plane(origin, dir), albedo));
+	color = parse_vec(info[3]);
+	oadd(world, object(PL, plane(origin, dir), color));
 	free_all(info);
 }
 

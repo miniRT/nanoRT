@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 22:35:39 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/18 12:19:36 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:39:03 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	hit_cylinder_cap(t_object *cy_obj, t_ray *ray,
 	else
 		rec->normal = vmult(cy->dir, -1);
 	set_face_normal(ray, rec);
-	rec->albedo = cy_obj->albedo;
+	rec->color = cy_obj->color;
 	return (1);
 }
 
@@ -65,7 +65,10 @@ int	hit_cylinder_value_setter(t_cylinops *c,
 		if (c->root < rec->tmin || rec->tmax < c->root)
 			return (0);
 	}
-	return (cy_boundary(c->cy, ray_at(ray, c->root), c));
+	c->hit_height = cy_boundary(c->cy, ray_at(ray, c->root));
+	if (!(c->hit_height))
+		return (0);
+	return (1);
 }
 
 int	hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
@@ -80,7 +83,7 @@ int	hit_cylinder_side(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	rec->normal = get_cylinder_normal(cylinder_ops.cy,
 			rec->p, cylinder_ops.hit_height);
 	set_face_normal(ray, rec);
-	rec->albedo = cy_obj->albedo;
+	rec->color = cy_obj->color;
 	return (1);
 }
 
