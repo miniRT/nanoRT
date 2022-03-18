@@ -2,6 +2,16 @@
     "files.associations": {
         "sstream": "c",
         "stdio.h": "c",
-        "shared.h": "c"
+        "shared.h": "c",
+        "print.h": "c",
+        "trace.h": "c",
+        "atomic": "c",
+        "functional": "c",
+        "locale": "c",
+        "memory": "c",
+        "optional": "c",
+        "__locale": "c",
+        "algorithm": "c",
+        "mlx.h": "c"
     }
 }

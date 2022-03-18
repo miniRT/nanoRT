@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_units.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:00:21 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/01 17:04:40 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 15:58:09 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 t_vec3	vec3(double x, double y, double z)
 {

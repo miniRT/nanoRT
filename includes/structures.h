@@ -1,130 +1,163 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 23:26:17 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/18 11:42:07 by sham             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef struct s_vec3 t_vec3; // 백터를 의미한다.
-typedef struct s_vec3 t_point3; //  3차원 좌표계 위의 특정 한 점을 의미한다.
-typedef struct s_vec3 t_color3; // RGB를 의미한다. x = R, y = G, z = B가 된다. 범위가 0~1 이므로 255.999 를 곱해서 사용한다.
-typedef struct s_ray t_ray;
-
-typedef struct s_ambient t_ambient;
-typedef struct s_camera t_camera;
-typedef struct s_object t_object;
-typedef struct s_hit_record t_hit_record;
-
-typedef struct s_scene t_scene;
-
-typedef struct s_sphere t_sphere;
-typedef struct s_plane t_plane;
-typedef struct s_cylinder t_cylinder;
-typedef struct s_light t_light;
-
-typedef struct s_mlx t_mlx;
-
-typedef int             t_bool;
+typedef struct s_vec3		t_vec3;
+typedef struct s_vec3		t_point3;
+typedef struct s_vec3		t_color3;
+typedef struct s_ray		t_ray;
+typedef struct s_ambient	t_ambient;
+typedef struct s_camera		t_camera;
+typedef struct s_object		t_object;
+typedef struct s_hit_record	t_hit_record;
+typedef struct s_scene		t_scene;
+typedef struct s_sphere		t_sphere;
+typedef struct s_plane		t_plane;
+typedef struct s_cylinder	t_cylinder;
+typedef struct s_light		t_light;
+typedef struct s_mlx		t_mlx;
+typedef struct s_cylinops	t_cylinops;
+typedef struct s_sphereops	t_sphereops;
+typedef int					t_bool;
+typedef int					t_object_type;
 
 # define FALSE 0
 # define TRUE 1
-
-typedef int t_object_type;
-
 # define SP 0
 # define PL 1
 # define CY 2
 # define LIGHT_POINT 3
 
-# define EPSILON 0.000001 // tmin이 0이 아닌 값을 설정해주기 위해
-
-#define WIDTH 300
-#define HEIGHT 150
+# define EPSILON 0.001
+# define WIDTH	400
+# define HEIGHT	200
 
 struct	s_mlx {
-	void		*mlx;
-	void		*win;
-	void 		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
 };
 
 struct s_vec3
 {
-	double x;
-	double y;
-	double z;
+	double			x;
+	double			y;
+	double			z;
 };
 
 struct s_ambient
 {
-	t_color3    light_color; // 빛의 색깔
-	double      bright_ratio;
+	t_color3		light_color;
+	double			bright_ratio;
 };
 
 struct	s_camera
 {
-	t_point3	origin;  // 카메라 원점(위치)
-	t_vec3		dir; // 카메라 벡터
-  	t_vec3      right_normal; // 카메라 벡터가 평면이 아닐 때의 left_bottom을 구하기 위해 
-  	t_vec3      up_normal; // 카메라 벡터가 평면이 아닐 때의 left_bottom을 구하기 위해 
-	t_point3    left_bottom; // 왼쪽 아래 코너점
-	double      fov;       // 화각
-	double      focal_len; // 화각에 따라 카메라와 viewport와의 거리가 달라진다.
+	t_point3		origin;
+	t_vec3			dir;
+	t_vec3			right_normal;
+	t_vec3			up_normal;
+	t_point3		left_bottom;
+	double			fov;
+	double			focal_len;
 };
 
 struct s_light
 {
-	t_point3    origin; //  빛이 위치하는 좌표.
-	t_color3    light_color; // 빛의 색깔
-	double      bright_ratio;
+	t_point3		origin;
+	t_color3		light_color;
+	double			bright_ratio;
 };
 
 struct s_object
 {
-	t_object_type type;
-	void	*element;
-	void	*next;
-	t_color3    albedo; // 해당 물체의 반사율(빛을 얼마나 잘 반사하는지)
+	t_object_type	type;
+	void			*element;
+	void			*next;
+	t_color3		albedo;
 
 };
 
-struct  s_sphere
+struct	s_sphere
 {
-	t_point3    center;
-	double      radius; // 반지름
-	double      radius2; // 반지름의 제곱
+	t_point3		center;
+	double			diameter;
+	double			radius2;
 };
 
 struct s_plane
 {
-	t_point3    center; // 평면의 어느 한 지점.
-	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
+	t_point3		center;
+	t_vec3			dir;
 };
 
 struct s_cylinder
 {
-	t_point3    center;
-	t_vec3      dir; // 평면이 가리키는 방향, 어떻게 기울여져 있는지
-	double		diameter; // 지름
-	double		height; // 높이
+	t_point3		center;
+	t_vec3			dir;
+	double			diameter;
+	double			height;
 };
 
-
-
-struct  s_ray
+struct	s_ray
 {
-	t_point3    origin;
-	t_vec3      dir;
+	t_point3		origin;
+	t_vec3			dir;
 };
 
 struct s_hit_record
 {
-	t_point3    p; // 교점(충돌 지점)에 대한 좌표.
-	t_vec3      normal; // 교점에서 뻗어나온 법선(단위 벡터)
-	double      tmin; // 기본 0, 물체가 뒤에 있을 경우에는 감지하지 않는다.
-	double      tmax; // 광선의 가시거리, 일정 거리를 벗어나면 감지하지 않는다.
-	double      t; // 광선의 원점과 교점 사이의 거리.
-	t_bool      front_face;
-	t_color3    albedo; // 해당 충돌 지점(물체)의 색상
+	t_point3		p;
+	t_vec3			normal;
+	double			tmin;
+	double			tmax;
+	double			t;
+	t_bool			front_face;
+	t_color3		albedo;
+};
+
+struct s_cylinops
+{
+	t_cylinder		*cy;
+	t_vec3			u;
+	t_vec3			o;
+	t_vec3			delta_p;
+	double			a;
+	double			half_b;
+	double			c;
+	double			r;
+	double			discriminant;
+	double			sqrtd;
+	double			root;
+	double			hit_height;
+};
+
+struct s_sphereops
+{
+	double			a;
+	double			half_b;
+	double			c;
+	double			discriminant;
+	double			sqrtd;
+	double			root;
+	t_sphere		*sp;
+	t_vec3			oc;
+	t_vec3			normal;
 };
 
 struct s_scene
@@ -136,5 +169,12 @@ struct s_scene
 	t_ray			ray;
 	t_hit_record	rec;
 };
+
+typedef struct s_input_checker
+{
+	int	c_count;
+	int	a_count;
+	int	l_count;
+}			t_input_checker;
 
 #endif

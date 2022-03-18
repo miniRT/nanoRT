@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.h                                            :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/13 20:06:18 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/17 15:54:31 by kimtaeseon       ###   ########.fr       */
+/*   Created: 2022/03/17 16:45:13 by kimtaeseon        #+#    #+#             */
+/*   Updated: 2022/03/17 17:37:29 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_H
-# define PRINT_H
+#include "shared.h"
 
-# include <stdio.h>
-# include "structures.h"
+void	free_all(char **input)
+{
+	int	i;
 
-void	write_color(t_color3 pixel_color);
-
-#endif
+	i = 0;
+	while (input[i])
+	{
+		free(input[i]);
+		input[i] = 0;
+		i++;
+	}
+	free(input);
+}

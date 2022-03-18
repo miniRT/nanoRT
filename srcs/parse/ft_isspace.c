@@ -6,7 +6,7 @@
 /*   By: kimtaeseon <kimtaeseon@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:16:13 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/15 17:18:42 by kimtaeseon       ###   ########.fr       */
+/*   Updated: 2022/03/17 13:37:37 by kimtaeseon       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,11 @@
 bool	ft_isspace(int c)
 {
 	return (c == ' ' || c == '\n' || c == '\r'
+		|| c == '\v' || c == '\f' || c == '\t');
+}
+
+bool	ft_isspace_mini(int c)
+{
+	return (c == '\n' || c == '\r'
 		|| c == '\v' || c == '\f' || c == '\t');
 }

@@ -17,25 +17,26 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 # Command Variables
 # =============================================================================
 
-CC			=	gcc
-# CC			= 	arch -x86_64 gcc
+# CC			=	gcc
+CC			=	arch -x86_64 gcc
 CFLAGS		=	-Wall -Werror -Wextra
 MLXFLAG		=	-L ./mlx -I ./mlx -lmlx -framework Appkit -framework opengl
 MLX			=	./mlx/libmlx.a
-CDEBUG		=	-fsanitize=address -g
 RM			=	rm -f
 
 # =============================================================================
 # File Variables
 # =============================================================================
 
-NAME		=	minirt
+NAME		=	miniRT
 HEADER		=	./includes/
 MINIRT_DIR	=	./srcs/
 D_UTILS		=	./utils/
 D_SCENE		=	./scene/
 D_TRACE		=	./trace/
 D_PARSE		=	./parse/
+D_VALID		=	./validator/
+D_MLX		=	./mlx/
 SRC_LIST	=	main.c							\
 				${D_UTILS}init_units.c			\
 				${D_UTILS}vec_utils1.c			\
@@ -43,6 +44,7 @@ SRC_LIST	=	main.c							\
 				${D_UTILS}vec_utils3.c			\
 				${D_UTILS}object_utils.c		\
 				${D_UTILS}print.c				\
+				${D_UTILS}hit_utils.c			\
 				${D_SCENE}scene.c				\
 				${D_SCENE}object_create.c		\
 				${D_TRACE}ray/ray.c				\
@@ -65,6 +67,14 @@ SRC_LIST	=	main.c							\
 				${D_PARSE}ft_isdigit.c			\
 				${D_PARSE}ft_isspace.c			\
 				${D_PARSE}ft_putstr_fd.c		\
+				${D_PARSE}ft_atof.c				\
+				${D_PARSE}ft_strcmp.c			\
+				${D_PARSE}free_all.c			\
+				${D_PARSE}error_disposal.c		\
+				${D_VALID}valid1.c				\
+				${D_VALID}valid2.c				\
+				${D_VALID}valid3.c				\
+				${D_MLX}mlx_utils.c				\
 
 SRCS		=	$(addprefix $(MINIRT_DIR), $(SRC_LIST))
 OBJS		=	$(SRCS:.c=.o)
@@ -78,6 +88,7 @@ OBJS		=	$(SRCS:.c=.o)
 				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 $(NAME)		:	$(OBJS)
+				@make -C ./mlx/
 				@echo $(GREEN) "Source files are compiled!\n" $(EOC)
 				@echo $(WHITE) "Building $(NAME) for" $(YELLOW) "Mandatory" $(WHITE) "..." $(EOC)
 				@$(CC) $(CFALGS) $(MLXFLAG) -I $(HEADER) -o $(NAME) $(OBJS)
@@ -92,6 +103,7 @@ all			:	$(NAME)
 
 .PHONY		:	clean
 clean		:
+				@make clean -C ./mlx
 				@echo $(YELLOW) "Cleaning object files..." $(EOC)
 				@$(RM) $(OBJS)
 				@echo $(RED) "Object files are cleaned!\n" $(EOC)

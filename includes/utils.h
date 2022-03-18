@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:50:05 by kimtaeseon        #+#    #+#             */
-/*   Updated: 2022/03/14 20:51:18 by sham             ###   ########.fr       */
+/*   Updated: 2022/03/18 12:17:39 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include "structures.h"
 
+void		ft_exit(int code);
 t_vec3		vec3(double x, double y, double z);
 t_point3	point3(double x, double y, double z);
 t_point3	color3(double r, double g, double b);
@@ -35,7 +36,10 @@ double		vdot(t_vec3 vec, t_vec3 vec2);
 t_vec3		vcross(t_vec3 vec, t_vec3 vec2);
 t_vec3		vunit(t_vec3 vec);
 t_vec3		vmin(t_vec3 vec1, t_vec3 vec2);
+void		oadd(t_object **list, t_object *new);
+t_object	*olast(t_object *list);
+int			cy_boundary(t_cylinder *cy, t_vec3 at_point, t_cylinops *c);
+t_vec3		get_cylinder_normal(t_cylinder *cy,
+				t_vec3 at_point, double hit_height);
 
-void        oadd(t_object **list, t_object *new);
-t_object    *olast(t_object *list);
 #endif
